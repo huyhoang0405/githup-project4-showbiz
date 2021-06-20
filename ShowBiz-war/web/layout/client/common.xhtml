@@ -1,0 +1,187 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <link rel="icon" type="image/x-icon" href="resources/img/icon.png"/>
+        <title>ShowBiz</title>
+        <!-- for-mobile-apps -->
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Movies Pro Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- //for-mobile-apps -->
+
+        <h:outputStylesheet name="client/css/bootstrap.css"/>
+        <!-- pop-up -->
+        <h:outputStylesheet name="client/css/popuo-box.css"/>
+        <!-- //pop-up -->
+        <h:outputStylesheet name="client/css/easy-responsive-tabs.css"/>
+        <h:outputStylesheet name="client/css/zoomslider.css"/>
+        <h:outputStylesheet name="client/css/style.css"/>
+        <h:outputStylesheet name="client/css/font-awesome.css"/>
+
+        <h:outputScript name="client/js/modernizr-2.6.2.min.js" />
+
+        <!--/web-fonts-->
+        <link href='//fonts.googleapis.com/css?family=Tangerine:400,700' rel='stylesheet' type='text/css'/>
+        <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900" rel="stylesheet"/>
+        <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'/>
+        <!--//web-fonts-->
+    </h:head>
+    <h:body>
+
+
+
+        <ui:insert name="header">
+            <ui:include src="header.xhtml" />
+        </ui:insert>
+
+
+
+        <ui:insert name="content">
+
+        </ui:insert>
+
+
+        <ui:insert name="footer">
+            <ui:include src="footer.xhtml" />
+        </ui:insert>
+
+        <h:outputScript name="client/js/jquery-1.11.1.min.js" />
+        <!-- Dropdown-Menu-JavaScript -->
+        <script>
+            $(document).ready(function () {
+                $(".dropdown").hover(
+                        function () {
+                            $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                            $(this).toggleClass('open');
+                        },
+                        function () {
+                            $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                            $(this).toggleClass('open');
+                        }
+                );
+            });
+        </script>
+        <!-- //Dropdown-Menu-JavaScript -->
+        <h:outputScript name="client/js/jquery.zoomslider.min.js" />        
+        <!-- search-jQuery -->
+
+        <h:outputScript name="client/js/main.js" />  
+        <h:outputScript name="client/js/simplePlayer.js" />  
+
+        <script>
+            $("document").ready(function () {
+                $("#video").simplePlayer();
+            });
+        </script>
+        <script>
+            $("document").ready(function () {
+                $("#video1").simplePlayer();
+            });
+        </script>
+        <script>
+            $("document").ready(function () {
+                $("#video2").simplePlayer();
+            });
+        </script>
+        <script>
+            $("document").ready(function () {
+                $("#video3").simplePlayer();
+            });
+        </script>
+
+        <!-- pop-up-box -->  
+        <h:outputScript name="client/js/jquery.magnific-popup.js" />            
+        <!--//pop-up-box -->
+        <script>
+            $(document).ready(function () {
+                $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+                    type: 'inline',
+                    fixedContentPos: false,
+                    fixedBgPos: true,
+                    overflowY: 'auto',
+                    closeBtnInside: true,
+                    preloader: false,
+                    midClick: true,
+                    removalDelay: 300,
+                    mainClass: 'my-mfp-zoom-in'
+                });
+
+            });
+        </script>
+        <h:outputScript name="client/js/easy-responsive-tabs.js" />     
+        <script>
+            $(document).ready(function () {
+                $('#horizontalTab').easyResponsiveTabs({
+                    type: 'default', //Types: default, vertical, accordion           
+                    width: 'auto', //auto or any width like 600px
+                    fit: true, // 100% fit in a container
+                    closed: 'accordion', // Start closed if in accordion view
+                    activate: function (event) { // Callback function if tab is switched
+                        var $tab = $(this);
+                        var $info = $('#tabInfo');
+                        var $name = $('span', $info);
+                        $name.text($tab.text());
+                        $info.show();
+                    }
+                });
+                $('#verticalTab').easyResponsiveTabs({
+                    type: 'vertical',
+                    width: 'auto',
+                    fit: true
+                });
+            });
+        </script>
+        <h:outputStylesheet name="client/css/owl.carousel.css"/>
+        <h:outputScript name="client/js/owl.carousel.js" />  
+        <script>
+            $(document).ready(function () {
+                $("#owl-demo").owlCarousel({
+
+                    autoPlay: 3000, //Set AutoPlay to 3 seconds
+                    autoPlay: true,
+                    navigation: true,
+
+                    items: 5,
+                    itemsDesktop: [640, 4],
+                    itemsDesktopSmall: [414, 3]
+
+                });
+
+            });
+        </script> 
+        <h:outputScript name="client/js/move-top.js" />  
+        <h:outputScript name="client/js/easing.js" /> 
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop: $(this.hash).offset().top}, 900);
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                /*
+                 var defaults = {
+                 containerID: 'toTop', // fading element id
+                 containerHoverID: 'toTopHover', // fading element hover id
+                 scrollSpeed: 1200,
+                 easingType: 'linear' 
+                 };
+                 */
+
+                $().UItoTop({easingType: 'easeOutQuart'});
+
+            });
+        </script>
+        <!--end-smooth-scrolling-->
+        <h:outputScript name="client/js/bootstrap.js" /> 
+    </h:body>
+</html>
