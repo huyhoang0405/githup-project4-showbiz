@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <link rel="icon" type="image/x-icon" href="resources/img/icon.png"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <title>ShowBiz</title>
+
+
+        <!-- Bootstrap Core CSS -->
+        <h:outputStylesheet name="admin/vendor/bootstrap/css/bootstrap.min.css"/>
+        <!-- MetisMenu CSS -->
+        <h:outputStylesheet name="admin/vendor/metisMenu/metisMenu.min.css"/>
+        <!-- Custom CSS --> 
+        <h:outputStylesheet name="admin/dist/css/sb-admin-2.css"/>
+        <!-- Morris Charts CSS -->
+        <h:outputStylesheet name="admin/vendor/morrisjs/morris.css"/>
+        <!-- Custom Fonts -->
+        <h:outputStylesheet name="admin/vendor/font-awesome/css/font-awesome.min.css"/>
+        <!-- DataTables CSS -->
+        <h:outputStylesheet name="admin/vendor/datatables-plugins/dataTables.bootstrap.css"/>
+        <!-- DataTables Responsive CSS -->
+        <h:outputStylesheet name="admin/vendor/datatables-responsive/dataTables.responsive.css"/>
+
+
+
+
+    </h:head>
+    <h:body>
+        <div id="wrapper">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                </div>
+                <ui:insert name="top">
+                    <ui:include src="header.xhtml" />
+                </ui:insert>
+                <ui:insert name="left">
+                    <ui:include src="sildebar.xhtml" />
+                </ui:insert>
+
+            </nav>
+            <div id="page-wrapper">
+                <div>
+                    <ui:insert name="content">
+
+                    </ui:insert>
+                </div>
+            </div>
+            <div>
+
+                <ui:insert name="footer">
+                    <ui:include src="footer.xhtml" />
+                </ui:insert>
+            </div>
+
+
+        </div>
+
+        <!-- jQuery -->
+        <h:outputScript name="admin/vendor/jquery/jquery.min.js" /> 
+        <!-- Bootstrap Core JavaScript -->
+        <h:outputScript name="admin/vendor/bootstrap/js/bootstrap.min.js" /> 
+        <!-- Metis Menu Plugin JavaScript -->
+        <h:outputScript name="admin/vendor/metisMenu/metisMenu.min.js" /> 
+        <!-- Morris Charts JavaScript -->
+        <h:outputScript name="admin/vendor/raphael/raphael.min.js" /> 
+        <h:outputScript name="admin/vendor/morrisjs/morris.min.js" /> 
+        <h:outputScript name="admin/data/morris-data.js" />   
+        <!-- Custom Theme JavaScript -->
+        <h:outputScript name="admin/dist/js/sb-admin-2.js" /> 
+        <!-- DataTables JavaScript -->
+        <h:outputScript name="admin/vendor/datatables/js/jquery.dataTables.min.js" /> 
+        <h:outputScript name="admin/vendor/datatables-plugins/dataTables.bootstrap.min.js" /> 
+        <h:outputScript name="admin/vendor/datatables-responsive/dataTables.responsive.js" /> 
+        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+        <script>
+            $(document).ready(function () {
+                $('#dataTables-example').DataTable({
+                    responsive: true
+                });
+            });
+        </script>
+
+    </h:body>
+</html>
