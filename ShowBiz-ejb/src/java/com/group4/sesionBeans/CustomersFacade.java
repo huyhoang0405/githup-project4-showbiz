@@ -5,7 +5,7 @@
  */
 package com.group4.sesionBeans;
 
-import com.group4.entities.Customer;
+import com.group4.entities.Customers;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Admin
  */
 @Stateless
-public class CustomerFacade extends AbstractFacade<Customer> implements CustomerFacadeLocal {
+public class CustomersFacade extends AbstractFacade<Customers> implements CustomersFacadeLocal {
 
     @PersistenceContext(unitName = "ShowBiz-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class CustomerFacade extends AbstractFacade<Customer> implements Customer
         return em;
     }
 
-    public CustomerFacade() {
-        super(Customer.class);
+    public CustomersFacade() {
+        super(Customers.class);
     }
     
 }

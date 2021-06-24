@@ -28,21 +28,21 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Admin
  */
 @Entity
-@Table(name = "Customer")
+@Table(name = "Customers")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
-    , @NamedQuery(name = "Customer.findByCustomerUsername", query = "SELECT c FROM Customer c WHERE c.customerUsername = :customerUsername")
-    , @NamedQuery(name = "Customer.findByFirstName", query = "SELECT c FROM Customer c WHERE c.firstName = :firstName")
-    , @NamedQuery(name = "Customer.findByLastName", query = "SELECT c FROM Customer c WHERE c.lastName = :lastName")
-    , @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password")
-    , @NamedQuery(name = "Customer.findByDateOfBirth", query = "SELECT c FROM Customer c WHERE c.dateOfBirth = :dateOfBirth")
-    , @NamedQuery(name = "Customer.findByGender", query = "SELECT c FROM Customer c WHERE c.gender = :gender")
-    , @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone")
-    , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")
-    , @NamedQuery(name = "Customer.findByAddress", query = "SELECT c FROM Customer c WHERE c.address = :address")
-    , @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")})
-public class Customer implements Serializable {
+    @NamedQuery(name = "Customers.findAll", query = "SELECT c FROM Customers c")
+    , @NamedQuery(name = "Customers.findByCustomerUsername", query = "SELECT c FROM Customers c WHERE c.customerUsername = :customerUsername")
+    , @NamedQuery(name = "Customers.findByFirstName", query = "SELECT c FROM Customers c WHERE c.firstName = :firstName")
+    , @NamedQuery(name = "Customers.findByLastName", query = "SELECT c FROM Customers c WHERE c.lastName = :lastName")
+    , @NamedQuery(name = "Customers.findByPassword", query = "SELECT c FROM Customers c WHERE c.password = :password")
+    , @NamedQuery(name = "Customers.findByDateOfBirth", query = "SELECT c FROM Customers c WHERE c.dateOfBirth = :dateOfBirth")
+    , @NamedQuery(name = "Customers.findByGender", query = "SELECT c FROM Customers c WHERE c.gender = :gender")
+    , @NamedQuery(name = "Customers.findByPhone", query = "SELECT c FROM Customers c WHERE c.phone = :phone")
+    , @NamedQuery(name = "Customers.findByEmail", query = "SELECT c FROM Customers c WHERE c.email = :email")
+    , @NamedQuery(name = "Customers.findByAddress", query = "SELECT c FROM Customers c WHERE c.address = :address")
+    , @NamedQuery(name = "Customers.findByStatus", query = "SELECT c FROM Customers c WHERE c.status = :status")})
+public class Customers implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -83,10 +83,10 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customerUsername")
     private Collection<DramaCommentaries> dramaCommentariesCollection;
 
-    public Customer() {
+    public Customers() {
     }
 
-    public Customer(String customerUsername) {
+    public Customers(String customerUsername) {
         this.customerUsername = customerUsername;
     }
 
@@ -198,10 +198,10 @@ public class Customer implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Customer)) {
+        if (!(object instanceof Customers)) {
             return false;
         }
-        Customer other = (Customer) object;
+        Customers other = (Customers) object;
         if ((this.customerUsername == null && other.customerUsername != null) || (this.customerUsername != null && !this.customerUsername.equals(other.customerUsername))) {
             return false;
         }
@@ -210,7 +210,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.group4.entities.Customer[ customerUsername=" + customerUsername + " ]";
+        return "com.group4.entities.Customers[ customerUsername=" + customerUsername + " ]";
     }
     
 }

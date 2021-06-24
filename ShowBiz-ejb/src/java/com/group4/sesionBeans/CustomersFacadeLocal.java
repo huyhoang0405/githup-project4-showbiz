@@ -5,7 +5,7 @@
  */
 package com.group4.sesionBeans;
 
-import com.group4.entities.Customer;
+import com.group4.entities.Customers;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author Admin
  */
 @Local
-public interface CustomerFacadeLocal {
+public interface CustomersFacadeLocal {
 
-    void create(Customer customer);
+    void create(Customers customers);
 
-    void edit(Customer customer);
+    void edit(Customers customers);
 
-    void remove(Customer customer);
+    void remove(Customers customers);
 
-    Customer find(Object id);
+    Customers find(Object id);
 
-    List<Customer> findAll();
+    List<Customers> findAll();
 
-    List<Customer> findRange(int[] range);
+    List<Customers> findRange(int[] range);
 
     int count();
     

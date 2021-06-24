@@ -50,7 +50,7 @@ public class DramaCommentaries implements Serializable {
     private Date date;
     @JoinColumn(name = "CustomerUsername", referencedColumnName = "CustomerUsername")
     @ManyToOne
-    private Customer customerUsername;
+    private Customers customerUsername;
     @JoinColumn(name = "Drama_ID", referencedColumnName = "Drama_ID")
     @ManyToOne
     private Dramas dramaID;
@@ -86,11 +86,11 @@ public class DramaCommentaries implements Serializable {
         this.date = date;
     }
 
-    public Customer getCustomerUsername() {
+    public Customers getCustomerUsername() {
         return customerUsername;
     }
 
-    public void setCustomerUsername(Customer customerUsername) {
+    public void setCustomerUsername(Customers customerUsername) {
         this.customerUsername = customerUsername;
     }
 

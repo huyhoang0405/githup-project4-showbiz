@@ -57,7 +57,7 @@ public class Orders implements Serializable {
     private Collection<MovieTicketBlocks> movieTicketBlocksCollection;
     @JoinColumn(name = "CustomerUsername", referencedColumnName = "CustomerUsername")
     @ManyToOne
-    private Customer customerUsername;
+    private Customers customerUsername;
     @JoinColumn(name = "Payment_ID", referencedColumnName = "Payment_ID")
     @ManyToOne
     private Payments paymentID;
@@ -111,11 +111,11 @@ public class Orders implements Serializable {
         this.movieTicketBlocksCollection = movieTicketBlocksCollection;
     }
 
-    public Customer getCustomerUsername() {
+    public Customers getCustomerUsername() {
         return customerUsername;
     }
 
-    public void setCustomerUsername(Customer customerUsername) {
+    public void setCustomerUsername(Customers customerUsername) {
         this.customerUsername = customerUsername;
     }
 

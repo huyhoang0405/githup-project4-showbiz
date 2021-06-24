@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "MusicSports.findByAddress", query = "SELECT m FROM MusicSports m WHERE m.address = :address")
     , @NamedQuery(name = "MusicSports.findByCapacity", query = "SELECT m FROM MusicSports m WHERE m.capacity = :capacity")
     , @NamedQuery(name = "MusicSports.findByInformation", query = "SELECT m FROM MusicSports m WHERE m.information = :information")
+    , @NamedQuery(name = "MusicSports.findByType", query = "SELECT m FROM MusicSports m WHERE m.type = :type")
     , @NamedQuery(name = "MusicSports.findByPoster", query = "SELECT m FROM MusicSports m WHERE m.poster = :poster")
     , @NamedQuery(name = "MusicSports.findByBanner", query = "SELECT m FROM MusicSports m WHERE m.banner = :banner")})
 public class MusicSports implements Serializable {
@@ -67,6 +68,8 @@ public class MusicSports implements Serializable {
     @Size(max = 2000)
     @Column(name = "Information")
     private String information;
+    @Column(name = "Type")
+    private Boolean type;
     @Size(max = 100)
     @Column(name = "Poster")
     private String poster;
@@ -137,6 +140,14 @@ public class MusicSports implements Serializable {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public Boolean getType() {
+        return type;
+    }
+
+    public void setType(Boolean type) {
+        this.type = type;
     }
 
     public String getPoster() {
