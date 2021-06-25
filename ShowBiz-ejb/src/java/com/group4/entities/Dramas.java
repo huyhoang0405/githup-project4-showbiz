@@ -50,6 +50,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Dramas.findByEpisodes", query = "SELECT d FROM Dramas d WHERE d.episodes = :episodes")})
 public class Dramas implements Serializable {
 
+    @Size(max = 200)
+    @Column(name = "Trailer")
+    private String trailer;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -261,6 +265,14 @@ public class Dramas implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.Dramas[ dramaID=" + dramaID + " ]";
+    }
+
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
     }
     
 }

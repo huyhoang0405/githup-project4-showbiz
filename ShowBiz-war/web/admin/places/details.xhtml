@@ -1,0 +1,112 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template = "/layout/admin/common.xhtml">  
+            <ui:define name="content">
+                <div class="row" align="center">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Create a new area</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row" align="center">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Basic Form Elements
+                            </div>
+                            <div class="panel-body">
+                                <div class="row" >
+                                    <table>
+                                        <div class="col-lg-12">
+
+
+                                            <tr>
+                                                <td>
+                                                    <label>ID:</label>  &nbsp;       
+                                                </td>        
+                                                <td>
+                                                    <h:outputText id="placesID" value="#{placeMB.place.placesID}"/>    
+                                                </td> 
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>Street:</label>   &nbsp;       
+                                                </td>        
+                                                <td>
+                                                    <h:outputText id="street" value="#{placeMB.place.street}" />    
+                                                </td>        
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>Ward:</label>   &nbsp;       
+                                                </td>        
+                                                <td>
+                                                    <h:outputText id="ward" value="#{placeMB.place.ward}" />    
+                                                </td>        
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>District:</label>   &nbsp;       
+                                                </td>        
+                                                <td>
+                                                    <h:outputText id="district" value="#{placeMB.place.district}" />    
+                                                </td>        
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>City:</label>   &nbsp;       
+                                                </td>        
+                                                <td>
+                                                    <h:outputText id="city" value="#{placeMB.place.city}" />    
+                                                </td>        
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>Area:</label>   &nbsp;       
+                                                </td>        
+                                                <td>
+                                                    <h:outputText id="areaName" value="#{placeMB.place.areaID.areaName}" />    
+                                                </td>        
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h:form>
+                                                        <button class="btn btn-warning" jsf:action="#{placeMB.loadFormEdit(areaMB.area.areaID)}">Edit <i class="fa fa-edit"></i></button>&nbsp;
+                                                        <h:link class="btn btn-outline btn-primary"  outcome="index" value="Return"/>
+                                                    </h:form>
+                                                </td>
+                                            </tr>
+                                        </div>
+
+
+                                    </table>   
+
+
+                                    <!-- /.col-lg-6 (nested) -->
+
+                                    <!-- /.col-lg-6 (nested) -->
+                                </div>
+                                <!-- /.row (nested) -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -36,10 +38,11 @@ public class Areas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Area_ID")
     private Integer areaID;
-    @Size(max = 100)
+    @Size(min = 1,max = 100, message = "Area name is not null")
     @Column(name = "Area_Name")
     private String areaName;
     @OneToMany(mappedBy = "areaID")
@@ -48,17 +51,17 @@ public class Areas implements Serializable {
     public Areas() {
     }
 
-    public Areas(Integer areaID) {
-        this.areaID = areaID;
-    }
+//    public Areas(Integer areaID) {
+//        this.areaID = areaID;
+//    }
 
     public Integer getAreaID() {
         return areaID;
     }
 
-    public void setAreaID(Integer areaID) {
-        this.areaID = areaID;
-    }
+//    public void setAreaID(Integer areaID) {
+//        this.areaID = areaID;
+//    }
 
     public String getAreaName() {
         return areaName;

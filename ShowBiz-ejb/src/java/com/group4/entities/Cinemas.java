@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -38,7 +40,8 @@ public class Cinemas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+   // @NotNull
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Cinema_ID")
     private Integer cinemaID;
     @Size(max = 100)
@@ -53,17 +56,17 @@ public class Cinemas implements Serializable {
     public Cinemas() {
     }
 
-    public Cinemas(Integer cinemaID) {
-        this.cinemaID = cinemaID;
-    }
+//    public Cinemas(Integer cinemaID) {
+//        this.cinemaID = cinemaID;
+//    }
 
     public Integer getCinemaID() {
         return cinemaID;
     }
 
-    public void setCinemaID(Integer cinemaID) {
-        this.cinemaID = cinemaID;
-    }
+//    public void setCinemaID(Integer cinemaID) {
+//        this.cinemaID = cinemaID;
+//    }
 
     public String getCinemaName() {
         return cinemaName;

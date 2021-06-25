@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,7 +43,8 @@ public class Places implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+  //  @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Places_ID")
     private Integer placesID;
     @Size(max = 100)
@@ -65,17 +68,17 @@ public class Places implements Serializable {
     public Places() {
     }
 
-    public Places(Integer placesID) {
-        this.placesID = placesID;
-    }
+//    public Places(Integer placesID) {
+//        this.placesID = placesID;
+//    }
 
     public Integer getPlacesID() {
         return placesID;
     }
 
-    public void setPlacesID(Integer placesID) {
-        this.placesID = placesID;
-    }
+//    public void setPlacesID(Integer placesID) {
+//        this.placesID = placesID;
+//    }
 
     public String getStreet() {
         return street;

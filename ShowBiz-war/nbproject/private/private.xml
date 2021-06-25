@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/src/java/com/group4/manageBean/AreaMB.java</file>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/areas/details.xhtml</file>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/areas/edit.xhtml</file>
             <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/index.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/layout/client/header.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/layout/client/footer.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/layout/client/common.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/movies.xhtml</file>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/areas/index.xhtml</file>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/areas/create.xhtml</file>
         </group>
     </open-files>
 </project-private>
