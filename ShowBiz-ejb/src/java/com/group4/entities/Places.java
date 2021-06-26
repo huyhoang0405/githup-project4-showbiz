@@ -42,9 +42,9 @@ public class Places implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-  //  @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+   // @NotNull
     @Column(name = "Places_ID")
     private Integer placesID;
     @Size(max = 100)

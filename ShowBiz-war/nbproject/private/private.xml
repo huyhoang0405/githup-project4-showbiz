@@ -5,9 +5,11 @@
         <group>
             <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/src/java/com/group4/manageBean/AreaMB.java</file>
             <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/areas/details.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/areas/edit.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/index.xhtml</file>
             <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/areas/index.xhtml</file>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/src/java/com/group4/manageBean/PaymentMB.java</file>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/payments/details.xhtml</file>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/payments/create.xhtml</file>
+            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/payments/index.xhtml</file>
             <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/areas/create.xhtml</file>
         </group>
     </open-files>

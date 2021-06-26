@@ -43,16 +43,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Dramas.findByCountry", query = "SELECT d FROM Dramas d WHERE d.country = :country")
     , @NamedQuery(name = "Dramas.findByLanguage", query = "SELECT d FROM Dramas d WHERE d.language = :language")
     , @NamedQuery(name = "Dramas.findByDirector", query = "SELECT d FROM Dramas d WHERE d.director = :director")
+    , @NamedQuery(name = "Dramas.findByTrailer", query = "SELECT d FROM Dramas d WHERE d.trailer = :trailer")
     , @NamedQuery(name = "Dramas.findByPoster", query = "SELECT d FROM Dramas d WHERE d.poster = :poster")
     , @NamedQuery(name = "Dramas.findByBanner", query = "SELECT d FROM Dramas d WHERE d.banner = :banner")
     , @NamedQuery(name = "Dramas.findByLike", query = "SELECT d FROM Dramas d WHERE d.like = :like")
     , @NamedQuery(name = "Dramas.findByUrl", query = "SELECT d FROM Dramas d WHERE d.url = :url")
     , @NamedQuery(name = "Dramas.findByEpisodes", query = "SELECT d FROM Dramas d WHERE d.episodes = :episodes")})
 public class Dramas implements Serializable {
-
-    @Size(max = 200)
-    @Column(name = "Trailer")
-    private String trailer;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -81,6 +78,9 @@ public class Dramas implements Serializable {
     @Size(max = 100)
     @Column(name = "Director")
     private String director;
+    @Size(max = 200)
+    @Column(name = "Trailer")
+    private String trailer;
     @Size(max = 100)
     @Column(name = "Poster")
     private String poster;
@@ -175,6 +175,14 @@ public class Dramas implements Serializable {
         this.director = director;
     }
 
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
+    }
+
     public String getPoster() {
         return poster;
     }
@@ -265,14 +273,6 @@ public class Dramas implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.Dramas[ dramaID=" + dramaID + " ]";
-    }
-
-    public String getTrailer() {
-        return trailer;
-    }
-
-    public void setTrailer(String trailer) {
-        this.trailer = trailer;
     }
     
 }

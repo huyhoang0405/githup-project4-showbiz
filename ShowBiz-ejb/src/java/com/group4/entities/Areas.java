@@ -37,12 +37,12 @@ public class Areas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    //@NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+ //   @NotNull
     @Column(name = "Area_ID")
     private Integer areaID;
-    @Size(min = 1,max = 100, message = "Area name is not null")
+    @Size(max = 100)
     @Column(name = "Area_Name")
     private String areaName;
     @OneToMany(mappedBy = "areaID")
@@ -58,7 +58,7 @@ public class Areas implements Serializable {
     public Integer getAreaID() {
         return areaID;
     }
-
+//
 //    public void setAreaID(Integer areaID) {
 //        this.areaID = areaID;
 //    }

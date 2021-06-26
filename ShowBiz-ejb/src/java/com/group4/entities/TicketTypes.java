@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,8 +37,9 @@ public class TicketTypes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @Column(name = "TicketType_ID")
     private Integer ticketTypeID;
     @Size(max = 100)
@@ -50,17 +53,17 @@ public class TicketTypes implements Serializable {
     public TicketTypes() {
     }
 
-    public TicketTypes(Integer ticketTypeID) {
-        this.ticketTypeID = ticketTypeID;
-    }
+//    public TicketTypes(Integer ticketTypeID) {
+//        this.ticketTypeID = ticketTypeID;
+//    }
 
     public Integer getTicketTypeID() {
         return ticketTypeID;
     }
 
-    public void setTicketTypeID(Integer ticketTypeID) {
-        this.ticketTypeID = ticketTypeID;
-    }
+//    public void setTicketTypeID(Integer ticketTypeID) {
+//        this.ticketTypeID = ticketTypeID;
+//    }
 
     public String getTicketTypeName() {
         return ticketTypeName;

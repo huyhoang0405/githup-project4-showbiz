@@ -39,9 +39,9 @@ public class Cinemas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-   // @NotNull
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@NotNull
     @Column(name = "Cinema_ID")
     private Integer cinemaID;
     @Size(max = 100)

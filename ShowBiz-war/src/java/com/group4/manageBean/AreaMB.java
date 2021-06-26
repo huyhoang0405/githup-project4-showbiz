@@ -41,7 +41,7 @@ public class AreaMB implements Serializable {
         area.setAreaName(null);
     }
 
-    //display all areas
+    //display form create a new area
     public String loadFormCreateNew() {
         resetForm();
         return "create";

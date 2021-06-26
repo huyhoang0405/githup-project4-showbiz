@@ -42,14 +42,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Movies.findByCountry", query = "SELECT m FROM Movies m WHERE m.country = :country")
     , @NamedQuery(name = "Movies.findByLanguage", query = "SELECT m FROM Movies m WHERE m.language = :language")
     , @NamedQuery(name = "Movies.findByDirector", query = "SELECT m FROM Movies m WHERE m.director = :director")
+    , @NamedQuery(name = "Movies.findByTrailer", query = "SELECT m FROM Movies m WHERE m.trailer = :trailer")
     , @NamedQuery(name = "Movies.findByPoster", query = "SELECT m FROM Movies m WHERE m.poster = :poster")
     , @NamedQuery(name = "Movies.findByBanner", query = "SELECT m FROM Movies m WHERE m.banner = :banner")
     , @NamedQuery(name = "Movies.findByNote", query = "SELECT m FROM Movies m WHERE m.note = :note")})
 public class Movies implements Serializable {
-
-    @Size(max = 200)
-    @Column(name = "Trailer")
-    private String trailer;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -81,6 +78,9 @@ public class Movies implements Serializable {
     @Size(max = 100)
     @Column(name = "Director")
     private String director;
+    @Size(max = 200)
+    @Column(name = "Trailer")
+    private String trailer;
     @Size(max = 100)
     @Column(name = "Poster")
     private String poster;
@@ -174,6 +174,14 @@ public class Movies implements Serializable {
         this.director = director;
     }
 
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
+    }
+
     public String getPoster() {
         return poster;
     }
@@ -239,14 +247,6 @@ public class Movies implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.Movies[ movieID=" + movieID + " ]";
-    }
-
-    public String getTrailer() {
-        return trailer;
-    }
-
-    public void setTrailer(String trailer) {
-        this.trailer = trailer;
     }
     
 }
