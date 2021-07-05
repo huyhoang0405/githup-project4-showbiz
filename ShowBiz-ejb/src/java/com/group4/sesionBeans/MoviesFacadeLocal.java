@@ -30,4 +30,8 @@ public interface MoviesFacadeLocal {
 
     int count();
     
+    String getLastID();
+    
+    List<Movies> select5NewestMovies();
+    List<Movies> select8Movies();
 }

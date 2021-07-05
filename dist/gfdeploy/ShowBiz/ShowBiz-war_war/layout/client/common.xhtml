@@ -5,178 +5,201 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <link rel="icon" type="image/x-icon" href="resources/img/icon.png"/>
+        <link rel="icon" type="image/x-icon" href="../../resources/client/images/Showbiz.png"/>
         <title>ShowBiz</title>
         <!-- for-mobile-apps -->
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <meta name="keywords" content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-                  Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-            <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-                function hideURLbar(){ window.scrollTo(0,1); } </script>
-            <!-- //for-mobile-apps -->
-            <h:outputStylesheet name="client/css/bootstrap.css"/>
-            <h:outputStylesheet name="client/css/style.css"/>
-            <h:outputStylesheet name="client/css/contactstyle.css"/>
-            <h:outputStylesheet name="client/css/faqstyle.css"/>
-            <h:outputStylesheet name="client/css/single.css"/>
-            <h:outputStylesheet name="client/css/medile.css"/>    
-            <!-- news-css -->
-            <h:outputStylesheet name="client/news-css/news.css"/>   
-            <!-- //news-css -->
-            <!-- list-css -->
-            <h:outputStylesheet name="client/list-css/list.css"/>   
-            <!-- //list-css -->
-            <!-- banner-slider -->
-            <h:outputStylesheet name="client/css/jquery.slidey.min.css"/>
-            <!-- //banner-slider -->
-            <!-- pop-up -->
-            <h:outputStylesheet name="client/css/popuo-box.css"/>  
-            <!-- pop-up -->
-            <!-- font-awesome icons -->
-            <h:outputStylesheet name="client/css/font-awesome.min.css"/> 
-            <!-- font-awesome icons -->
-            <!-- js -->
-            <h:outputScript name="client/js/jquery-2.1.4.min.js" /> 
-            <!-- js -->
-            <!-- banner-bottom-plugin -->
-            <h:outputStylesheet name="client/css/owl.carousel.css"/> 
-            <h:outputScript name="client/js/owl.carousel.js" /> 
-            <script>
-                $(document).ready(function () {
-                    $("#owl-demo").owlCarousel({
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="One Movies Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- //for-mobile-apps -->
+        <h:outputStylesheet name="client/css/bootstrap.css"/>
+        <h:outputStylesheet name="client/css/style.css"/>
+        <h:outputStylesheet name="client/css/contactstyle.css"/>
+        <h:outputStylesheet name="client/css/faqstyle.css"/>
+        <h:outputStylesheet name="client/css/single.css"/>
+        <h:outputStylesheet name="client/css/medile.css"/>    
+        <!-- news-css -->
+        <h:outputStylesheet name="client/news-css/news.css"/>   
+        <!-- //news-css -->
+        <!-- list-css -->
+        <h:outputStylesheet name="client/list-css/list.css"/>   
+        <!-- //list-css -->
+        <!-- banner-slider -->
+        <h:outputStylesheet name="client/css/jquery.slidey.min.css"/>
+        <!-- //banner-slider -->
+        <!-- pop-up -->
+        <h:outputStylesheet name="client/css/popuo-box.css"/>  
+        <!-- pop-up -->
+        <!-- font-awesome icons -->
+        <h:outputStylesheet name="client/css/font-awesome.min.css"/> 
+        <!-- font-awesome icons -->
+        <!-- js -->
+        <h:outputScript name="client/js/jquery-2.1.4.min.js" /> 
+        <!-- js -->
+        <!-- banner-bottom-plugin -->
+        <h:outputStylesheet name="client/css/owl.carousel.css"/> 
+        <h:outputScript name="client/js/owl.carousel.js" /> 
+        <script>
+            $(document).ready(function () {
+                $("#owl-demo").owlCarousel({
 
-                        autoPlay: 3000, //Set AutoPlay to 3 seconds
+                    autoPlay: 3000, //Set AutoPlay to 3 seconds
 
-                        items: 5,
-                        itemsDesktop: [640, 5],
-                        itemsDesktopSmall: [414, 4]
-
-                    });
+                    items: 5,
+                    itemsDesktop: [640, 5],
+                    itemsDesktopSmall: [414, 4]
 
                 });
-            </script> 
-            <!-- //banner-bottom-plugin -->
-            <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'/>
-            <!-- start-smoth-scrolling -->
-            <h:outputScript name="client/js/move-top.js" /> 
-            <h:outputScript name="client/js/easing.js" /> 
-            <script type="text/javascript">
-                jQuery(document).ready(function ($) {
-                    $(".scroll").click(function (event) {
-                        event.preventDefault();
-                        $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
-                    });
-                });
-            </script>
-            <!-- start-smoth-scrolling -->
-            <!-- tables -->
-             <h:outputStylesheet name="client/list-css/table-style.css"/>  
-             <h:outputStylesheet name="client/list-css/basictable.css"/>  
-             <h:outputScript name="client/list-js/jquery.basictable.min.js" />
-             <script type="text/javascript">
-    $(document).ready(function() {
-      $('#table').basictable();
 
-      $('#table-breakpoint').basictable({
-        breakpoint: 768
-      });
-	   $('#table-breakpoint1').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint2').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint3').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint4').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint5').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint6').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint7').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint8').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint9').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint10').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint11').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint12').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint13').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint14').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint15').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint16').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint17').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint18').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint19').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint20').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint21').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint22').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint23').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint24').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint25').basictable({
-        breakpoint: 768
-      });
-	  $('#table-breakpoint26').basictable({
-        breakpoint: 768
-      });
-    });
-  </script>
-           <!-- //tables -->  
+            });
+        </script> 
+        <!-- //banner-bottom-plugin -->
+        <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'/>
+        <!-- start-smoth-scrolling -->
+        <h:outputScript name="client/js/move-top.js" /> 
+        <h:outputScript name="client/js/easing.js" /> 
+        <script type="text/javascript">
+            jQuery(document).ready(function ($) {
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+                });
+            });
+        </script>
+        <!-- start-smoth-scrolling -->
+        <!-- tables -->
+        <h:outputStylesheet name="client/list-css/table-style.css"/>  
+        <h:outputStylesheet name="client/list-css/basictable.css"/>  
+        <h:outputScript name="client/list-js/jquery.basictable.min.js" />
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#table').basictable();
+
+                $('#table-breakpoint').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint1').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint2').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint3').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint4').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint5').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint6').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint7').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint8').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint9').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint10').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint11').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint12').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint13').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint14').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint15').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint16').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint17').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint18').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint19').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint20').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint21').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint22').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint23').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint24').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint25').basictable({
+                    breakpoint: 768
+                });
+                $('#table-breakpoint26').basictable({
+                    breakpoint: 768
+                });
+            });
+        </script>
+        <!-- //tables -->  
     </h:head>
     <h:body>
-
-
+<script>
+		$('.toggle').click(function(){
+		  // Switches the Icon
+		  $(this).children('i').toggleClass('fa-pencil');
+		  // Switches the forms  
+		  $('.form').animate({
+			height: "toggle",
+			'padding-top': 'toggle',
+			'padding-bottom': 'toggle',
+			opacity: "toggle"
+		  }, "slow");
+		});
+	</script>
 
         <ui:insert name="header">
+
             <ui:include src="header.xhtml" />
-        </ui:insert>
-
-
-
-        <ui:insert name="content">
 
         </ui:insert>
 
+
+        <div class="general_social_icons">
+            <nav class="social">
+                <ul>
+                    <li class="w3_twitter"><a href="#">Twitter <i class="fa fa-twitter"></i></a></li>
+                    <li class="w3_facebook"><a href="#">Facebook <i class="fa fa-facebook"></i></a></li>
+                    <li class="w3_dribbble"><a href="#">Dribbble <i class="fa fa-dribbble"></i></a></li>
+                    <li class="w3_g_plus"><a href="#">Google+ <i class="fa fa-google-plus"></i></a></li>				  
+                </ul>
+            </nav>
+        </div>
+        <div class="general">
+            <ui:insert name="content">
+
+            </ui:insert>
+        </div>
 
         <ui:insert name="footer">
             <ui:include src="footer.xhtml" />
@@ -184,6 +207,17 @@
 
         <!-- Bootstrap Core JavaScript -->
         <h:outputScript name="client/js/bootstrap.min.js" />
+        <h:outputScript name="client/js/jquery.slidey.js" />
+        <h:outputScript name="client/js/jquery.dotdotdot.min.js" />
+        <script type="text/javascript">
+            $("#slidey").slidey({
+                interval: 8000,
+                listCount: 5,
+                autoplay: false,
+                showList: true
+            });
+            $(".slidey-list-description").dotdotdot();
+        </script>
         <script>
             $(document).ready(function () {
                 $(".dropdown").hover(
@@ -216,11 +250,56 @@
             });
         </script>
         <!-- //here ends scrolling icon -->
-        
-         <script>
+
+        <script>
             if (window.history.replaceState) {
                 window.history.replaceState(null, null, window.location.href);
             }
         </script>
+        <!-- flexSlider -->
+        <h:outputStylesheet name="client/css/flexslider.css"/>  
+        <h:outputScript name="client/js/jquery.flexslider.js" />
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    start: function (slider) {
+                        $('body').removeClass('loading');
+                    }
+                });
+            });
+        </script>
+        <!-- //flexSlider -->
+        <!-- pop-up-box --> 
+        <h:outputScript name="client/js/jquery.magnific-popup.js" />
+        <!-- //pop-up-box --> 
+        <script>
+		$(document).ready(function() {
+		$('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+			type: 'inline',
+			fixedContentPos: false,
+			fixedBgPos: true,
+			overflowY: 'auto',
+			closeBtnInside: true,
+			preloader: false,
+			midClick: true,
+			removalDelay: 300,
+			mainClass: 'my-mfp-zoom-in'
+		});
+																		
+		});
+	</script>
+        
+                <h:outputScript name="client/js/simplePlayer.js" />
+<script>
+	$("document").ready(function() {
+		$("#video").simplePlayer();
+	});
+</script>
+                <script>
+	$("document").ready(function() {
+		$("#video1").simplePlayer();
+	});
+</script>
     </h:body>
 </html>

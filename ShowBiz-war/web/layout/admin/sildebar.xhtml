@@ -3,7 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:h="http://java.sun.com/jsf/html">
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:jsf="http://xmlns.jcp.org/jsf">
 <h:body>  
   <ui:composition>
             <div class="navbar-default sidebar" role="navigation">
@@ -24,73 +25,100 @@
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-location-arrow fa-fw"></i> Location<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                  <a jsf:outcome="/admin/areas/index">Areas</a>
+                                   
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a jsf:outcome="/admin/places/index">Places</a>
+                                </li>
+                                <li>
+                                    <a jsf:outcome="/admin/cinemas/index">Cinemas</a>
+                                </li>
+                                
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-film fa-fw"></i> Films<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Movies</a>
+                                </li>
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Dramas</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-film fa-fw"></i> Events<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
+                                    <a jsf:outcome="/admin/movies/index">Musics &amp; Sports</a>
                                 </li>
                                 <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
+                                    <a jsf:outcome="/admin/movies/index">Events</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-ticket fa-fw"></i> Tickets<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Second Level Item</a>
+                                    <a jsf:outcome="/admin/movies/index">Movies</a>
                                 </li>
                                 <li>
-                                    <a href="#">Second Level Item</a>
+                                    <a jsf:outcome="/admin/movies/index">Musics &amp; Sports</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-money fa-fw"></i> Orders<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Movies</a>
                                 </li>
                                 <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
+                                    <a jsf:outcome="/admin/movies/index">Musics &amp; Sports</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Users<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Customers</a>
+                                </li>
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Administrators</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                        <li>
+                            <a href="#"><i class="fa fa-list-alt fa-fw"></i> Others<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Payments</a>
+                                </li>
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Categories</a>
+                                </li>
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Feedbacks</a>
+                                </li>
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Drama Comment</a>
+                                </li>
+                                <li>
+                                    <a jsf:outcome="/admin/movies/index">Starringes</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -1170,7 +1170,7 @@ h3.head {
 		margin: .5em 0 0;
 	}
 	.navbar {
-		text-align: center;
+		text-align: left;
 	}
 	.navbar-default .navbar-toggle {
 		border-color: #fff;

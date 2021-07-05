@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -65,6 +66,7 @@ public class Movies implements Serializable {
     private Integer length;
     @Column(name = "ReleaseDate")
     @Temporal(TemporalType.DATE)
+    @Future
     private Date releaseDate;
     @Size(max = 2000)
     @Column(name = "Content")
