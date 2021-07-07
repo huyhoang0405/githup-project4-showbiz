@@ -26,12 +26,12 @@
                             <div id="myTabContent" class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
                                   <div class="w3_agile_featured_movies">
-
+                                      <h:form>
                                       <c:forEach items="#{moviesDisplayMB.showAllMovies()}" var="m">
                                             <div>
                                             <div class="col-md-3 col-sm-3 col-xs-6 w3l-movie-gride-agile">
-                                                <a href="single.html" class="hvr-shutter-out-horizontal"><img jsf:value="/resources/client/images/poster/#{m.poster}" title="album-name" height="500px" class="img-responsive" alt=" " />
-                                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                                <a jsf:action="#{moviesDisplayMB.showDetailsMovie(m.movieID)}" class="hvr-shutter-out-horizontal btn-link"><img jsf:value="/resources/client/images/poster/#{m.poster}" title="#{m.movieName}" class="img-responsive" alt=" " />
+                                                    <div class="w3l-action-icon"><i class="fa fa-ticket" aria-hidden="true"></i></div>
                                                 </a>
                                                 <div class="mid-1 agileits_w3layouts_mid_1_home">
                                                     <div class="w3l-movie-text">
@@ -51,6 +51,7 @@
                                             
                                             </div>
                                         </c:forEach>
+                                          </h:form>
                                         <div class="clearfix"> </div>
                                     </div>
                                 </div>

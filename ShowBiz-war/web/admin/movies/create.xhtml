@@ -47,6 +47,17 @@
                                                 </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                <label>Starring:</label>                                           
+                                                <h:selectManyListbox   required="true"  value="#{movieMB.category.categoryID}" class="form-control">
+                                                       
+                                                        <f:selectItems value="#{movieMB.showAllCategories()}" var="category" itemLabel="#{category.categoryName}" itemValue="#{category.categoryID}"/>
+                                                    </h:selectManyListbox >  
+                                                </div>
+                                                </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                 <label>Length:</label>                                           

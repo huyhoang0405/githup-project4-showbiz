@@ -59,7 +59,7 @@ public class Movies implements Serializable {
     @Size(max = 100)
     @Column(name = "Movie_Name")
     private String movieName;
-    @Size(max = 100)
+    @Size(max = 200)
     @Column(name = "Starring")
     private String starring;
     @Column(name = "Length")

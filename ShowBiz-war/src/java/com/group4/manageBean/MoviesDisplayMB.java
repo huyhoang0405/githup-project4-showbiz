@@ -48,11 +48,17 @@ public class MoviesDisplayMB implements Serializable {
             Movies mov = list.get(i);
              mov.setTrailer((list.get(i).getTrailer()).substring(32));
              l.add(mov);
-        }
-  
+        } 
         return l;
     }
     
+   // show details movie 
+    public String showDetailsMovie(String id) {
+        Movies m = moviesFacade.find(id);
+        m.setTrailer((m.getTrailer()).substring(32));
+        setMovie(m);
+        return "details";
+    }
     //show 8 movies in website
     public List<Movies> show8Movies(){       
         return moviesFacade.select8Movies();

@@ -5,7 +5,9 @@
  */
 package com.group4.manageBean;
 
+import com.group4.entities.Categories;
 import com.group4.entities.Movies;
+import com.group4.sesionBeans.CategoriesFacadeLocal;
 import com.group4.sesionBeans.MoviesFacadeLocal;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,8 +37,12 @@ import javax.servlet.http.Part;
 public class MovieMB implements Serializable {
 
     @EJB
+    private CategoriesFacadeLocal categoriesFacade;
+
+    @EJB
     private MoviesFacadeLocal moviesFacade;
     
+    private Categories category;
     private Movies movie;
     private Part fileBanner;
     private Part filePoster;
@@ -415,6 +421,10 @@ public class MovieMB implements Serializable {
         return movieID;
     }   
     
+    //show all Categories
+    public List<Categories> showAllCategories(){
+        return categoriesFacade.findAll();
+    }
     public Movies getMovie() {
         return movie;
     }
@@ -437,6 +447,14 @@ public class MovieMB implements Serializable {
 
     public void setFilePoster(Part filePoster) {
         this.filePoster = filePoster;
+    }
+
+    public Categories getCategory() {
+        return category;
+    }
+
+    public void setCategory(Categories category) {
+        this.category = category;
     }
 
     
