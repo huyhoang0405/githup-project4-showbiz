@@ -46,6 +46,15 @@
                                             </div>
                                                 </div>
                                         </div>
+                                         <div class="form-group">
+                                                <div class="col-md-10 form-group">
+                                                    <label>Genre:<h:inputText value="#{movieMB.movieGenres.note}" style="display: none" /></label>                                           
+                                                    <ui:repeat value="#{movieMB.categoryID}" var="categoryID">
+                                                        <h:outputLabel value="#{categoryID}"/> &nbsp;&nbsp;
+                                                    </ui:repeat>                                             
+
+                                                </div>
+                                            </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">

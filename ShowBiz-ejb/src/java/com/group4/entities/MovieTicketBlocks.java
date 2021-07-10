@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,10 +19,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,6 +47,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "MovieTicketBlocks.findByUnitPrice", query = "SELECT m FROM MovieTicketBlocks m WHERE m.unitPrice = :unitPrice")})
 public class MovieTicketBlocks implements Serializable {
 
+    @Size(max = 20)
+    @Column(name = "Time")
+    private String time;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movieTicketBlocks")
+    private Collection<OrderMovieDetails> orderMovieDetailsCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -52,10 +63,8 @@ public class MovieTicketBlocks implements Serializable {
     private String movieTicketBlockID;
     @Column(name = "Date")
     @Temporal(TemporalType.DATE)
+    @Future
     private Date date;
-    @Column(name = "Time")
-    @Temporal(TemporalType.TIME)
-    private Date time;
     @Column(name = "Quantity")
     private Integer quantity;
     @Column(name = "Residual")
@@ -100,13 +109,6 @@ public class MovieTicketBlocks implements Serializable {
         this.date = date;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
 
     public Integer getQuantity() {
         return quantity;
@@ -188,6 +190,23 @@ public class MovieTicketBlocks implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.MovieTicketBlocks[ movieTicketBlockID=" + movieTicketBlockID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<OrderMovieDetails> getOrderMovieDetailsCollection() {
+        return orderMovieDetailsCollection;
+    }
+
+    public void setOrderMovieDetailsCollection(Collection<OrderMovieDetails> orderMovieDetailsCollection) {
+        this.orderMovieDetailsCollection = orderMovieDetailsCollection;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
     
 }

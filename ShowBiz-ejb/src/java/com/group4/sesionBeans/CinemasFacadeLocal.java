@@ -29,5 +29,5 @@ public interface CinemasFacadeLocal {
     List<Cinemas> findRange(int[] range);
 
     int count();
-    
+    Cinemas findByID(Integer id);
 }

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,6 +40,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Orders.findByDateOfPurchase", query = "SELECT o FROM Orders o WHERE o.dateOfPurchase = :dateOfPurchase")
     , @NamedQuery(name = "Orders.findByTotalPrice", query = "SELECT o FROM Orders o WHERE o.totalPrice = :totalPrice")})
 public class Orders implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orders")
+    private Collection<OrderMusicSportDetails> orderMusicSportDetailsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orders")
+    private Collection<OrderMovieDetails> orderMovieDetailsCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -150,6 +157,24 @@ public class Orders implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.Orders[ orderID=" + orderID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<OrderMusicSportDetails> getOrderMusicSportDetailsCollection() {
+        return orderMusicSportDetailsCollection;
+    }
+
+    public void setOrderMusicSportDetailsCollection(Collection<OrderMusicSportDetails> orderMusicSportDetailsCollection) {
+        this.orderMusicSportDetailsCollection = orderMusicSportDetailsCollection;
+    }
+
+    @XmlTransient
+    public Collection<OrderMovieDetails> getOrderMovieDetailsCollection() {
+        return orderMovieDetailsCollection;
+    }
+
+    public void setOrderMovieDetailsCollection(Collection<OrderMovieDetails> orderMovieDetailsCollection) {
+        this.orderMovieDetailsCollection = orderMovieDetailsCollection;
     }
     
 }

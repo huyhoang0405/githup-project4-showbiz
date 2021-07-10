@@ -44,6 +44,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "MusicSports.findByBanner", query = "SELECT m FROM MusicSports m WHERE m.banner = :banner")})
 public class MusicSports implements Serializable {
 
+    @Size(max = 20)
+    @Column(name = "StartTime")
+    private String startTime;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -57,9 +61,6 @@ public class MusicSports implements Serializable {
     @Column(name = "StartDate")
     @Temporal(TemporalType.DATE)
     private Date startDate;
-    @Column(name = "StartTime")
-    @Temporal(TemporalType.TIME)
-    private Date startTime;
     @Size(max = 200)
     @Column(name = "Address")
     private String address;
@@ -110,13 +111,6 @@ public class MusicSports implements Serializable {
         this.startDate = startDate;
     }
 
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
 
     public String getAddress() {
         return address;
@@ -198,6 +192,14 @@ public class MusicSports implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.MusicSports[ musicSportID=" + musicSportID + " ]";
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
     
 }

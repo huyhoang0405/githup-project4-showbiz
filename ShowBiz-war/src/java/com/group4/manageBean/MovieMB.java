@@ -6,8 +6,11 @@
 package com.group4.manageBean;
 
 import com.group4.entities.Categories;
+import com.group4.entities.MovieGenres;
+import com.group4.entities.MovieGenresPK;
 import com.group4.entities.Movies;
 import com.group4.sesionBeans.CategoriesFacadeLocal;
+import com.group4.sesionBeans.MovieGenresFacadeLocal;
 import com.group4.sesionBeans.MoviesFacadeLocal;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,31 +40,38 @@ import javax.servlet.http.Part;
 public class MovieMB implements Serializable {
 
     @EJB
+    private MovieGenresFacadeLocal movieGenresFacade;
+
+    @EJB
     private CategoriesFacadeLocal categoriesFacade;
 
     @EJB
     private MoviesFacadeLocal moviesFacade;
-    
+
+    private MovieGenres movieGenres;
     private Categories category;
     private Movies movie;
     private Part fileBanner;
     private Part filePoster;
     private final String UPLOAD_DIRECTORY_BANNER = "resources\\client\\images\\banner";
     private final String UPLOAD_DIRECTORY_POSTER = "resources\\client\\images\\poster";
-    
+
+    private String[] categoryID;
+
     private final Calendar calendar = Calendar.getInstance();
-    
+
     public MovieMB() {
         movie = new Movies();
+        movieGenres = new MovieGenres();
     }
 
     //display all movies
-    public List<Movies> showAllMovies(){
+    public List<Movies> showAllMovies() {
         return moviesFacade.findAll();
     }
-    
+
     //reset form
-    public void resetForm(){
+    public void resetForm() {
         movie.setMovieName(null);
         movie.setLength(null);
         movie.setStarring(null);
@@ -74,71 +84,29 @@ public class MovieMB implements Serializable {
         movie.setPoster(null);
         movie.setBanner(null);
         movie.setNote(null);
+        setCategoryID(null);
+
     }
-    
+
     //load form
-     public String loadFormCreateNew() {
-         
+    public String loadFormCreateNew() {
+
         resetForm();
 //        FacesContext context = FacesContext.getCurrentInstance();
 //                ExternalContext ec = context.getExternalContext();
 //                HttpServletRequest request = (HttpServletRequest) ec.getRequest();
 //                String applicationPath = request.getServletContext().getRealPath("");
 //                String uploadFilePath = applicationPath + File.separator + UPLOAD_DIRECTORY_POSTER;
-        movie.setMovieID(setID());  
+        movie.setMovieID(setID());
 //        movie.setMovieName(uploadFilePath);
         return "create";
     }
-    
-     //create a movie
+
+    //create a movie
     public String createNewMovie() {
         try {
-            if(fileBanner != null && filePoster != null){
-                Movies m  = new Movies();
-                m.setMovieID(setID());
-                m.setMovieName(movie.getMovieName());
-                m.setStarring(movie.getStarring());
-                m.setLength(movie.getLength());
-                m.setReleaseDate(movie.getReleaseDate());
-                m.setContent(movie.getContent());
-                m.setCountry(movie.getCountry());
-                m.setLanguage(movie.getLanguage());
-                m.setDirector(movie.getDirector());
-                m.setTrailer(movie.getTrailer());
-                m.setNote(movie.getNote());
-                
-                m.setBanner(uploadFileBanner());
-                m.setPoster(uploadFilePoster());
-                moviesFacade.create(m);
-                resetForm();
-                
-                return "index";
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "index";
-    }
-     
-    //show details
-    public String showDetailsMovie(String id) {
-        Movies m = moviesFacade.find(id);
-        setMovie(m);
-        return "details";
-    }
-    
-    //load form edit
-     public String loadFormEdit(String id) {
-        Movies m = moviesFacade.find(id);
-        setMovie(m);
-        return "edit";
-    }
-     
-     //edit movie
-     public String editMovie(String id){
-         try {
-           Movies m  = new Movies();
+            if (fileBanner != null && filePoster != null) {
+                Movies m = new Movies();
                 m.setMovieID(setID());
                 m.setMovieName(movie.getMovieName());
                 m.setStarring(movie.getStarring());
@@ -151,41 +119,129 @@ public class MovieMB implements Serializable {
                 m.setTrailer(movie.getTrailer());
                 m.setNote(movie.getNote());
 
-            if (filePoster != null && fileBanner != null) {
-                deleteFileBanner(m.getBanner());
-                deleteFilePoster(m.getPoster());
                 m.setBanner(uploadFileBanner());
                 m.setPoster(uploadFilePoster());
-            } else {
-                m.setBanner(m.getBanner());
-                 m.setPoster(m.getPoster());
+                moviesFacade.create(m);
+
+                for (String c : categoryID) {
+                    int ca = Integer.parseInt(c);
+                    MovieGenresPK mgPK = new MovieGenresPK(ca, m.getMovieID());
+                    MovieGenres mg = new MovieGenres();
+                    mg.setMovieGenresPK(mgPK);
+                    mg.setNote(movieGenres.getNote());
+                    movieGenresFacade.create(mg);
+                }
+
+                resetForm();
+
+                return "index";
             }
-            moviesFacade.edit(m);
-            resetForm();
-           
-            return "index";
+
         } catch (Exception e) {
-           
+            e.printStackTrace();
         }
         return "index";
-     }
-     
-     //delete movie
-     public String deleteMovie(String id) {
+    }
+
+    //show details
+    public String showDetailsMovie(String id) {
+        Movies m = moviesFacade.find(id);
+        setMovie(m);
+
+        List<MovieGenres> list = movieGenresFacade.findByIDMovieID(id);
+        String[] arrCa = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arrCa[i] = list.get(i).getCategories().getCategoryName();
+        }
+        setCategoryID(arrCa);
+        return "details";
+    }
+
+    //load form edit
+    public String loadFormEdit(String id) {
+
+        Movies m = moviesFacade.find(id);
+        setMovie(m);
+
+        List<MovieGenres> list = movieGenresFacade.findByIDMovieID(id);
+        String[] arrCa = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arrCa[i] = list.get(i).getCategories().getCategoryName();
+        }
+        setCategoryID(arrCa);
+        return "edit";
+
+    }
+
+    //edit movie
+    public String editMovie(String id) {
+        try {
+            Movies m = moviesFacade.find(id);
+            m.setMovieName(movie.getMovieName());
+            m.setStarring(movie.getStarring());
+            m.setLength(movie.getLength());
+            m.setReleaseDate(movie.getReleaseDate());
+            m.setContent(movie.getContent());
+            m.setCountry(movie.getCountry());
+            m.setLanguage(movie.getLanguage());
+            m.setDirector(movie.getDirector());
+            m.setTrailer(movie.getTrailer());
+            m.setNote(movie.getNote());
+
+            if (fileBanner != null) {
+                deleteFileBanner(m.getBanner());
+
+                m.setBanner(uploadFileBanner());
+
+            } else {
+                m.setBanner(m.getBanner());
+
+            }
+            if (filePoster != null) {
+
+                deleteFilePoster(m.getPoster());
+
+                m.setPoster(uploadFilePoster());
+            } else {
+
+                m.setPoster(m.getPoster());
+            }
+            moviesFacade.edit(m);
+
+            for (String c : categoryID) {
+                int ca = Integer.parseInt(c);
+                MovieGenresPK mgPK = new MovieGenresPK(ca, m.getMovieID());
+                MovieGenres mg = new MovieGenres();
+                mg.setMovieGenresPK(mgPK);
+                mg.setNote(movieGenres.getNote());
+                movieGenresFacade.create(mg);
+            }
+            resetForm();
+
+            return "index";
+        } catch (Exception e) {
+
+        }
+        return "index";
+    }
+
+    //delete movie
+    public String deleteMovie(String id) {
         try {
             Movies m = moviesFacade.find(id);
             moviesFacade.remove(m);
             deleteFileBanner(m.getBanner());
             deleteFilePoster(m.getPoster());
-           
+
             return "index";
         } catch (Exception e) {
-           
+
         }
         return "index";
     }
+
     //upload banner
-  public String uploadFilePoster() {
+    public String uploadFilePoster() {
         String fileName = "";
         if (filePoster != null) {
             InputStream content = null;
@@ -194,7 +250,7 @@ public class MovieMB implements Serializable {
                 fileName = filePoster.getSubmittedFileName().substring(0, filePoster.getSubmittedFileName().lastIndexOf("."));
                 String extension = filePoster.getSubmittedFileName().substring(filePoster.getSubmittedFileName().lastIndexOf("."), filePoster.getSubmittedFileName().length());
                 fileName = fileName + date.getDate() + date.getMonth() + date.getYear() + date.getHours() + date.getMinutes() + date.getSeconds() + date.getTimezoneOffset() + extension;
-                
+
                 content = filePoster.getInputStream();
                 // Write content to disk or DB.
                 FacesContext context = FacesContext.getCurrentInstance();
@@ -247,7 +303,7 @@ public class MovieMB implements Serializable {
         return fileName;
 
     }
-    
+
     //upload poster
     public String uploadFileBanner() {
         String fileName = "";
@@ -258,7 +314,7 @@ public class MovieMB implements Serializable {
                 fileName = fileBanner.getSubmittedFileName().substring(0, fileBanner.getSubmittedFileName().lastIndexOf("."));
                 String extension = fileBanner.getSubmittedFileName().substring(fileBanner.getSubmittedFileName().lastIndexOf("."), fileBanner.getSubmittedFileName().length());
                 fileName = fileName + date.getDate() + date.getMonth() + date.getYear() + date.getHours() + date.getMinutes() + date.getSeconds() + date.getTimezoneOffset() + extension;
-                
+
                 content = fileBanner.getInputStream();
                 // Write content to disk or DB.
                 FacesContext context = FacesContext.getCurrentInstance();
@@ -311,7 +367,7 @@ public class MovieMB implements Serializable {
         return fileName;
 
     }
-   
+
     //delete banner
     public void deleteFileBanner(String s) {
         if (fileBanner != null) {
@@ -362,7 +418,7 @@ public class MovieMB implements Serializable {
 
         }
     }
-    
+
     //delete poster
     public void deleteFilePoster(String s) {
         if (filePoster != null) {
@@ -413,18 +469,20 @@ public class MovieMB implements Serializable {
 
         }
     }
-    public String setID(){
-        String character = (moviesFacade.getLastID()).substring(0,3);
-        String year = (calendar.get(Calendar.YEAR)+"").substring(2);
-        int number = Integer.parseInt((moviesFacade.getLastID().substring(5)))+1;
+
+    public String setID() {
+        String character = (moviesFacade.getLastID()).substring(0, 3);
+        String year = (calendar.get(Calendar.YEAR) + "").substring(2);
+        int number = Integer.parseInt((moviesFacade.getLastID().substring(5))) + 1;
         String movieID = character + year + (String.format("%04d", number));
         return movieID;
-    }   
-    
+    }
+
     //show all Categories
-    public List<Categories> showAllCategories(){
+    public List<Categories> showAllCategories() {
         return categoriesFacade.findAll();
     }
+
     public Movies getMovie() {
         return movie;
     }
@@ -457,5 +515,20 @@ public class MovieMB implements Serializable {
         this.category = category;
     }
 
-    
+    public String[] getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(String[] categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public MovieGenres getMovieGenres() {
+        return movieGenres;
+    }
+
+    public void setMovieGenres(MovieGenres movieGenres) {
+        this.movieGenres = movieGenres;
+    }
+
 }

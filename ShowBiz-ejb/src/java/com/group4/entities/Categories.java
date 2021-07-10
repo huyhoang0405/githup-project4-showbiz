@@ -8,6 +8,7 @@ package com.group4.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Categories.findByCategoryID", query = "SELECT c FROM Categories c WHERE c.categoryID = :categoryID")
     , @NamedQuery(name = "Categories.findByCategoryName", query = "SELECT c FROM Categories c WHERE c.categoryName = :categoryName")})
 public class Categories implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categories")
+    private Collection<MovieGenres> movieGenresCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -119,6 +124,15 @@ public class Categories implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.Categories[ categoryID=" + categoryID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<MovieGenres> getMovieGenresCollection() {
+        return movieGenresCollection;
+    }
+
+    public void setMovieGenresCollection(Collection<MovieGenres> movieGenresCollection) {
+        this.movieGenresCollection = movieGenresCollection;
     }
     
 }

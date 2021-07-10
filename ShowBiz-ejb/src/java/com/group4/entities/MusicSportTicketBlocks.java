@@ -8,6 +8,7 @@ package com.group4.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "MusicSportTicketBlocks.findByResidual", query = "SELECT m FROM MusicSportTicketBlocks m WHERE m.residual = :residual")
     , @NamedQuery(name = "MusicSportTicketBlocks.findByUnitPrice", query = "SELECT m FROM MusicSportTicketBlocks m WHERE m.unitPrice = :unitPrice")})
 public class MusicSportTicketBlocks implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "musicSportTicketBlocks")
+    private Collection<OrderMusicSportDetails> orderMusicSportDetailsCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -150,6 +155,15 @@ public class MusicSportTicketBlocks implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.MusicSportTicketBlocks[ musicSportTicketBlockID=" + musicSportTicketBlockID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<OrderMusicSportDetails> getOrderMusicSportDetailsCollection() {
+        return orderMusicSportDetailsCollection;
+    }
+
+    public void setOrderMusicSportDetailsCollection(Collection<OrderMusicSportDetails> orderMusicSportDetailsCollection) {
+        this.orderMusicSportDetailsCollection = orderMusicSportDetailsCollection;
     }
     
 }

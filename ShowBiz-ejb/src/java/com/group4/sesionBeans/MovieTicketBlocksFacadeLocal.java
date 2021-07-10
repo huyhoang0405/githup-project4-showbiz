@@ -5,7 +5,12 @@
  */
 package com.group4.sesionBeans;
 
+import com.group4.entities.Cinemas;
 import com.group4.entities.MovieTicketBlocks;
+import com.group4.entities.Movies;
+import com.group4.entities.TicketTypes;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +34,23 @@ public interface MovieTicketBlocksFacadeLocal {
     List<MovieTicketBlocks> findRange(int[] range);
 
     int count();
+    
+    String getLastID();
+    
+    Collection showAllBlock();
+    
+    List<MovieTicketBlocks> findByMovieID(Movies id);
+    
+    MovieTicketBlocks findByMovieID(String id);
+    
+    List<MovieTicketBlocks> findByCinemaID(Cinemas id);
+    
+    MovieTicketBlocks findByCinemaID(Integer id);
+    
+    List<MovieTicketBlocks> findByTicketID(TicketTypes id);
+    
+    MovieTicketBlocks findByTicketID(Integer id);
+    
+    List<MovieTicketBlocks> findByDate(Date id);
     
 }

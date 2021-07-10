@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -48,6 +49,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Movies.findByBanner", query = "SELECT m FROM Movies m WHERE m.banner = :banner")
     , @NamedQuery(name = "Movies.findByNote", query = "SELECT m FROM Movies m WHERE m.note = :note")})
 public class Movies implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movies")
+    private Collection<MovieGenres> movieGenresCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -249,6 +253,15 @@ public class Movies implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.Movies[ movieID=" + movieID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<MovieGenres> getMovieGenresCollection() {
+        return movieGenresCollection;
+    }
+
+    public void setMovieGenresCollection(Collection<MovieGenres> movieGenresCollection) {
+        this.movieGenresCollection = movieGenresCollection;
     }
     
 }

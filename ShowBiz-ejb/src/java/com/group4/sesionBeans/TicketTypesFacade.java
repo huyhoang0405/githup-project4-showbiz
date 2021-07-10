@@ -9,6 +9,7 @@ import com.group4.entities.TicketTypes;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +29,10 @@ public class TicketTypesFacade extends AbstractFacade<TicketTypes> implements Ti
     public TicketTypesFacade() {
         super(TicketTypes.class);
     }
-    
+    @Override
+    public TicketTypes findByID(Integer id){
+        Query query = em.createQuery("SELECT DISTINCT t FROM TicketTypes t WHERE t.ticketTypeID = :ticketTypeID");
+        query.setParameter("ticketTypeID", id);
+        return (TicketTypes) query.getResultList();
+    }
 }

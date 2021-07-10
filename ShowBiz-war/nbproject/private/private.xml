@@ -3,20 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/movies/index.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/layout/admin/common.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/movies/create.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/src/java/com/group4/manageBean/MoviesDisplayMB.java</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/movies/details.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/src/java/com/group4/manageBean/PaymentMB.java</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/admin/movies/edit.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/resources/client/js/simplePlayer.js</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/src/java/com/group4/manageBean/MovieMB.java</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/index.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/layout/admin/sildebar.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/client/movies/index.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/layout/client/header.xhtml</file>
-            <file>file:/F:/Project%204/ShowBiz/ShowBiz-war/web/layout/client/common.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/movieBlock/index.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/movies/details.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/movies/create.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/movies/edit.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/movies/details.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/MovieBlockMB.java</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/MovieMB.java</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/cinemas/create.xhtml</file>
         </group>
     </open-files>
 </project-private>

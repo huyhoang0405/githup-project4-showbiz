@@ -5,7 +5,8 @@
    xmlns:h = "http://java.sun.com/jsf/html"
    xmlns:ui = "http://java.sun.com/jsf/facelets"
    xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-   xmlns:f="http://xmlns.jcp.org/jsf/core">
+   xmlns:f="http://xmlns.jcp.org/jsf/core"
+   xmlns:jsf="http://xmlns.jcp.org/jsf">
     <h:head>
         
     </h:head>
@@ -46,17 +47,15 @@
                                             </div>
                                                 </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                <label>Starring:</label>                                           
-                                                <h:selectManyListbox   required="true"  value="#{movieMB.category.categoryID}" class="form-control">
-                                                       
-                                                        <f:selectItems value="#{movieMB.showAllCategories()}" var="category" itemLabel="#{category.categoryName}" itemValue="#{category.categoryID}"/>
-                                                    </h:selectManyListbox >  
+                                         <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <label>Genre<h:inputText value="#{movieMB.movieGenres.note}" style="display: none" /></label>                                           
+                                                    <h:selectManyCheckbox p:multiple="true" class="form-group-sm list-group" layout="pageDirection"  required="true"  value="#{movieMB.categoryID}">
+                                  
+                                                        <f:selectItems value="#{movieMB.showAllCategories()}" class="list-group-item form-control" var="category" itemLabel="#{category.categoryName}" itemValue="#{category.categoryID}"/>
+                                                    </h:selectManyCheckbox>    
                                                 </div>
-                                                </div>
-                                        </div>
+                                            </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
