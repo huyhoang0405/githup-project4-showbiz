@@ -44,7 +44,7 @@ public class AreaMB implements Serializable {
     //display form create a new area
     public String loadFormCreateNew() {
         resetForm();
-        return "create";
+        return "create?faces-redirect=true";
     }
 
     //create a new area
@@ -54,25 +54,25 @@ public class AreaMB implements Serializable {
             a.setAreaName(area.getAreaName());
             areasFacade.create(a);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     //details of an area
     public String showDetailsArea(int id) {
         Areas a = areasFacade.find(id);
         setArea(a);
-        return "details";
+        return "details?faces-redirect=true";
     }
 
     //load form edit 
     public String loadFormEdit(int id) {
         Areas a = areasFacade.find(id);
         setArea(a);
-        return "edit";
+        return "edit?faces-redirect=true";
     }
 
     //edit an area
@@ -82,11 +82,11 @@ public class AreaMB implements Serializable {
             a.setAreaName(area.getAreaName());
             areasFacade.edit(a);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     //delete an area

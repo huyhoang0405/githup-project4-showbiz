@@ -50,7 +50,7 @@ public class CinemaMB implements Serializable {
     public String showDetailsCinema(int id) {
         Cinemas c = cinemasFacade.find(id);
         setCinema(c);
-        return "details";
+        return "details?faces-redirect=true";
     }
 
     //reset form
@@ -62,7 +62,7 @@ public class CinemaMB implements Serializable {
     //load form create a new cinema
     public String loadFormCreateNew() {
         resetForm();
-        return "create";
+        return "create?faces-redirect=true";
     }
 
     //create a new cinema
@@ -75,11 +75,11 @@ public class CinemaMB implements Serializable {
 
             cinemasFacade.create(c);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     //load form edit
@@ -87,7 +87,7 @@ public class CinemaMB implements Serializable {
         Cinemas c = cinemasFacade.find(id);
         setCinema(c);
         setPlaceID(c.getPlacesID().getPlacesID());
-        return "edit";
+        return "edit?faces-redirect=true";
     }
     
     //edit an place
@@ -99,11 +99,11 @@ public class CinemaMB implements Serializable {
             c.setPlacesID(placesFacade.find(placeID));
             cinemasFacade.edit(c);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
     
     //delete a cinema

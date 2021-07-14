@@ -49,14 +49,14 @@ public class MovieTicketBlocksFacade extends AbstractFacade<MovieTicketBlocks> i
     }
     
     @Override
-    public List<MovieTicketBlocks> findByMovieID(Movies id){
-        Query query = em.createQuery("SELECT DISTINCT m  From MovieTicketBlocks m WHERE m.movieID =:movieID");
+    public List<Cinemas> findByMovieID(Movies id){
+        Query query = em.createQuery("SELECT DISTINCT (m.cinemaID)  From MovieTicketBlocks m WHERE m.movieID =:movieID");
         query.setParameter("movieID", id);
         return query.getResultList();
     }
     @Override
     public MovieTicketBlocks findByMovieID(String id){
-        Query query = em.createQuery("SELECT DISTINCT m From MovieTicketBlocks m WHERE m.movieID =:movieID");
+        Query query = em.createQuery("SELECT DISTINCT m.movieID From MovieTicketBlocks m WHERE m.movieID =:movieID");
         query.setParameter("movieID", id);
         return (MovieTicketBlocks) query.getSingleResult();
     }
@@ -67,27 +67,46 @@ public class MovieTicketBlocksFacade extends AbstractFacade<MovieTicketBlocks> i
         return query.getResultList();
     }
     @Override
-    public MovieTicketBlocks findByCinemaID(Integer id){
-        Query query = em.createQuery("SELECT DISTINCT m From MovieTicketBlocks m WHERE m.cinemaID =:cinemaID");
-        query.setParameter("cinemaID", id);
-        return (MovieTicketBlocks) query.getSingleResult();
+    public List<MovieTicketBlocks> findByCinemaID(Movies movieID,Cinemas cinemaID){
+        Query query = em.createQuery("SELECT m From MovieTicketBlocks m WHERE m.movieID = :movieID AND m.cinemaID =:cinemaID ");
+        query.setParameter("cinemaID", cinemaID);
+        query.setParameter("movieID", movieID);
+       // return query.getSingleResult();
+        return query.setMaxResults(1).getResultList();
     }
     @Override
-    public List<MovieTicketBlocks> findByTicketID(TicketTypes id){
-        Query query = em.createQuery("SELECT m From MovieTicketBlocks m WHERE m.ticketTypeID =:ticketTypeID");
-        query.setParameter("ticketTypeID", id);
+    public List<MovieTicketBlocks> findByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID){
+        Query query = em.createQuery("SELECT m From MovieTicketBlocks m WHERE m.cinemaID =:cinemaID AND m.movieID = :movieID and m.ticketTypeID =:ticketTypeID");
+        query.setParameter("cinemaID", cinemaID);
+        query.setParameter("movieID", movieID);
+        query.setParameter("ticketTypeID", ticketID);
         return query.getResultList();
     }
     @Override
-     public MovieTicketBlocks findByTicketID(Integer id){
-        Query query = em.createQuery("SELECT DISTINCT m From MovieTicketBlocks m WHERE m.ticketTypeID =:ticketTypeID");
-        query.setParameter("ticketTypeID", id);
-        return (MovieTicketBlocks) query.getSingleResult();
+     public List<MovieTicketBlocks> selectType(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time){
+        Query query = em.createQuery("SELECT DISTINCT m From MovieTicketBlocks m WHERE m.cinemaID =:cinemaID AND m.movieID = :movieID and m.ticketTypeID =:ticketTypeID and m.date =:date and m.time =:time");
+        query.setParameter("cinemaID", cinemaID);
+        query.setParameter("movieID", movieID);
+        query.setParameter("date", date);
+        query.setParameter("time", time);
+        query.setParameter("ticketTypeID", ticketID);
+        return  query.getResultList();
     }
     @Override
-    public List<MovieTicketBlocks> findByDate(Date id){
-        Query query = em.createQuery("SELECT DISTINCT m From MovieTicketBlocks m WHERE m.date =:date");
+    public List<MovieTicketBlocks> findByDate(Movies movieID,Cinemas cinemaID,Date id){
+        Query query = em.createQuery("SELECT DISTINCT m From MovieTicketBlocks m WHERE m.movieID = :movieID AND m.cinemaID =:cinemaID and m.date =:date");
+        query.setParameter("cinemaID", cinemaID);
+        query.setParameter("movieID", movieID);
         query.setParameter("date", id);
+        return query.getResultList();
+    }
+    @Override
+    public List<MovieTicketBlocks> findByTime(Movies movieID,Cinemas cinemaID,Date date,String time){
+        Query query = em.createQuery("SELECT DISTINCT m From MovieTicketBlocks m WHERE m.movieID = :movieID AND m.cinemaID =:cinemaID AND m.date =:date AND m.time =:time");
+        query.setParameter("cinemaID", cinemaID);
+        query.setParameter("movieID", movieID);
+        query.setParameter("date", date);
+        query.setParameter("time", time);
         return query.getResultList();
     }
 }

@@ -30,4 +30,5 @@ public interface OrdersFacadeLocal {
 
     int count();
     
+    String getLastID();
 }

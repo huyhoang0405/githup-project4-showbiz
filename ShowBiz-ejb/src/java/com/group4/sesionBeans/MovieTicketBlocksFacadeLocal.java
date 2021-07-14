@@ -34,23 +34,24 @@ public interface MovieTicketBlocksFacadeLocal {
     List<MovieTicketBlocks> findRange(int[] range);
 
     int count();
-    
+
     String getLastID();
-    
+
     Collection showAllBlock();
-    
-    List<MovieTicketBlocks> findByMovieID(Movies id);
-    
+
+    List<Cinemas> findByMovieID(Movies id);
+
     MovieTicketBlocks findByMovieID(String id);
-    
+
     List<MovieTicketBlocks> findByCinemaID(Cinemas id);
-    
-    MovieTicketBlocks findByCinemaID(Integer id);
-    
-    List<MovieTicketBlocks> findByTicketID(TicketTypes id);
-    
-    MovieTicketBlocks findByTicketID(Integer id);
-    
-    List<MovieTicketBlocks> findByDate(Date id);
-    
+
+    List<MovieTicketBlocks> findByCinemaID(Movies movieID, Cinemas cinemaID);
+
+    List<MovieTicketBlocks> findByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID);
+
+    List<MovieTicketBlocks> selectType(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time);
+
+    List<MovieTicketBlocks> findByDate(Movies movieID, Cinemas cinemaID, Date id);
+    List<MovieTicketBlocks> findByTime(Movies movieID,Cinemas cinemaID,Date date,String time);
+
 }

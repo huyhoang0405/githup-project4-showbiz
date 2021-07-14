@@ -1,0 +1,108 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template = "/layout/guest/common.xhtml">  
+            <ui:define name="content">
+                <h:form>
+                    <img class="img-banner" jsf:value="/resources/client/images/banner/#{moviesDisplayMB.movie.banner}" alt=" "/>
+                    <div class="single-page-agile-main">
+                        <div class="container">
+                            <div class="single-page-agile-info">
+                                <div class="col-sm-8 single-left">
+
+                                    <div class="col-md-4 single-left">
+                                        <img class="img-poster" jsf:value="/resources/client/images/poster/#{moviesDisplayMB.movie.poster}" alt=" "/>
+                                    </div>
+                                    <div class="col-sm-1 single-main">
+                                    </div>
+                                    <div class="col-sm-7 single-left">
+
+                                        <p class="fexi_header">#{moviesDisplayMB.movie.movieName}</p>
+                                        <p class="fexi_header_para" style="color: #000"><span>Director<label>:</label></span>#{moviesDisplayMB.movie.director}</p>
+                                        <p class="fexi_header_para" style="color: #000"><span>Starring<label>:</label></span>#{moviesDisplayMB.movie.starring}</p>
+                                        <p class="fexi_header_para" style="color: #000"><span>Genre<label>:</label></span>asdadasd</p>
+                                        <p class="fexi_header_para" style="color: #000"><span>Country<label>:</label></span>#{moviesDisplayMB.movie.country}</p>
+                                        <p class="fexi_header_para" style="color: #000"><span>Length<label>:</label></span>#{moviesDisplayMB.movie.length} minutes</p>
+                                        <p class="fexi_header_para" style="color: #000"><span>Release<label>:</label></span><h:outputText value="#{moviesDisplayMB.movie.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></p>
+
+                                    </div>
+                                    <div class="col-sm-12 single-main">
+                                        <h4><strong>Content</strong></h4>
+                                        <p class="fexi_header_para" style="color: #000">#{moviesDisplayMB.movie.content}</p>
+                                    </div>
+                                    <div class="col-sm-12 single-main">
+                                        <div class="video-grid-single-page-agileits">
+                                            <div data-video="#{moviesDisplayMB.movie.trailer}" id="video"> <img jsf:value="/resources/client/images/banner/#{moviesDisplayMB.movie.banner}" alt="#{moviesDisplayMB.movie.movieName}" class=""  height="auto"/> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 single-right">
+                                    <h4>Book ticket</h4>
+                                    <div class="single-grid-right">
+
+                                        <div class="single-right-grids">
+                                            <div class="col-md-5 single-right-grid-left">
+
+                                                <h:selectOneMenu  required="true"  value="#{movieBlockMB.cinemaID}" class="form-control">
+                                                    <f:ajax listener="#{movieBlockMB.changeCinema()}" render="typeTikcet"/>
+                                                    <f:selectItem itemLabel="Cinema" itemValue="Null"/>
+                                                    <f:selectItems value="#{movieBlockMB.showByMovieID(moviesDisplayMB.movie)}" var="movie" itemLabel="#{movie.cinemaID.cinemaName}" itemValue="#{movie.cinemaID.cinemaID}"/>
+                                                </h:selectOneMenu>  
+                                            </div>
+
+                                            <div class="col-md-5 single-right-grid-right">
+                                                <h:selectOneMenu id="typeTikcet"  required="true"  value="#{movieBlockMB.ticketID}" class="form-control">
+                                                    <f:ajax listener="#{movieBlockMB.changeTicket()}" render="date"/>
+                                                    <f:selectItem itemLabel="Ticket type" itemValue="Null"/>
+                                                    <f:selectItems value="#{movieBlockMB.blockChoosen()}" var="movie" itemLabel="#{movie.ticketTypeID.ticketTypeName}" itemValue="#{movie.ticketTypeID.ticketTypeID}"/>
+                                                </h:selectOneMenu>  
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                    <div class="single-grid-right">
+
+                                        <div class="single-right-grids">
+                                            <div class="col-md-5 single-right-grid-left">
+
+                                                <h:selectOneMenu id="date" required="true" p:type="date"  value="#{movieBlockMB.movieTicketBlock.date}" class="form-control">
+                                                    <f:ajax listener="#{movieBlockMB.changeDate()}" render="time"/>
+                                                    <f:selectItem itemLabel="Date" itemValue="Null"/>
+                                                    <f:selectItems value="#{movieBlockMB.blockChoosen()}" var="movie" itemLabel="#{movie.date.toGMTString().substring(0,12)}" itemValue="#{movie.date}"/>
+
+
+                                                </h:selectOneMenu>  
+                                            </div>
+
+                                            <div class="col-md-5 single-right-grid-right">
+                                                <h:selectOneMenu id="time" required="true"  value="#{movieBlockMB.movieTicketBlock.time}" class="form-control">
+
+                                                    <f:selectItem itemLabel="Time" itemValue="Null"/>
+                                                    <f:selectItems value="#{movieBlockMB.blockChoosen()}" var="movie" itemLabel="#{movie.time}" itemValue="#{movie.time}"/>
+                                                </h:selectOneMenu>  
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

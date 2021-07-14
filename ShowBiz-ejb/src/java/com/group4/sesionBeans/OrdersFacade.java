@@ -9,6 +9,7 @@ import com.group4.entities.Orders;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +29,8 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
     public OrdersFacade() {
         super(Orders.class);
     }
-    
+    public String getLastID() {
+        Query query = em.createQuery("SELECT MAX (o.orderID) FROM Orders o");
+        return query.getSingleResult().toString();
+    }
 }

@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template = "/layout/client/common.xhtml">  
+            <ui:define name="content">
+                <h:form>
+                    <img class="img-banner" jsf:value="/resources/client/images/banner/#{bookMovieMB.movie.banner}" alt=" "/>
+                    <div class="single-page-agile-main">
+                        <div class="container">
+                            <div class="single-page-agile-info">
+                                <div class="col-sm-3 single-right">
+                                    asdasda
+
+                                </div>
+                                <div class="col-sm-6 single-main">
+                                    <h3>#{bookMovieMB.movie.movieName}</h3>
+                                    <div class="form-module">
+                                        <div class="">
+                                            <div class=""></div>
+                                        </div>
+
+                                        <div class="form">
+                                            <h3>Create an account</h3>
+                                            <div class="form-module">
+                                                <h:selectOneMenu  required="true"  value="#{bookMovieMB.cinemaID}" class="form-control">
+                                            
+                                                     <f:ajax listener="#{bookMovieMB.changeCinema(bookMovieMB.movie)}" render="type"/>
+                                                    <f:selectItem itemLabel="Cinema" itemValue="Null"/>
+                                                    <f:selectItems value="#{bookMovieMB.showByMovieID(bookMovieMB.movie)}" var="movie" itemLabel="#{movie.cinemaName}" itemValue="#{movie.cinemaID}"/>
+                                                </h:selectOneMenu>  
+                                            </div>
+                                            <div class="form-module">
+
+                                                <h:inputText p:type="date" id="date" value="#{bookMovieMB.movieTicketBlock.date}" class="form-control">
+                                                    <f:ajax listener="#{bookMovieMB.changeDate(bookMovieMB.movie)}" render="time"/>
+                                                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                    </h:inputText> 
+                                            </div>
+                                            <div class="form-module">
+                                                <h:selectOneMenu id="time" required="true"  value="#{bookMovieMB.time}" class="form-control">
+                                                    <f:ajax listener="#{bookMovieMB.changeTime(moviesDisplayMB.movie)}" render="quanlity"/>
+                                                    <f:selectItem itemLabel="Time" itemValue="Null"/>
+                                                    <f:selectItems value="#{bookMovieMB.blockChoosen()}" var="movie" itemLabel="#{movie.time}" itemValue="#{movie.time}"/>
+                                                </h:selectOneMenu>  
+                                            </div>
+                                            <div class="form-module">
+                                                <h:selectOneMenu id="type"  required="true"  value="#{bookMovieMB.ticketID}" class="form-control">
+                                                    <f:ajax listener="#{bookMovieMB.changeTicket(moviesDisplayMB.movie)}" render="quanlity"/>
+                                                    <f:selectItem itemLabel="Ticket type" itemValue="Null"/>
+                                                    <f:selectItems value="#{bookMovieMB.blockChoosen()}" var="movie" itemLabel="#{movie.ticketTypeID.ticketTypeName}" itemValue="#{movie.ticketTypeID.ticketTypeID}"/>
+                                                </h:selectOneMenu>  
+                                            </div>
+                                            <div class="form-control-static">
+                                                <h:inputText p:type="number" id="quanlity" p:placeholder="Quanlity" p:min="1" p:max="10" value="#{bookMovieMB.quanlity}" class="form-control">
+                                                    <f:ajax listener="#{bookMovieMB.changeQuanlity(bookMovieMB.movie)}" render="price"/>
+                                                </h:inputText>
+                                            </div>
+                                            <h:inputText p:type="text" id="price" p:readonly="true" p:placeholder="Email Address" value="#{bookMovieMB.displayPrice()}"/>
+                                            <div class="form-module">
+                                                <h:selectOneMenu  required="true"  value="#{bookMovieMB.paymentID}" class="form-control">
+
+                                                    <f:selectItem itemLabel="Payment" itemValue="Null"/>
+                                                    <f:selectItems value="#{bookMovieMB.showAllPayments()}" var="payment" itemLabel="#{payment.paymentName}" itemValue="#{payment.paymentID}"/>
+                                                </h:selectOneMenu>  
+                                            </div>
+                                           
+                                            <h:commandButton action="#{bookMovieMB.bookMovie(bookMovieMB.movie)}" value="Back"/>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-3 single-right">
+                                    <h4>Book ticket</h4>
+
+                                </div>
+                            </div>
+                        </div> 
+                    </div> 
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

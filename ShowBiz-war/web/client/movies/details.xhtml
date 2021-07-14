@@ -35,7 +35,7 @@
                                         <p class="fexi_header_para" style="color: #000"><span>Country<label>:</label></span>#{moviesDisplayMB.movie.country}</p>
                                         <p class="fexi_header_para" style="color: #000"><span>Length<label>:</label></span>#{moviesDisplayMB.movie.length} minutes</p>
                                         <p class="fexi_header_para" style="color: #000"><span>Release<label>:</label></span><h:outputText value="#{moviesDisplayMB.movie.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></p>
-
+                                        <button jsf:action="#{bookMovieMB.bookDetail(moviesDisplayMB.movie.movieID)}">Book ticket</button>
                                     </div>
                                     <div class="col-sm-12 single-main">
                                         <h4><strong>Content</strong></h4>
@@ -54,19 +54,11 @@
                                         <div class="single-right-grids">
                                             <div class="col-md-5 single-right-grid-left">
 
-                                                <h:selectOneMenu  required="true"  value="#{movieBlockMB.cinemaID}" class="form-control">
-                                                    <f:ajax listener="#{movieBlockMB.changeCinema()}" render="typeTikcet"/>
-                                                    <f:selectItem itemLabel="Cinema" itemValue="Null"/>
-                                                    <f:selectItems value="#{movieBlockMB.showByMovieID(moviesDisplayMB.movie)}" var="movie" itemLabel="#{movie.cinemaID.cinemaName}" itemValue="#{movie.cinemaID.cinemaID}"/>
-                                                </h:selectOneMenu>  
+                                               
                                             </div>
 
                                             <div class="col-md-5 single-right-grid-right">
-                                                <h:selectOneMenu id="typeTikcet"  required="true"  value="#{movieBlockMB.ticketID}" class="form-control">
-                                                    <f:ajax listener="#{movieBlockMB.changeTicket()}" render="date"/>
-                                                    <f:selectItem itemLabel="Ticket type" itemValue="Null"/>
-                                                    <f:selectItems value="#{movieBlockMB.blockChoosen()}" var="movie" itemLabel="#{movie.ticketTypeID.ticketTypeName}" itemValue="#{movie.ticketTypeID.ticketTypeID}"/>
-                                                </h:selectOneMenu>  
+                                               
                                             </div>
                                         </div>
                                         <div class="clearfix"> </div>
@@ -76,28 +68,22 @@
                                         <div class="single-right-grids">
                                             <div class="col-md-5 single-right-grid-left">
 
-                                                <h:selectOneMenu id="date" required="true" p:type="date"  value="#{movieBlockMB.movieTicketBlock.date}" class="form-control">
-                                                    <f:ajax listener="#{movieBlockMB.changeDate()}" render="time"/>
-                                                    <f:selectItem itemLabel="Date" itemValue="Null"/>
-                                                    <f:selectItems value="#{movieBlockMB.blockChoosen()}" var="movie" itemLabel="#{movie.date.toGMTString().substring(0,12)}" itemValue="#{movie.date}"/>
 
-
-                                                </h:selectOneMenu>  
+                                             
                                             </div>
 
                                             <div class="col-md-5 single-right-grid-right">
-                                                <h:selectOneMenu id="time" required="true"  value="#{movieBlockMB.movieTicketBlock.time}" class="form-control">
 
-                                                    <f:selectItem itemLabel="Time" itemValue="Null"/>
-                                                    <f:selectItems value="#{movieBlockMB.blockChoosen()}" var="movie" itemLabel="#{movie.time}" itemValue="#{movie.time}"/>
-                                                </h:selectOneMenu>  
+                                              
                                             </div>
                                         </div>
                                     </div>
-
+                                  
+                                   
+                                  
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div> 
 
                 </h:form>

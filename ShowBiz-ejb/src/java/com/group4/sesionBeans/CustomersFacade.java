@@ -6,9 +6,11 @@
 package com.group4.sesionBeans;
 
 import com.group4.entities.Customers;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,11 @@ public class CustomersFacade extends AbstractFacade<Customers> implements Custom
         super(Customers.class);
     }
     
+    public boolean login(String un,String pw){
+        Query query = em.createQuery("SELECT c FROM Customers c WHERE c.customerUsername = :un AND c.password = :pw");
+        query.setParameter("un", un);
+        query.setParameter("pw", pw);
+        List<Customers> list = query.getResultList();
+        return list.size() > 0;
+    }
 }

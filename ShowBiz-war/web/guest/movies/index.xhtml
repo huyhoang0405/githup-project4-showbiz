@@ -1,0 +1,247 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template = "/layout/guest/common.xhtml">  
+            <ui:define name="content">
+                <div class="general">
+                    <h4 class="latest-text w3_latest_text">Featured Movies</h4>
+                    <div class="container">
+                        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">All</a></li>
+                                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Top 8</a></li>
+                                <li role="presentation"><a href="#rating" id="rating-tab" role="tab" data-toggle="tab" aria-controls="rating" aria-expanded="true">Top 5 Newest</a></li>
+                                <li role="presentation"><a href="#imdb" role="tab" id="imdb-tab" data-toggle="tab" aria-controls="imdb" aria-expanded="false">Recently Added</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                                  <div class="w3_agile_featured_movies">
+                                      <h:form>
+                                      <c:forEach items="#{moviesDisplayMB.showAllMovies()}" var="m">
+                                            <div>
+                                            <div class="col-md-3 col-sm-3 col-xs-6 w3l-movie-gride-agile">
+                                                <a jsf:action="#{moviesDisplayMB.showDetailsMovie(m.movieID)}" class="hvr-shutter-out-horizontal btn-link"><img jsf:value="/resources/client/images/poster/#{m.poster}" title="#{m.movieName}" class="img-responsive" alt=" " />
+                                                    <div class="w3l-action-icon"><i class="fa fa-ticket" aria-hidden="true"></i></div>
+                                                </a>
+                                                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                    <div class="w3l-movie-text">
+                                                        <h6 class="three-line-paragraph"><a href="single.html">#{m.movieName}</a></h6>					
+                                                    </div>
+
+                                                    <div class="mid-2 agile_mid_2_home" >
+                                                        <h5>Release date: <h:outputText value="#{m.releaseDate}">  <f:convertDateTime pattern="MMM-dd-yyyy" /></h:outputText></h5>
+                                                        
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="ribben">
+                                                    <p>NEW</p>
+                                                </div>
+                                            </div>
+                                            
+                                            </div>
+                                        </c:forEach>
+                                          </h:form>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+                                    <c:forEach items="#{moviesDisplayMB.show8Movies()}" var="m">
+                                            <div class="col-md-3 w3l-movie-gride-agile">
+                                                <a href="single.html" class="hvr-shutter-out-horizontal"><img jsf:value="/resources/client/images/poster/#{m.poster}" title="album-name" class="img-responsive" alt=" " />
+                                                    <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                                </a>
+                                                <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                    <div class="w3l-movie-text">
+                                                        <h6><a href="single.html">#{m.movieName}</a></h6>					
+                                                    </div>
+
+                                                    <div class="mid-2 agile_mid_2_home">
+                                                        <h5> <h:outputText value="#{m.releaseDate}">  <f:convertDateTime pattern="yyyy-MM-dd" /></h:outputText></h5>
+                                                        
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="ribben">
+                                                    <p>NEW</p>
+                                                </div>
+                                            </div>
+                                         
+                                        </c:forEach>
+                                    <div class="clearfix"> </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="rating" aria-labelledby="rating-tab">
+                                    <c:forEach items="#{moviesDisplayMB.show5NewestMovies()}" var="m">
+                                    <div class="col-md-3 w3l-movie-gride-agile">
+                                        <a href="single.html" class="hvr-shutter-out-horizontal"><img jsf:value="/resources/client/images/poster/#{m.poster}" title="album-name" class="img-responsive" alt=" " />
+                                            <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                        </a>
+                                        <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                            <div class="w3l-movie-text">
+                                                <h6 class="three-line-paragraph"><a href="single.html">#{m.movieName}</a></h6>							
+                                            </div>
+                                            <div class="mid-2 agile_mid_2_home">
+                                                <h5>Release date: <h:outputText value="#{m.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></h5>
+                                                
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ribben">
+                                            <p>NEW</p>
+                                        </div>
+                                    </div>
+                                   </c:forEach>
+                                    <div class="clearfix"> </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="imdb" aria-labelledby="imdb-tab">
+                                    <div class="col-md-2 w3l-movie-gride-agile">
+                                        <a href="single.html" class="hvr-shutter-out-horizontal"><img src="/resources/client/images/m22.jpg" title="album-name" class="img-responsive" alt=" " />
+                                            <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                        </a>
+                                        <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                            <div class="w3l-movie-text">
+                                                <h6><a href="single.html">Assassin's Creed 3</a></h6>							
+                                            </div>
+                                            <div class="mid-2 agile_mid_2_home">
+                                                <p>2016</p>
+                                                <div class="block-stars">
+                                                    <ul class="w3l-ratings">
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ribben">
+                                            <p>NEW</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 w3l-movie-gride-agile">
+                                        <a href="single.html" class="hvr-shutter-out-horizontal"><img src="/resources/client/images/m2.jpg" title="album-name" class="img-responsive" alt=" " />
+                                            <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                        </a>
+                                        <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                            <div class="w3l-movie-text">
+                                                <h6><a href="single.html">Bad Moms</a></h6>							
+                                            </div>
+                                            <div class="mid-2 agile_mid_2_home">
+                                                <p>2016</p>
+                                                <div class="block-stars">
+                                                    <ul class="w3l-ratings">
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ribben">
+                                            <p>NEW</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 w3l-movie-gride-agile">
+                                        <a href="single.html" class="hvr-shutter-out-horizontal"><img src="/resources/client/images/m9.jpg" title="album-name" class="img-responsive" alt=" " />
+                                            <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                        </a>
+                                        <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                            <div class="w3l-movie-text">
+                                                <h6><a href="single.html">Central Intelligence</a></h6>							
+                                            </div>
+                                            <div class="mid-2 agile_mid_2_home">
+                                                <p>2016</p>
+                                                <div class="block-stars">
+                                                    <ul class="w3l-ratings">
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ribben">
+                                            <p>NEW</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 w3l-movie-gride-agile">
+                                        <a href="single.html" class="hvr-shutter-out-horizontal"><img jsf:value="/resources/client/images/m10.jpg" title="album-name" class="img-responsive" alt=" " />
+                                            <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                        </a>
+                                        <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                            <div class="w3l-movie-text">
+                                                <h6><a href="single.html">Don't Think Twice</a></h6>							
+                                            </div>
+                                            <div class="mid-2 agile_mid_2_home">
+                                                <p>2016</p>
+                                                <div class="block-stars">
+                                                    <ul class="w3l-ratings">
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ribben">
+                                            <p>NEW</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 w3l-movie-gride-agile">
+                                        <a href="single.html" class="hvr-shutter-out-horizontal"><h:graphicImage value="/resources/client/images/poster/TheSuicideSquad2.jpg" title="album-name" width="80px" height="50px" class="img-responsive" alt=" " />
+                                            <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                        </a>
+                                        <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                            <div class="w3l-movie-text">
+                                                <h6><a href="single.html">Dead Island 2</a></h6>							
+                                            </div>
+                                            <div class="mid-2 agile_mid_2_home">
+                                                <p>2016</p>
+                                                <div class="block-stars">
+                                                    <ul class="w3l-ratings">
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ribben">
+                                            <p>NEW</p>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
