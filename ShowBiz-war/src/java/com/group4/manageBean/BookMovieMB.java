@@ -79,12 +79,19 @@ public class BookMovieMB implements Serializable {
     private Integer cinemaID;
     private String movieID;
     private Integer ticketID;
-    private String notice;
     private boolean check;
     final Calendar calendar = Calendar.getInstance();
     private Integer quanlity = new Integer(1);
-    private Long price;
+    private Long price = new Long(0);
     private String time;
+    private Date date;
+
+    private String noticeCinema;
+    private String noticeDate;
+    private String noticeTime;
+    private String noticeTicket;
+    private String noticePrice;
+    private String noticePayment;
 
     public BookMovieMB() {
         movieTicketBlock = new MovieTicketBlocks();
@@ -98,7 +105,7 @@ public class BookMovieMB implements Serializable {
     }
 
     public void changeQuanlity(Movies movieID) {
-        price = unitPrice(movieID, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), movieTicketBlock.getDate(), time) * quanlity;
+        price = unitPrice(movieID, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), date, time) * quanlity;
     }
 
     public Long displayPrice() {
@@ -106,30 +113,56 @@ public class BookMovieMB implements Serializable {
     }
 
     public String bookMovie(Movies movie) {
-        Orders od = new Orders();
-        List<MovieTicketBlocks> list = movieTicketBlocksFacade.selectType(movie,cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), movieTicketBlock.getDate(), time);
-        try {
-            od.setOrderID(setIDOrder());
-            od.setDateOfPurchase(calendar.getTime());
-            od.setTotalPrice(price);
-            od.setCustomerUsername(customersFacade.find(loginMB.getCustomer().getCustomerUsername()));
-            od.setPaymentID(paymentsFacade.find(paymentID));
-            ordersFacade.create(od);
+        if (cinemaID.equals(0)) {
+            noticeCinema = "Please choose a cinema!";
+            return "book";
+        } else if (time.equals("0")) {
+            noticeTime = "Please choose a timezone!";
+            return "book";
+        } else if (ticketID.equals(0)) {
+            noticeTicket = "Please choose ticket type!";
+            return "book";
+        } else {
+            Orders od = new Orders();
+            List<MovieTicketBlocks> list = movieTicketBlocksFacade.selectType(movie, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), date, time);
+            try {
+                od.setOrderID(setIDOrder());
+                od.setDateOfPurchase(calendar.getTime());
+                if (price.equals(0)) {
+                    noticePrice = "Total price can't be 0!";
+                    return "book";
+                } else {
+                    od.setTotalPrice(price);
+                    od.setCustomerUsername(customersFacade.find(loginMB.getCustomer().getCustomerUsername()));
+                    if (paymentID.equals(0)) {
+                        noticePayment = "Please choose payment!";
+                        return "book";
+                    } else {
+                        od.setPaymentID(paymentsFacade.find(paymentID));
+                        ordersFacade.create(od);
+                    }
 
-            OrderMovieDetailsPK odtPK = new OrderMovieDetailsPK(od.getOrderID(), movieTicketBlocksFacade.find(list.get(0).getMovieTicketBlockID()).getMovieTicketBlockID());
-            OrderMovieDetails odt = new OrderMovieDetails();
-            odt.setOrderMovieDetailsPK(odtPK);
-            odt.setQuantity(quanlity);
-            orderMovieDetailsFacade.create(odt);
-            MovieTicketBlocks mtb = movieTicketBlocksFacade.find(list.get(0).getMovieTicketBlockID());
-            mtb.setResidual(mtb.getQuantity() - quanlity);
-            movieTicketBlocksFacade.edit(mtb);
-        } catch (Exception ex) {
-            return "detail";
+                }
+
+                MovieTicketBlocks mtb = movieTicketBlocksFacade.find(list.get(0).getMovieTicketBlockID());
+                if (mtb.getResidual() < 0) {
+                    noticePrice = "Sorry, Movie tickets sold out!";
+                    return "book";
+                } else {
+                    OrderMovieDetailsPK odtPK = new OrderMovieDetailsPK(od.getOrderID(), movieTicketBlocksFacade.find(list.get(0).getMovieTicketBlockID()).getMovieTicketBlockID());
+                    OrderMovieDetails odt = new OrderMovieDetails();
+                    odt.setOrderMovieDetailsPK(odtPK);
+                    odt.setQuantity(quanlity);
+                    orderMovieDetailsFacade.create(odt);
+
+                    mtb.setResidual(mtb.getQuantity() - quanlity);
+                    movieTicketBlocksFacade.edit(mtb);
+                }
+            } catch (Exception ex) {
+                return "book";
+            }
+            return "index?faces-redirect=true";
         }
-
-        return "index?faces-redirect=true";
-
     }
 
 //    public boolean checkType(Movies movie){
@@ -141,8 +174,8 @@ public class BookMovieMB implements Serializable {
         return movieTicketBlocksFacade.findByMovieID(id);
     }
 
-    public List<MovieTicketBlocks> findTicketID(Movies movieID, Cinemas cinemaID, TicketTypes ticketID) {
-        List<MovieTicketBlocks> mtb = movieTicketBlocksFacade.findByTicketID(movieID, cinemaID, ticketID);
+    public List<MovieTicketBlocks> findTicketID(Movies movieID, Cinemas cinemaID, TicketTypes ticketID, Date date, String time) {
+        List<MovieTicketBlocks> mtb = movieTicketBlocksFacade.findByTicketID(movieID, cinemaID, ticketID, date, time);
         TicketTypes ti = ticketTypesFacade.find(mtb.get(0).getTicketTypeID().getTicketTypeID());
         return (List<MovieTicketBlocks>) ti.getMovieTicketBlocksCollection();
     }
@@ -170,19 +203,32 @@ public class BookMovieMB implements Serializable {
 //        List<MovieTicketBlocks> list = movieTicketBlocksFacade.
 //    }
     public void changeCinema(Movies id) {
-        listMTB = findCinemaID(id, cinemasFacade.find(cinemaID));
+        if (cinemaID.equals(0)) {
+
+        } else {
+            listMTB = findCinemaID(id, cinemasFacade.find(cinemaID));
+        }
+
     }
 
     public void changeTicket(Movies movieID) {
-        listMTB = findTicketID(movieID, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID));
+        if (cinemaID.equals(0)) {
+            noticeCinema = "Please choose a cinema!";
+        } else if (time.equals("0")) {
+            noticeTime = "Please choose a timezone!";
+        } else if (ticketID.equals(0)) {
+            noticeTicket = "Please choose ticket type!";
+        } else {
+            listMTB = findTicketID(movieID, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), date, time);
+        }
     }
 
     public void changeDate(Movies movie) {
-        listMTB = findDate(movie, cinemasFacade.find(cinemaID), movieTicketBlock.getDate());
+        listMTB = findDate(movie, cinemasFacade.find(cinemaID), date);
     }
 
     public void changeTime(Movies movie) {
-        listMTB = findTime(movie, cinemasFacade.find(cinemaID), movieTicketBlock.getDate(), time);
+        listMTB = findTime(movie, cinemasFacade.find(cinemaID), date, time);
     }
 
     public List<MovieTicketBlocks> blockChoosen() {
@@ -201,7 +247,7 @@ public class BookMovieMB implements Serializable {
         try {
             String character = (ordersFacade.getLastID()).substring(0, 2);
             String year = (calendar.get(Calendar.YEAR) + "").substring(2);
-            int number = Integer.parseInt((movieTicketBlocksFacade.getLastID().substring(4))) + 1;
+            int number = Integer.parseInt((ordersFacade.getLastID().substring(4))) + 1;
             orderID = character + year + (String.format("%05d", number));
         } catch (Exception ex) {
             orderID = "OD2100001";
@@ -270,14 +316,6 @@ public class BookMovieMB implements Serializable {
         this.book = book;
     }
 
-    public String getNotice() {
-        return notice;
-    }
-
-    public void setNotice(String notice) {
-        this.notice = notice;
-    }
-
     public boolean isCheck() {
         return check;
     }
@@ -332,6 +370,62 @@ public class BookMovieMB implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getNoticeCinema() {
+        return noticeCinema;
+    }
+
+    public void setNoticeCinema(String noticeCinema) {
+        this.noticeCinema = noticeCinema;
+    }
+
+    public String getNoticeDate() {
+        return noticeDate;
+    }
+
+    public void setNoticeDate(String noticeDate) {
+        this.noticeDate = noticeDate;
+    }
+
+    public String getNoticeTime() {
+        return noticeTime;
+    }
+
+    public void setNoticeTime(String noticeTime) {
+        this.noticeTime = noticeTime;
+    }
+
+    public String getNoticeTicket() {
+        return noticeTicket;
+    }
+
+    public void setNoticeTicket(String noticeTicket) {
+        this.noticeTicket = noticeTicket;
+    }
+
+    public String getNoticePrice() {
+        return noticePrice;
+    }
+
+    public void setNoticePrice(String noticePrice) {
+        this.noticePrice = noticePrice;
+    }
+
+    public String getNoticePayment() {
+        return noticePayment;
+    }
+
+    public void setNoticePayment(String noticePayment) {
+        this.noticePayment = noticePayment;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 }

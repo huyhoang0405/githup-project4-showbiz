@@ -164,19 +164,19 @@
         <!-- //tables -->  
     </h:head>
     <h:body>
-<script>
-		$('.toggle').click(function(){
-		  // Switches the Icon
-		  $(this).children('i').toggleClass('fa-pencil');
-		  // Switches the forms  
-		  $('.form').animate({
-			height: "toggle",
-			'padding-top': 'toggle',
-			'padding-bottom': 'toggle',
-			opacity: "toggle"
-		  }, "slow");
-		});
-	</script>
+        <script>
+            $('.toggle').click(function () {
+                // Switches the Icon
+                $(this).children('i').toggleClass('fa-pencil');
+                // Switches the forms  
+                $('.form').animate({
+                    height: "toggle",
+                    'padding-top': 'toggle',
+                    'padding-bottom': 'toggle',
+                    opacity: "toggle"
+                }, "slow");
+            });
+        </script>
 
         <ui:insert name="header">
 
@@ -251,11 +251,11 @@
         </script>
         <!-- //here ends scrolling icon -->
 
-<!--        <script>
-            if (window.history.replaceState) {
-                window.history.replaceState(null, null, window.location.href);
-            }
-        </script>-->
+        <!--        <script>
+                    if (window.history.replaceState) {
+                        window.history.replaceState(null, null, window.location.href);
+                    }
+                </script>-->
         <!-- flexSlider -->
         <h:outputStylesheet name="client/css/flexslider.css"/>  
         <h:outputScript name="client/js/jquery.flexslider.js" />
@@ -274,32 +274,55 @@
         <h:outputScript name="client/js/jquery.magnific-popup.js" />
         <!-- //pop-up-box --> 
         <script>
-		$(document).ready(function() {
-		$('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
-			type: 'inline',
-			fixedContentPos: false,
-			fixedBgPos: true,
-			overflowY: 'auto',
-			closeBtnInside: true,
-			preloader: false,
-			midClick: true,
-			removalDelay: 300,
-			mainClass: 'my-mfp-zoom-in'
-		});
-																		
-		});
-	</script>
-        
-                <h:outputScript name="client/js/simplePlayer.js" />
-<script>
-	$("document").ready(function() {
-		$("#video").simplePlayer();
-	});
-</script>
-                <script>
-	$("document").ready(function() {
-		$("#video1").simplePlayer();
-	});
-</script>
+            $(document).ready(function () {
+                $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+                    type: 'inline',
+                    fixedContentPos: false,
+                    fixedBgPos: true,
+                    overflowY: 'auto',
+                    closeBtnInside: true,
+                    preloader: false,
+                    midClick: true,
+                    removalDelay: 300,
+                    mainClass: 'my-mfp-zoom-in'
+                });
+
+            });
+        </script>
+
+        <h:outputScript name="client/js/simplePlayer.js" />
+        <script>
+            $("document").ready(function () {
+                $("#video").simplePlayer();
+            });
+        </script>
+        <script>
+            $("document").ready(function () {
+                $("#video1").simplePlayer();
+            });
+        </script>
+        <script>//<![CDATA[           
+            $('input.input-qty').each(function () {
+                var $this = $(this),
+                        qty = $this.parent().find('.is-form'),
+                        min = Number($this.attr('min')),
+                        max = Number($this.attr('max'))
+                if (min == 0) {
+                    var d = 0
+                } else
+                    d = min
+                $(qty).on('click', function () {
+                    if ($(this).hasClass('minus')) {
+                        if (d > min)
+                            d += -1
+                    } else if ($(this).hasClass('plus')) {
+                        var x = Number($this.val()) + 1
+                        if (x <= max)
+                            d += 1
+                    }
+                    $this.attr('value', d).val(d)
+                })
+            })
+   //]]></script>
     </h:body>
 </html>

@@ -1,0 +1,141 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+   xmlns:h = "http://java.sun.com/jsf/html"
+   xmlns:ui = "http://java.sun.com/jsf/facelets"
+   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+   xmlns:f="http://xmlns.jcp.org/jsf/core"
+   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        
+    </h:head>
+   <h:body>
+      <ui:composition template = "/layout/admin/common.xhtml">  
+         <ui:define name="content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Create a new area</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Basic Form Elements
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                               
+                                    <h:form class="" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                <label>Name:</label>                                           
+                                                <h:outputText value="#{musicSportMB.musicSport.musicSportName}" class="form-control"/>                                             
+                                            </div>
+                                                </div>
+                                        </div>
+                                        
+          
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                <label>Time</label>                                           
+                                                <h:outputText value="#{musicSportMB.musicSport.startTime.substring(0,5)}" class="form-control"/>                                             
+                                            </div>
+                                                </div>
+                                       
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                <label>Date</label>                                           
+                                                <h:outputText id="starring" value="#{musicSportMB.musicSport.startDate}" class="form-control">
+                                                    <f:convertDateTime pattern="MMM-dd-yyyy"/>
+                                                </h:outputText>   
+                                                </div>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                <label>Address</label>                                           
+                                                              <h:outputText id="relleaseDate" p:type="date" value="#{musicSportMB.musicSport.address}" class="form-control"/>                                           
+                                                                        
+                                            </div>
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                <label>Capacity</label>                                           
+                                                <h:outputText id="country" value="#{musicSportMB.musicSport.capacity}" class="form-control"/>                                             
+                                            </div>
+                                                </div>
+                                       
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                <label>Type</label>     
+                                                <c:if test="#{musicSportMB.musicSport.type}">
+                                                    <h:outputText id="language"  value="Sport" class="form-control"/>     
+                                                </c:if>
+                                                <c:if test="#{!musicSportMB.musicSport.type}">
+                                                    <h:outputText id="language"  value="Music" class="form-control"/>     
+                                                </c:if>
+                                                                                        
+                                            </div>
+                                                </div>
+                                        </div>
+                                       
+                                       
+                                    
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                <label>Poster</label>                                           
+                                                <h:inputFile id="poster" value="#{movieMB.filePoster}" p:accept="image/*"  class="form-control"/>                                            
+                                            </div>
+                                                </div>
+                                        
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                <label>Banner</label>                                           
+                                                <h:inputFile id="banner" value="#{movieMB.fileBanner}" p:accept="image/*"  class="form-control"/>                                             
+                                            </div>
+                                                </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                <label>Information</label>                                           
+                                                <h:inputTextarea id="content" readonly="true" value="#{musicSportMB.musicSport.information}" rows="8" class="form-control"/>                                             
+                                            </div>
+                                                </div>
+                                        </div>
+                                       
+
+                                        <div class="">
+                                            <h:commandButton class="btn btn-outline btn-success" action="#{musicSportMB.loadFormEdit(musicSportMB.musicSport.musicSportID)}" value="Create"/>&nbsp;
+                                            <h:link class="btn btn-outline btn-primary" outcome="index" value="Cancel"/>
+                                        </div>
+                                    </h:form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+    </ui:define>
+      </ui:composition>
+   </h:body>
+</html>

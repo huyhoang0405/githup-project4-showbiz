@@ -1,0 +1,95 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template = "/layout/admin/common.xhtml">  
+            <ui:define name="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Edit a new area</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Basic Form Elements
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                        <h:form class="">
+                                         <div class="form-group row">
+                                                <div class="col-md-10">
+                                                    <label>Movie</label>    
+                                                    <h:inputText id="cinema" p:list="movie" value="#{musicSportBlockMB.msID}" p:placeholder="Enter movie" class="form-control"/>                                                                                         
+                                                    <datalist id="movie">
+                                                        <c:forEach var="ms" items="#{musicSportBlockMB.showAllMusicSports()}">
+                                                            <option value="#{ms.musicSportID}" label="#{ms.musicSportName}"/>
+                                                        </c:forEach>                  
+                                                    </datalist>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                
+                                                <div class="col-md-10">
+                                                    <label>Unit Price:</label>      
+                                                    <div class="input-group">                
+                                                        <h:inputText p:type="money" id="unitprice" value="#{musicSportBlockMB.musicSportBlock.unitPrice}" p:placeholder="Enter quantity" class="form-control"/>    
+                                                    <span class="input-group-addon">VND</span>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-10">
+                                                    <label>Quantity:</label>                                           
+                                                    <h:inputText p:type="number" id="quantity" value="#{musicSportBlockMB.musicSportBlock.quantity}" p:placeholder="Enter quantity" class="form-control"/>                                             
+                                                </div>
+                                            </div>
+
+                                          
+                                            <div class="form-group row">
+                                                <div class="col-md-10">
+                                                    <label>Ticket type</label>                                           
+                                                    <h:selectOneMenu  required="true"  value="#{musicSportBlockMB.ticketID}" class="form-control">
+                                                        <f:selectItem itemLabel="Please choose an ticket type" itemValue="Null"/>
+                                                        <f:selectItems value="#{musicSportBlockMB.showAllTicketTypes()}" var="ticket" itemLabel="#{ticket.ticketTypeName}" itemValue="#{ticket.ticketTypeID}"/>
+                                                    </h:selectOneMenu>    
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="">
+                                                <h:commandButton class="btn btn-outline btn-success" action="#{musicSportBlockMB.edit(musicSportBlockMB.musicSportBlock.musicSportTicketBlockID)}" value="Save"/>&nbsp;
+                                                <h:link class="btn btn-outline btn-primary" outcome="index" value="Cancel"/>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                    <!-- /.col-lg-6 (nested) -->
+
+                                    <!-- /.col-lg-6 (nested) -->
+                                </div>
+                                <!-- /.row (nested) -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

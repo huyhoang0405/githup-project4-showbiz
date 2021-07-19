@@ -75,11 +75,13 @@ public class MovieTicketBlocksFacade extends AbstractFacade<MovieTicketBlocks> i
         return query.setMaxResults(1).getResultList();
     }
     @Override
-    public List<MovieTicketBlocks> findByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID){
-        Query query = em.createQuery("SELECT m From MovieTicketBlocks m WHERE m.cinemaID =:cinemaID AND m.movieID = :movieID and m.ticketTypeID =:ticketTypeID");
+    public List<MovieTicketBlocks> findByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time){
+        Query query = em.createQuery("SELECT m From MovieTicketBlocks m WHERE m.cinemaID =:cinemaID AND m.movieID = :movieID and m.ticketTypeID =:ticketTypeID and m.date =:date and m.time =:time");
         query.setParameter("cinemaID", cinemaID);
         query.setParameter("movieID", movieID);
         query.setParameter("ticketTypeID", ticketID);
+        query.setParameter("date", date);
+        query.setParameter("time", time);
         return query.getResultList();
     }
     @Override

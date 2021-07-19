@@ -43,6 +43,12 @@ public class MoviesFacade extends AbstractFacade<Movies> implements MoviesFacade
         return query.getResultList();
     }
     @Override
+    public List<Movies> select6NewestMovies(){
+        Query query = em.createQuery("SELECT DISTINCT m FROM Movies m ORDER BY m.releaseDate DESC");
+        query.setMaxResults(6);
+        return query.getResultList();
+    }
+    @Override
     public List<Movies> select8Movies(){
         Query query = em.createQuery("SELECT DISTINCT m FROM Movies m ORDER BY m.movieID DESC");
         query.setMaxResults(8);

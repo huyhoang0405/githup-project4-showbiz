@@ -30,4 +30,11 @@ public interface MusicSportsFacadeLocal {
 
     int count();
     
+    String getLastID();
+    
+    List<MusicSports> showAllMusics();
+    
+    List<MusicSports> showAllSports();
+    
+    List<MusicSports> show6Newest();
 }

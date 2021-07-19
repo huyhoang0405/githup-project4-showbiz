@@ -148,7 +148,7 @@ public class MovieMB implements Serializable {
         Movies m = moviesFacade.find(id);
         setMovie(m);
 
-        List<MovieGenres> list = movieGenresFacade.findByIDMovieID(id);
+        List<MovieGenres> list = movieGenresFacade.findByIDMovieID(m.getMovieID());
         String[] arrCa = new String[list.size()];
         for (int i = 0; i < list.size(); i++) {
             arrCa[i] = list.get(i).getCategories().getCategoryName();
@@ -163,13 +163,25 @@ public class MovieMB implements Serializable {
         Movies m = moviesFacade.find(id);
         setMovie(m);
 
-        List<MovieGenres> list = movieGenresFacade.findByIDMovieID(id);
-        String[] arrCa = new String[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            arrCa[i] = list.get(i).getCategories().getCategoryName();
+        List<MovieGenres> list = movieGenresFacade.findByIDMovieID(m.getMovieID());
+        if (!list.isEmpty()) {
+            
+                String[] arrCa = new String[list.size()];
+                for (int i = 0; i < list.size(); i++) {
+                    try {
+                    arrCa[i] = (categoriesFacade.find((list.get(i)).getMovieGenresPK().getCategoryID())).getCategoryName();
+                     }catch(Exception ex){
+                         return "create";
+                     }
+                }
+                setCategoryID(arrCa);
+                return "edit";
+           
+              
+        } else {
+            
+            return "edit";
         }
-        setCategoryID(arrCa);
-        return "edit";
 
     }
 

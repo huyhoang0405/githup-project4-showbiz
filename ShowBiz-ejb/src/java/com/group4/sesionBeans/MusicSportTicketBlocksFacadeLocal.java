@@ -6,6 +6,8 @@
 package com.group4.sesionBeans;
 
 import com.group4.entities.MusicSportTicketBlocks;
+import com.group4.entities.MusicSports;
+import com.group4.entities.TicketTypes;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,4 +32,11 @@ public interface MusicSportTicketBlocksFacadeLocal {
 
     int count();
     
+    String getLastID();
+    
+    List<TicketTypes> findTicketTypeByMusicSportID(MusicSports id);
+    
+    MusicSportTicketBlocks findByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID);
+    
+    List<MusicSportTicketBlocks> findListByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID);
 }

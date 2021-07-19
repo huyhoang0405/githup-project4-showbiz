@@ -1,0 +1,130 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template = "/layout/client/common.xhtml">  
+            <ui:define name="content">
+
+                <img class="img-banner" jsf:value="/resources/client/images/banner/#{bookMusicSportMB.musicsport.banner}" alt=" "/>
+                <div class="single-page-agile-main">
+                    <div class="container">
+                        <div class="single-page-agile-info">
+                            <div class="col-sm-3 single-right">
+                                <h3>Newest Music &amp; Sport</h3>
+                                <div class="single-grid-right">
+                                    <h:form>
+                                        <c:forEach items="#{musicSportMB.show6Newest()}" var="item">
+                                            <div class="single-right-grids">
+                                                <div class="col-md-4 single-right-grid-left">
+                                                    <a jsf:action="#{musicSportMB.showDetailMS(item.musicSportID)}"><img jsf:value="/resources/client/images/poster/#{item.poster}" alt="" /></a>
+                                                </div>
+                                                <div class="col-md-8 single-right-grid-right">
+                                                    <a jsf:action="#{musicSportMB.showDetailMS(item.musicSportID)}" class="title"> #{item.musicSportName}</a>    
+                                                    <p class="author"><i class="fa fa-tag"></i>&nbsp; #{item.address}</p>
+                                                    <p class="views"><i class="fa fa-calendar"></i>&nbsp; <h:outputText value="#{item.startDate}"><f:convertDateTime type="date"/></h:outputText></p>
+                                                    <p class="author"><i class="fa fa-clock-o"></i>&nbsp; #{item.startTime}</p>
+                                                    <p class="author"><i class="fa fa-table"></i>&nbsp;#{item.capacity} seats</p>
+                                                </div>
+                                                <div class="clearfix"> </div>
+                                            </div>
+                                        </c:forEach>
+                                    </h:form>
+                                </div>
+                            </div>
+                            <h:form>
+                                <div class="col-sm-6 single-main">
+                                    <h3>#{bookMusicSportMB.musicsport.musicSportName}</h3>
+                                    <div class="form-module">
+                                        <div class="">
+                                            <div class=""></div>
+                                        </div>
+
+                                        <div class="form">
+
+                                            <label>Address</label>
+                                            <input readonly="true" type="text" value="#{bookMusicSportMB.musicsport.address}" required=""/>
+                                            <label>Start date</label>
+                                            <input readonly="true" type="text" jsf:value="#{bookMusicSportMB.musicsport.startDate}" required=""><f:convertDateTime type="date"/></input>
+                                            <label>Start time</label>
+                                            <input readonly="true" type="text" value="#{bookMusicSportMB.musicsport.startTime}" required=""/>
+
+                                            <div class="form-module">
+                                                <h:selectOneMenu  required="true"  value="#{bookMusicSportMB.ticketID}" class="form-control">
+                                                    <f:ajax listener="#{bookMusicSportMB.changeQuanlity(bookMusicSportMB.musicsport)}" render="price"/>
+                                                    <f:selectItem itemLabel="Ticket type" itemValue="0"/>
+                                                    <f:selectItems value="#{bookMusicSportMB.showTicketTypes(bookMusicSportMB.musicsport)}" var="ticket" itemLabel="#{ticket.ticketTypeName}" itemValue="#{ticket.ticketTypeID}"/>
+                                                </h:selectOneMenu>  
+                                                <h:outputText value="#{bookMusicSportMB.noticeTicket}" class="text-danger"/>
+                                            </div>
+
+                                            <label>Quantity</label>
+                                            <div class="buttons_added">
+
+                                                <h:inputText style="height: 37px" p:max="10" p:min="1" p:type="number" value="#{bookMusicSportMB.quanlity}">
+                                                    <f:ajax listener="#{bookMusicSportMB.changeQuanlity(bookMusicSportMB.musicsport)}" event="change" render="price"/>
+                                                </h:inputText>
+
+                                                <h:inputText id="price" p:type="text" value="#{bookMusicSportMB.displayPrice()}" readonly="true" p:placeholder="Total Price" required="" style="height: 37px;width: 282px"/>
+                                                <h:outputText value="#{bookMusicSportMB.noticePrice}" class="text-danger"/>
+                                            </div>
+
+
+                                            <div class="form-module">
+                                                <h:selectOneMenu  required="true"  value="#{bookMusicSportMB.paymentID}" class="form-control">
+                                                    <f:selectItem itemLabel="Payment" itemValue="0"/>
+                                                    <f:selectItems value="#{bookMusicSportMB.showAllPayments()}" var="payment" itemLabel="#{payment.paymentName}" itemValue="#{payment.paymentID}"/>
+                                                </h:selectOneMenu>  
+                                                <h:outputText value="#{bookMusicSportMB.noticePayment}" class="text-danger"/>
+                                            </div>
+
+
+                                            <h:commandButton action="#{bookMusicSportMB.bookMusicSport(bookMusicSportMB.musicsport)}" value="Back"/>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </h:form>
+                            <div class="col-md-3 single-right">
+                                <h3>Newest Movies</h3>
+                                <div class="single-grid-right">
+                                    <h:form>
+                                        <c:forEach items="#{moviesDisplayMB.show6NewestMovies()}" var="item">
+                                            <div class="single-right-grids">
+                                                <div class="col-md-4 single-right-grid-left">
+                                                    <a jsf:action="#{moviesDisplayMB.showDetailsoutMovie(item.movieID)}"><img jsf:value="/resources/client/images/poster/#{item.poster}" alt="" /></a>
+                                                </div>
+                                                <div class="col-md-8 single-right-grid-right">
+                                                    <a jsf:action="#{moviesDisplayMB.showDetailsoutMovie(item.movieID)}" class="title"> #{item.movieName}</a>
+                                                    <p class="author">By <a href="#" class="author">#{item.director}</a></p>
+                                                    <p class="author"><i class="fa fa-tag"> &nbsp;</i>#{item.country}</p>
+                                                    <p class="author"><i class="fa fa-language"></i>&nbsp; #{item.language}</p>
+                                                    <p class="views"><i class="fa fa-calendar"></i>&nbsp; <h:outputText value="#{item.releaseDate}"><f:convertDateTime type="date"/></h:outputText></p>
+                                                </div>
+                                                <div class="clearfix"> </div>
+                                            </div>
+                                        </c:forEach>
+                                    </h:form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

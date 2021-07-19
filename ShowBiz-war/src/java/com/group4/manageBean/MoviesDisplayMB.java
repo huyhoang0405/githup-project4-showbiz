@@ -34,12 +34,15 @@ public class MoviesDisplayMB implements Serializable {
     public List<Movies> showAllMovies(){
         return moviesFacade.findAll();
     }
-    
-    //show all movies in website
-    public List<Movies> show5NewestMovies(){
-        return moviesFacade.select5NewestMovies();
+   
+    public List<Movies> show6NewestMovies(){
+        return moviesFacade.select6NewestMovies();
     }
     
+     public List<Movies> show5NewestMovies(){
+        return moviesFacade.select5NewestMovies();
+    }
+     
     //show 5 newest movies in website
     public List<Movies> show5MoviesTrailer(){
         List<Movies> l = new ArrayList<>();
@@ -59,6 +62,14 @@ public class MoviesDisplayMB implements Serializable {
         setMovie(m);
         return "details";
     }
+    
+     public String showDetailsoutMovie(String id) {
+        Movies m = moviesFacade.find(id);
+        m.setTrailer((m.getTrailer()).substring(32));
+        setMovie(m);
+        return "/client/movies/details";
+    }
+     
     //show 8 movies in website
     public List<Movies> show8Movies(){       
         return moviesFacade.select8Movies();

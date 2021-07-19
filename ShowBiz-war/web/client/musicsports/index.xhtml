@@ -1,0 +1,176 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml"   
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+
+    </h:head>
+    <h:body>
+        <ui:composition template = "/layout/client/common.xhtml">  
+            <ui:define name="content">
+                <div class="faq">
+                    <div class="container">
+                        <div class="agileinfo-news-top-grids">
+                            <div class="col-md-12 wthree-top-news-left">
+                                <div class="wthree-news-left">
+                                    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                                        <ul id="myTab" class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#home1" id="home1-tab" role="tab" data-toggle="tab" aria-controls="home1" aria-expanded="true">Latest News</a></li>
+                                            <li role="presentation"><a href="#w3bsd" role="tab" id="w3bsd-tab" data-toggle="tab" aria-controls="w3bsd">Movie News</a></li>
+                                        </ul>
+                                        <h:form>
+                                            <div id="myTabContent" class="tab-content">
+                                                <div role="tabpanel" class="tab-pane fade in active" id="home1" aria-labelledby="home1-tab">
+                                                    <div class="wthree-news-top-left">
+                                                        <c:forEach items="#{musicSportMB.showAllMusics()}" var="music" begin="0" end="1">
+                                                            <div class="col-md-6 w3-agileits-news-left">
+                                                                <div class="col-sm-5 wthree-news-img">
+                                                                    <a jsf:action="#{musicSportMB.showDetailMS(music.musicSportID)}"><img jsf:value="/resources/client/images/banner/#{music.banner}" alt="" /></a>
+                                                                </div>
+                                                                <div class="col-sm-7 wthree-news-info">
+                                                                    <h5><a jsf:action="#{musicSportMB.showDetailMS(music.musicSportID)}">#{music.musicSportName}</a></h5>
+                                                                    <p class="three-line-paragraph">#{music.information}</p>
+                                                                    <ul>
+                                                                        <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; <h:outputText value="#{music.startDate}"><f:convertDateTime type="date"/></h:outputText></li>
+                                                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> #{music.startTime}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        <li><button class="btn btn-circle" style="background-color: #FF8D1B" jsf:action="#{bookMusicSportMB.showBookPage(music.musicSportID)}"><font color="white">Book</font></button></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="clearfix"> </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                        <div class="clearfix"> </div>
+                                                    </div>
+                                                    <div class="wthree-news-top-left">
+                                                        <c:forEach items="#{musicSportMB.showAllMusics()}" var="music" begin="2" end="3">
+                                                            <div class="col-md-6 w3-agileits-news-left">
+                                                                <div class="col-sm-5 wthree-news-img">
+                                                                    <a jsf:action="#{musicSportMB.showDetailMS(music.musicSportID)}"><img height="auto"  jsf:value="/resources/client/images/banner/#{music.banner}" alt="" /></a>
+                                                                </div>
+                                                                <div class="col-sm-7 wthree-news-info">
+                                                                    <h5><a jsf:action="#{musicSportMB.showDetailMS(music.musicSportID)}">#{music.musicSportName}</a></h5>
+                                                                    <p class="three-line-paragraph">#{music.information}</p>
+                                                                    <ul>
+                                                                        <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; <h:outputText value="#{music.startDate}"><f:convertDateTime type="date"/></h:outputText></li>
+                                                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> #{music.startTime}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        <li><button class="btn btn-circle" style="background-color: #FF8D1B" jsf:action="#{bookMusicSportMB.showBookPage(music.musicSportID)}"><font color="white">Book</font></button></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="clearfix"> </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                        <div class="clearfix"> </div>
+                                                    </div>
+                                                    <div class="wthree-news-top-left">
+                                                        <c:forEach items="#{musicSportMB.showAllMusics()}" var="music" begin="4" >
+                                                            <div class="col-md-6 w3-agileits-news-left">
+                                                                <div class="col-sm-5 wthree-news-img">
+                                                                    <a jsf:action="#{musicSportMB.showDetailMS(music.musicSportID)}"><img height="auto"  jsf:value="/resources/client/images/banner/#{music.banner}" alt="" /></a>
+                                                                </div>
+                                                                <div class="col-sm-7 wthree-news-info">
+                                                                    <h5><a jsf:action="#{musicSportMB.showDetailMS(music.musicSportID)}">#{music.musicSportName}</a></h5>
+                                                                    <p class="three-line-paragraph">#{music.information}</p>
+                                                                    <ul>
+                                                                        <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; <h:outputText value="#{music.startDate}"><f:convertDateTime type="date"/></h:outputText></li>
+                                                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> #{music.startTime}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        <li><button class="btn btn-circle" style="background-color: #FF8D1B" jsf:action="#{bookMusicSportMB.showBookPage(music.musicSportID)}"><font color="white">Book</font></button></li>
+                                                                    </ul>
+
+                                                                </div>
+
+                                                                <div class="clearfix"> </div>
+
+                                                            </div>
+                                                        </c:forEach>
+                                                        <div class="clearfix"> </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+                                                </div>
+                                               <div role="tabpanel" class="tab-pane fade" id="w3bsd" aria-labelledby="w3bsd-tab">
+                                                    <div class="wthree-news-top-left">
+                                                        <c:forEach items="#{musicSportMB.showAllSports()}" var="sport" begin="0" end="1">
+                                                            <div class="col-md-6 w3-agileits-news-left">
+                                                                <div class="col-sm-5 wthree-news-img">
+                                                                    <a jsf:action="#{musicSportMB.showDetailMS(sport.musicSportID)}"><img jsf:value="/resources/client/images/banner/#{sport.banner}" alt="" /></a>
+                                                                </div>
+                                                                <div class="col-sm-7 wthree-news-info">
+                                                                    <h5><a jsf:action="#{musicSportMB.showDetailMS(sport.musicSportID)}">#{sport.musicSportName}</a></h5>
+                                                                    <p class="three-line-paragraph">#{sport.information}</p>
+                                                                    <ul>
+                                                                        <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; <h:outputText value="#{sport.startDate}"><f:convertDateTime type="date"/></h:outputText></li>
+                                                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> #{sport.startTime}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        <li><button class="btn btn-circle" style="background-color: #FF8D1B" jsf:action="#{bookMusicSportMB.showBookPage(sport.musicSportID)}"><font color="white">Book</font></button></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="clearfix"> </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                        <div class="clearfix"> </div>
+                                                    </div>
+                                                    <div class="wthree-news-top-left">
+                                                        <c:forEach items="#{musicSportMB.showAllSports()}" var="sport" begin="2" end="3">
+                                                            <div class="col-md-6 w3-agileits-news-left">
+                                                                <div class="col-sm-5 wthree-news-img">
+                                                                    <a jsf:action="#{musicSportMB.showDetailMS(sport.musicSportID)}"><img height="auto"  jsf:value="/resources/client/images/banner/#{sport.banner}" alt="" /></a>
+                                                                </div>
+                                                                <div class="col-sm-7 wthree-news-info">
+                                                                    <h5><a jsf:action="#{musicSportMB.showDetailMS(sport.musicSportID)}">#{sport.musicSportName}</a></h5>
+                                                                    <p class="three-line-paragraph">#{sport.information}</p>
+                                                                    <ul>
+                                                                        <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; <h:outputText value="#{sport.startDate}"><f:convertDateTime type="date"/></h:outputText></li>
+                                                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> #{sport.startTime}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        <li><button class="btn btn-circle" style="background-color: #FF8D1B" jsf:action="#{bookMusicSportMB.showBookPage(sport.musicSportID)}"><font color="white">Book</font></button></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="clearfix"> </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                        <div class="clearfix"> </div>
+                                                    </div>
+                                                   <div class="wthree-news-top-left">
+                                                        <c:forEach items="#{musicSportMB.showAllSports()}" var="sport" begin="4" >
+                                                            <div class="col-md-6 w3-agileits-news-left">
+                                                                <div class="col-sm-5 wthree-news-img">
+                                                                    <a jsf:action="#{musicSportMB.showDetailMS(sport.musicSportID)}"><img height="auto"  jsf:value="/resources/client/images/banner/#{sport.banner}" alt="" /></a>
+                                                                </div>
+                                                                <div class="col-sm-7 wthree-news-info">
+                                                                    <h5><a jsf:action="#{musicSportMB.showDetailMS(sport.musicSportID)}">#{sport.musicSportName}</a></h5>
+                                                                    <p class="three-line-paragraph">#{sport.information}</p>
+                                                                    <ul>
+                                                                        <li><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; <h:outputText value="#{sport.startDate}"><f:convertDateTime type="date"/></h:outputText></li>
+                                                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> #{sport.startTime}</li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                        <li><button class="btn btn-circle" style="background-color: #FF8D1B" jsf:action="#{bookMusicSportMB.showBookPage(sport.musicSportID)}"><font color="white">Book</font></button></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="clearfix"> </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                        <div class="clearfix"> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

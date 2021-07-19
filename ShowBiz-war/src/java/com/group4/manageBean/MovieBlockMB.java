@@ -58,12 +58,12 @@ public class MovieBlockMB implements Serializable {
     }
 
     public void resetForm() {
-       cinemaID=null;
+        cinemaID = null;
         movieTicketBlock.setDate(null);
-       movieID=null;
+        movieID = null;
         movieTicketBlock.setQuantity(null);
         movieTicketBlock.setResidual(null);
-        ticketID=null;
+        ticketID = null;
         movieTicketBlock.setTime(null);
         movieTicketBlock.setUnitPrice(null);
     }
@@ -108,10 +108,9 @@ public class MovieBlockMB implements Serializable {
         return "index";
     }
 
-    public String editBlock() {
+    public String editBlock(String id) {
         try {
-            MovieTicketBlocks mbt = new MovieTicketBlocks();
-            mbt.setMovieTicketBlockID(createID());
+            MovieTicketBlocks mbt = movieTicketBlocksFacade.find(id);
             mbt.setDate(movieTicketBlock.getDate());
             mbt.setTime(movieTicketBlock.getTime());
             mbt.setQuantity(movieTicketBlock.getQuantity());
@@ -176,38 +175,30 @@ public class MovieBlockMB implements Serializable {
 //zz    public List<MovieTicketBlocks> showByMovieID(Movies id) {
 //        return movieTicketBlocksFacade.findByMovieID(id);
 //    }
-
 //    public List<MovieTicketBlocks> findCinemaID(Integer cinemaID) {
 //        Cinemas ci = cinemasFacade.find(cinemaID);
 //        return (List<MovieTicketBlocks>) ci.getMovieTicketBlocksCollection();
 //    }
-
 //    public List<MovieTicketBlocks> findTicketID(Integer ticketID) {
 //        TicketTypes ti = ticketTypesFacade.find(ticketID);
 //        return (List<MovieTicketBlocks>) ti.getMovieTicketBlocksCollection();
 //    }
-
 //    public List<MovieTicketBlocks> findDate(Date date) {
 //        return movieTicketBlocksFacade.findByDate(date);
 //
 //    }
-
 //    public List<MovieTicketBlocks> blockChoosen() {
 //        return listMTB;
 //    }
-
 //    public void changeCinema() {
 //        listMTB = findCinemaID(cinemaID);
 //    }
-
 //    public void changeTicket() {
 //        listMTB = findTicketID(ticketID);
 //    }
-
 //    public void changeDate() {
 //        listMTB = findDate(movieTicketBlock.getDate());
 //    }
-
     public Collection showAll() {
         return movieTicketBlocksFacade.showAllBlock();
     }

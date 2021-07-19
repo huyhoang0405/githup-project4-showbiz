@@ -14,68 +14,96 @@
     <h:body>
         <ui:composition template = "/layout/client/common.xhtml">  
             <ui:define name="content">
-                <h:form>
-                    <img class="img-banner" jsf:value="/resources/client/images/banner/#{bookMovieMB.movie.banner}" alt=" "/>
-                    <div class="single-page-agile-main">
-                        <div class="container">
-                            <div class="single-page-agile-info">
-                                <div class="col-sm-3 single-right">
-                                    asdasda
 
+                <img class="img-banner" jsf:value="/resources/client/images/banner/#{bookMovieMB.movie.banner}" alt=" "/>
+                <div class="single-page-agile-main">
+                    <div class="container">
+                        <div class="single-page-agile-info">
+                            <div class="col-sm-3 single-right">
+                                <h3>Newest Music Sport</h3>
+                                <div class="single-grid-right">
+                                    <h:form>
+                                        <c:forEach items="#{musicSportMB.show6Newest()}" var="item">
+                                            <div class="single-right-grids">
+                                                <div class="col-md-4 single-right-grid-left">
+                                                    <a jsf:action="#{musicSportMB.showDetailoutMS(item.musicSportID)}"><img jsf:value="/resources/client/images/poster/#{item.poster}" alt="" /></a>
+                                                </div>
+                                                <div class="col-md-8 single-right-grid-right">
+                                                    <a jsf:action="#{musicSportMB.showDetailoutMS(item.musicSportID)}" class="title"> #{item.musicSportName}</a>    
+                                                    <p class="author"><i class="fa fa-tag"></i>&nbsp; #{item.address}</p>
+                                                    <p class="views"><i class="fa fa-calendar"></i>&nbsp; <h:outputText value="#{item.startDate}"><f:convertDateTime type="date"/></h:outputText></p>
+                                                    <p class="author"><i class="fa fa-clock-o"></i>&nbsp; #{item.startTime}</p>
+                                                    <p class="author"><i class="fa fa-table"></i>&nbsp;#{item.capacity} seats</p>
+                                                </div>
+                                                <div class="clearfix"> </div>
+                                            </div>
+                                        </c:forEach>
+                                    </h:form>
                                 </div>
+
+                                <div class="clearfix"> </div>
+
+                            </div>
+                            <h:form>
                                 <div class="col-sm-6 single-main">
-                                    <h3>#{bookMovieMB.movie.movieName}</h3>
+                                    <h3 align="center">#{bookMovieMB.movie.movieName}</h3>
                                     <div class="form-module">
                                         <div class="">
                                             <div class=""></div>
                                         </div>
 
                                         <div class="form">
-                                            <h3>Create an account</h3>
+                                            <h3>Book the ticket</h3>
                                             <div class="form-module">
                                                 <h:selectOneMenu  required="true"  value="#{bookMovieMB.cinemaID}" class="form-control">
-                                            
-                                                     <f:ajax listener="#{bookMovieMB.changeCinema(bookMovieMB.movie)}" render="type"/>
-                                                    <f:selectItem itemLabel="Cinema" itemValue="Null"/>
+
+                                                    <f:ajax listener="#{bookMovieMB.changeCinema(bookMovieMB.movie)}" render="type"/>
+                                                    <f:selectItem itemLabel="Cinema" itemValue="0"/>
                                                     <f:selectItems value="#{bookMovieMB.showByMovieID(bookMovieMB.movie)}" var="movie" itemLabel="#{movie.cinemaName}" itemValue="#{movie.cinemaID}"/>
                                                 </h:selectOneMenu>  
+                                                <h:outputText value="#{bookMovieMB.noticeCinema}" class="text-danger"/>
                                             </div>
                                             <div class="form-module">
 
-                                                <h:inputText p:type="date" id="date" value="#{bookMovieMB.movieTicketBlock.date}" class="form-control">
+                                                <h:inputText p:type="date" id="date" value="#{bookMovieMB.date}" class="form-control">
                                                     <f:ajax listener="#{bookMovieMB.changeDate(bookMovieMB.movie)}" render="time"/>
-                                                        <f:convertDateTime pattern="yyyy-MM-dd" />
-                                                    </h:inputText> 
+                                                    <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                </h:inputText> 
+                                                <h:outputText value="#{bookMovieMB.noticeDate}" class="text-danger"/>
                                             </div>
                                             <div class="form-module">
                                                 <h:selectOneMenu id="time" required="true"  value="#{bookMovieMB.time}" class="form-control">
                                                     <f:ajax listener="#{bookMovieMB.changeTime(moviesDisplayMB.movie)}" render="quanlity"/>
-                                                    <f:selectItem itemLabel="Time" itemValue="Null"/>
+                                                    <f:selectItem itemLabel="Time" itemValue="0"/>
                                                     <f:selectItems value="#{bookMovieMB.blockChoosen()}" var="movie" itemLabel="#{movie.time}" itemValue="#{movie.time}"/>
                                                 </h:selectOneMenu>  
+                                                <h:outputText value="#{bookMovieMB.noticeTime}" class="text-danger"/>
                                             </div>
                                             <div class="form-module">
                                                 <h:selectOneMenu id="type"  required="true"  value="#{bookMovieMB.ticketID}" class="form-control">
                                                     <f:ajax listener="#{bookMovieMB.changeTicket(moviesDisplayMB.movie)}" render="quanlity"/>
-                                                    <f:selectItem itemLabel="Ticket type" itemValue="Null"/>
+                                                    <f:selectItem itemLabel="Ticket type" itemValue="0"/>
                                                     <f:selectItems value="#{bookMovieMB.blockChoosen()}" var="movie" itemLabel="#{movie.ticketTypeID.ticketTypeName}" itemValue="#{movie.ticketTypeID.ticketTypeID}"/>
                                                 </h:selectOneMenu>  
+                                                <h:outputText value="#{bookMusicSportMB.noticeTicket}" class="text-danger"/>
                                             </div>
                                             <div class="form-control-static">
                                                 <h:inputText p:type="number" id="quanlity" p:placeholder="Quanlity" p:min="1" p:max="10" value="#{bookMovieMB.quanlity}" class="form-control">
                                                     <f:ajax listener="#{bookMovieMB.changeQuanlity(bookMovieMB.movie)}" render="price"/>
                                                 </h:inputText>
                                             </div>
-                                            <h:inputText p:type="text" id="price" p:readonly="true" p:placeholder="Email Address" value="#{bookMovieMB.displayPrice()}"/>
+                                            <h:inputText p:type="text" id="price" p:readonly="true" p:placeholder="Total price" value="#{bookMovieMB.displayPrice()}"/>
+                                            <h:outputText value="#{bookMovieMB.noticePrice}" class="text-danger"/>
                                             <div class="form-module">
                                                 <h:selectOneMenu  required="true"  value="#{bookMovieMB.paymentID}" class="form-control">
 
-                                                    <f:selectItem itemLabel="Payment" itemValue="Null"/>
+                                                    <f:selectItem itemLabel="Payment" itemValue="0"/>
                                                     <f:selectItems value="#{bookMovieMB.showAllPayments()}" var="payment" itemLabel="#{payment.paymentName}" itemValue="#{payment.paymentID}"/>
                                                 </h:selectOneMenu>  
+                                                <h:outputText value="#{bookMovieMB.noticePayment}" class="text-danger"/>
                                             </div>
-                                           
-                                            <h:commandButton action="#{bookMovieMB.bookMovie(bookMovieMB.movie)}" value="Back"/>
+
+                                            <h:commandButton action="#{bookMovieMB.bookMovie(bookMovieMB.movie)}" value="Book now"/>
 
                                         </div>
 
@@ -83,15 +111,36 @@
 
 
                                 </div>
-                                <div class="col-md-3 single-right">
-                                    <h4>Book ticket</h4>
-
+                            </h:form>
+                            <div class="col-md-3 single-right">
+                                <h3>Newest Movies</h3>
+                                <div class="single-grid-right">
+                                    <h:form>
+                                        <c:forEach items="#{moviesDisplayMB.show6NewestMovies()}" var="item">
+                                            <div class="single-right-grids">
+                                                <div class="col-md-4 single-right-grid-left">
+                                                    <a jsf:action="#{moviesDisplayMB.showDetailsMovie(item.movieID)}"><img jsf:value="/resources/client/images/poster/#{item.poster}" alt="" /></a>
+                                                </div>
+                                                <div class="col-md-8 single-right-grid-right">
+                                                    <a jsf:action="#{moviesDisplayMB.showDetailsMovie(item.movieID)}" class="title"> #{item.movieName}</a>
+                                                    <p class="author">By <a href="#" class="author">#{item.director}</a></p>
+                                                    <p class="author"><i class="fa fa-tag"> &nbsp;</i>#{item.country}</p>
+                                                    <p class="author"><i class="fa fa-language"></i>&nbsp; #{item.language}</p>
+                                                    <p class="views"><i class="fa fa-calendar"></i>&nbsp; <h:outputText value="#{item.releaseDate}"><f:convertDateTime type="date"/></h:outputText></p>
+                                                </div>
+                                                <div class="clearfix"> </div>
+                                            </div>
+                                        </c:forEach>
+                                    </h:form>
                                 </div>
-                            </div>
-                        </div> 
-                    </div> 
 
-                </h:form>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+
+
 
             </ui:define>
         </ui:composition>

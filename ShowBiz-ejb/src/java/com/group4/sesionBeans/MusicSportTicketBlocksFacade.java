@@ -6,9 +6,13 @@
 package com.group4.sesionBeans;
 
 import com.group4.entities.MusicSportTicketBlocks;
+import com.group4.entities.MusicSports;
+import com.group4.entities.TicketTypes;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +33,30 @@ public class MusicSportTicketBlocksFacade extends AbstractFacade<MusicSportTicke
         super(MusicSportTicketBlocks.class);
     }
     
+    @Override
+    public String getLastID() {
+        Query query = em.createQuery("SELECT MAX (m.musicSportTicketBlockID) FROM MusicSportTicketBlocks m");
+        return query.getSingleResult().toString();
+    }
+    
+    @Override
+    public List<TicketTypes> findTicketTypeByMusicSportID(MusicSports id){
+        Query query = em.createQuery("SELECT DISTINCT (m.ticketTypeID)  From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID");
+        query.setParameter("musicSportID", id);
+        return query.getResultList();
+    }
+    
+    public MusicSportTicketBlocks findByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID){
+        Query query = em.createQuery("SELECT m From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID and m.ticketTypeID = :ticketTypeID");
+        query.setParameter("musicSportID", msID);
+        query.setParameter("ticketTypeID", ticketID);
+        return (MusicSportTicketBlocks) query.getSingleResult();
+    }
+    
+     public List<MusicSportTicketBlocks> findListByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID){
+        Query query = em.createQuery("SELECT m From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID and m.ticketTypeID = :ticketTypeID");
+        query.setParameter("musicSportID", msID);
+        query.setParameter("ticketTypeID", ticketID);
+        return  query.getResultList();
+    }
 }
