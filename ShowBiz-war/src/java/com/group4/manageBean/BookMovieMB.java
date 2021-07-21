@@ -74,7 +74,8 @@ public class BookMovieMB implements Serializable {
     private MovieTicketBlocks movieTicketBlock;
 
     private List<MovieTicketBlocks> listMTB = new ArrayList<>();
-
+    private List<String> listTime = new ArrayList<>();
+    private List<TicketTypes> listTicket = new ArrayList<>();
     private Integer paymentID;
     private Integer cinemaID;
     private String movieID;
@@ -86,6 +87,7 @@ public class BookMovieMB implements Serializable {
     private String time;
     private Date date;
 
+    private String notice="";
     private String noticeCinema;
     private String noticeDate;
     private String noticeTime;
@@ -116,15 +118,18 @@ public class BookMovieMB implements Serializable {
         if (cinemaID.equals(0)) {
             noticeCinema = "Please choose a cinema!";
             return "book";
-        } else if (time.equals("0")) {
+        } else if (time.equals("Null")) {
             noticeTime = "Please choose a timezone!";
+            noticeCinema = "";
             return "book";
         } else if (ticketID.equals(0)) {
+            noticeCinema = "";
+            noticeTime = "";
             noticeTicket = "Please choose ticket type!";
             return "book";
         } else {
             Orders od = new Orders();
-            List<MovieTicketBlocks> list = movieTicketBlocksFacade.selectType(movie, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), date, time);
+            MovieTicketBlocks m = movieTicketBlocksFacade.findaMovieByTicketID(movie, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), date, time);
             try {
                 od.setOrderID(setIDOrder());
                 od.setDateOfPurchase(calendar.getTime());
@@ -144,12 +149,12 @@ public class BookMovieMB implements Serializable {
 
                 }
 
-                MovieTicketBlocks mtb = movieTicketBlocksFacade.find(list.get(0).getMovieTicketBlockID());
+                MovieTicketBlocks mtb = movieTicketBlocksFacade.find(m.getMovieTicketBlockID());
                 if (mtb.getResidual() < 0) {
                     noticePrice = "Sorry, Movie tickets sold out!";
                     return "book";
                 } else {
-                    OrderMovieDetailsPK odtPK = new OrderMovieDetailsPK(od.getOrderID(), movieTicketBlocksFacade.find(list.get(0).getMovieTicketBlockID()).getMovieTicketBlockID());
+                    OrderMovieDetailsPK odtPK = new OrderMovieDetailsPK(od.getOrderID(), movieTicketBlocksFacade.find(m.getMovieTicketBlockID()).getMovieTicketBlockID());
                     OrderMovieDetails odt = new OrderMovieDetails();
                     odt.setOrderMovieDetailsPK(odtPK);
                     odt.setQuantity(quanlity);
@@ -157,10 +162,17 @@ public class BookMovieMB implements Serializable {
 
                     mtb.setResidual(mtb.getQuantity() - quanlity);
                     movieTicketBlocksFacade.edit(mtb);
+//                    notice = "<script>\n"
+//                            + "    alert(\"You have successfully booked your ticket!\");\n"
+//                            + "</script>";
+                    notice ="alert ('Thank you! You have successfully booked your ticket!');";
                 }
             } catch (Exception ex) {
+                notice ="alert ('An error occurred during the booking process!');";
+                
                 return "book";
             }
+
             return "index?faces-redirect=true";
         }
     }
@@ -174,23 +186,25 @@ public class BookMovieMB implements Serializable {
         return movieTicketBlocksFacade.findByMovieID(id);
     }
 
-    public List<MovieTicketBlocks> findTicketID(Movies movieID, Cinemas cinemaID, TicketTypes ticketID, Date date, String time) {
-        List<MovieTicketBlocks> mtb = movieTicketBlocksFacade.findByTicketID(movieID, cinemaID, ticketID, date, time);
-        TicketTypes ti = ticketTypesFacade.find(mtb.get(0).getTicketTypeID().getTicketTypeID());
-        return (List<MovieTicketBlocks>) ti.getMovieTicketBlocksCollection();
+    public List<TicketTypes> findTicketID(Movies movieID, Cinemas cinemaID, TicketTypes ticketID, Date date, String time) {
+        List<TicketTypes> mtb = movieTicketBlocksFacade.findByTicketID(movieID, cinemaID, ticketID, date, time);
+        // TicketTypes ti = ticketTypesFacade.find(mtb.get(0).getTicketTypeID().getTicketTypeID());
+        //return (List<TicketTypes>) ti.getMovieTicketBlocksCollection();
+        return mtb;
     }
 
-    public List<MovieTicketBlocks> findDate(Movies movieID, Cinemas cinemaID, Date date) {
+    public List<String> findDate(Movies movieID, Cinemas cinemaID, Date date) {
         return movieTicketBlocksFacade.findByDate(movieID, cinemaID, date);
     }
 
-    public List<MovieTicketBlocks> findTime(Movies movieID, Cinemas cinemaID, Date date, String time) {
+    public List<TicketTypes> findTime(Movies movieID, Cinemas cinemaID, Date date, String time) {
         //List<MovieTicketBlocks> listMTBB = new ArrayList<>();
         //  List<TicketTypes>  list = movieTicketBlocksFacade.findByTime(movieID, cinemaID, date,time);
         //  for (TicketTypes ti : list){
         //     listMTBB.add(movieTicketBlocksFacade.find(ti));
         // }
-        return movieTicketBlocksFacade.findByTime(movieID, cinemaID, date, time);
+        List<TicketTypes> list = movieTicketBlocksFacade.findByTime(movieID, cinemaID, date, time);
+        return list;
     }
 
     public List<MovieTicketBlocks> findCinemaID(Movies movieID, Cinemas cinemaID) {
@@ -199,6 +213,10 @@ public class BookMovieMB implements Serializable {
         return (List<MovieTicketBlocks>) ci.getMovieTicketBlocksCollection();
     }
 
+//    public List<TicketTypes> findCinemaID(Movies movieID, Cinemas cinemaID) {
+//        
+//        return movieTicketBlocksFacade.findByTicketID(movieID, cinemaID);
+//    }
 //    public List<MovieTicketBlocks> showTicket(){
 //        List<MovieTicketBlocks> list = movieTicketBlocksFacade.
 //    }
@@ -208,30 +226,56 @@ public class BookMovieMB implements Serializable {
         } else {
             listMTB = findCinemaID(id, cinemasFacade.find(cinemaID));
         }
-
     }
 
+//        public void changeCinema(Movies id) {
+//            List<TicketTypes> list = findCinemaID(id, cinemasFacade.find(cinemaID));
+//            for(TicketTypes t : list){
+//                
+//            }
+//    }
     public void changeTicket(Movies movieID) {
-        if (cinemaID.equals(0)) {
-            noticeCinema = "Please choose a cinema!";
-        } else if (time.equals("0")) {
-            noticeTime = "Please choose a timezone!";
-        } else if (ticketID.equals(0)) {
-            noticeTicket = "Please choose ticket type!";
-        } else {
-            listMTB = findTicketID(movieID, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), date, time);
+
+        List<TicketTypes> list = findTicketID(movieID, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), date, time);
+        for (TicketTypes t : list) {
+            MovieTicketBlocks m = movieTicketBlocksFacade.findaMovieByTicketID(movieID, cinemasFacade.find(cinemaID), ticketTypesFacade.find(t.getTicketTypeID()), date, time);
+            listMTB.add(m);
+
         }
     }
 
     public void changeDate(Movies movie) {
-        listMTB = findDate(movie, cinemasFacade.find(cinemaID), date);
+//        for (int i = 0; i < listMTB.size(); i++) {
+//            for (int j = i + 1; j < listMTB.size(); j++) {
+//                if (listMTB.get(i).equals(listMTB.get(j))) {
+//                    listMTB.remove(j);
+//                }
+//            }
+//
+//        }
+//        listMTB = findDate(movie, cinemasFacade.find(cinemaID), date);
+        listTime = findDate(movie, cinemasFacade.find(cinemaID), date);
     }
 
     public void changeTime(Movies movie) {
-        listMTB = findTime(movie, cinemasFacade.find(cinemaID), date, time);
+//        List<MovieTicketBlocks> list1 = findTime(movie, cinemasFacade.find(cinemaID), date, time);
+//        for (MovieTicketBlocks mtb : list1) {
+//            List<MovieTicketBlocks> list2 = movieTicketBlocksFacade.findByTime(movie, cinemasFacade.find(cinemaID), date, time);
+//            for (MovieTicketBlocks m : list2) {
+//                listMTB.add(m);
+//            }
+//        }
+        listTicket = findTime(movie, cinemasFacade.find(cinemaID), date, time);
     }
 
     public List<MovieTicketBlocks> blockChoosen() {
+        for (int i = 0; i < listMTB.size(); i++) {
+            for (int j = i + 1; j < listMTB.size(); j++) {
+                if (listMTB.get(i).equals(listMTB.get(j))) {
+                    listMTB.remove(j);
+                }
+            }
+        }
         return listMTB;
     }
 
@@ -258,14 +302,6 @@ public class BookMovieMB implements Serializable {
 
     public List<Payments> showAllPayments() {
         return paymentsFacade.findAll();
-    }
-
-    public List<MovieTicketBlocks> getListMTB() {
-        return listMTB;
-    }
-
-    public void setListMTB(List<MovieTicketBlocks> listMTB) {
-        this.listMTB = listMTB;
     }
 
     public Integer getCinemaID() {
@@ -426,6 +462,38 @@ public class BookMovieMB implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<MovieTicketBlocks> getListMTB() {
+        return listMTB;
+    }
+
+    public void setListMTB(List<MovieTicketBlocks> listMTB) {
+        this.listMTB = listMTB;
+    }
+
+    public List<String> getListTime() {
+        return listTime;
+    }
+
+    public void setListTime(List<String> listTime) {
+        this.listTime = listTime;
+    }
+
+    public List<TicketTypes> getListTicket() {
+        return listTicket;
+    }
+
+    public void setListTicket(List<TicketTypes> listTicket) {
+        this.listTicket = listTicket;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
 }

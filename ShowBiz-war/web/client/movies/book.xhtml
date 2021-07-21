@@ -56,8 +56,7 @@
                                             <h3>Book the ticket</h3>
                                             <div class="form-module">
                                                 <h:selectOneMenu  required="true"  value="#{bookMovieMB.cinemaID}" class="form-control">
-
-                                                    <f:ajax listener="#{bookMovieMB.changeCinema(bookMovieMB.movie)}" render="type"/>
+                                                    <f:ajax listener="#{bookMovieMB.changeCinema(bookMovieMB.movie)}" render="date"/>
                                                     <f:selectItem itemLabel="Cinema" itemValue="0"/>
                                                     <f:selectItems value="#{bookMovieMB.showByMovieID(bookMovieMB.movie)}" var="movie" itemLabel="#{movie.cinemaName}" itemValue="#{movie.cinemaID}"/>
                                                 </h:selectOneMenu>  
@@ -67,25 +66,27 @@
 
                                                 <h:inputText p:type="date" id="date" value="#{bookMovieMB.date}" class="form-control">
                                                     <f:ajax listener="#{bookMovieMB.changeDate(bookMovieMB.movie)}" render="time"/>
+
                                                     <f:convertDateTime pattern="yyyy-MM-dd" />
                                                 </h:inputText> 
                                                 <h:outputText value="#{bookMovieMB.noticeDate}" class="text-danger"/>
                                             </div>
                                             <div class="form-module">
                                                 <h:selectOneMenu id="time" required="true"  value="#{bookMovieMB.time}" class="form-control">
-                                                    <f:ajax listener="#{bookMovieMB.changeTime(moviesDisplayMB.movie)}" render="quanlity"/>
-                                                    <f:selectItem itemLabel="Time" itemValue="0"/>
-                                                    <f:selectItems value="#{bookMovieMB.blockChoosen()}" var="movie" itemLabel="#{movie.time}" itemValue="#{movie.time}"/>
+                                                    <f:ajax listener="#{bookMovieMB.changeTime(bookMovieMB.movie)}" render="type"/>
+                                                    <f:selectItem itemLabel="Time" itemValue="Null"/>
+                                                    <f:selectItems value="#{bookMovieMB.listTime}" var="movie" itemLabel="#{movie.toString()}" itemValue="#{movie.toString()}"/>
                                                 </h:selectOneMenu>  
                                                 <h:outputText value="#{bookMovieMB.noticeTime}" class="text-danger"/>
                                             </div>
                                             <div class="form-module">
                                                 <h:selectOneMenu id="type"  required="true"  value="#{bookMovieMB.ticketID}" class="form-control">
-                                                    <f:ajax listener="#{bookMovieMB.changeTicket(moviesDisplayMB.movie)}" render="quanlity"/>
+
+                                                    <f:ajax listener="#{bookMovieMB.changeQuanlity(bookMovieMB.movie)}" render="price"/>
                                                     <f:selectItem itemLabel="Ticket type" itemValue="0"/>
-                                                    <f:selectItems value="#{bookMovieMB.blockChoosen()}" var="movie" itemLabel="#{movie.ticketTypeID.ticketTypeName}" itemValue="#{movie.ticketTypeID.ticketTypeID}"/>
+                                                    <f:selectItems value="#{bookMovieMB.listTicket}" var="movie" itemLabel="#{movie.ticketTypeName}" itemValue="#{movie.ticketTypeID}"/>
                                                 </h:selectOneMenu>  
-                                                <h:outputText value="#{bookMusicSportMB.noticeTicket}" class="text-danger"/>
+                                                <h:outputText value="#{bookMovieMB.noticeTicket}" class="text-danger"/>
                                             </div>
                                             <div class="form-control-static">
                                                 <h:inputText p:type="number" id="quanlity" p:placeholder="Quanlity" p:min="1" p:max="10" value="#{bookMovieMB.quanlity}" class="form-control">
@@ -140,6 +141,16 @@
                     </div> 
                 </div> 
 
+
+
+            </ui:define>
+            <ui:define name="toastr">
+
+                <script>
+
+                    #{bookMovieMB.notice}
+                    #{bookMovieMB.notice=""}
+                </script>
 
 
             </ui:define>

@@ -64,6 +64,7 @@ public class BookMusicSportMB implements Serializable {
     private MusicSports musicsport;
     private Orders order;
 
+    private String notice = "";
     private String noticeTicket = "";
     private String noticePrice = "";
     private String noticePayment = "";
@@ -110,8 +111,9 @@ public class BookMusicSportMB implements Serializable {
                 MusicSportTicketBlocks mssp = musicSportTicketBlocksFacade.find(msp.getMusicSportTicketBlockID());
                 mssp.setResidual(mssp.getQuantity() - quanlity);
                 musicSportTicketBlocksFacade.edit(mssp);
+                notice ="alert ('Thank you! You have successfully booked your ticket!');";
             } catch (Exception ex) {
-                
+                notice ="alert ('An error occurred during the booking process!');";
                 return "book";
             }
 
@@ -238,6 +240,14 @@ public class BookMusicSportMB implements Serializable {
 
     public void setNoticePayment(String noticePayment) {
         this.noticePayment = noticePayment;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
 }

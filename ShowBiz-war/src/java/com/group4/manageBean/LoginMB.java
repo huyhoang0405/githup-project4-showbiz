@@ -48,13 +48,14 @@ public class LoginMB implements Serializable {
             setIsAdmin(false);
             Customers c = customersFacade.find(username);
             setCustomer(c);
+            notice = "alert ('Welcome "+c.getFirstName()+" "+ c.getLastName()+" has logged into the website!');";
             return "/client/home/index?faces-redirect=true";
         } else if (administratorsFacade.login(username, password)) {
             setIsLogin(true);
             setIsAdmin(true);
             Administrators a = administratorsFacade.find(username);
             setAdmin(a);
-            return "/admin/musicsportblock/index?faces-redirect=true";
+            return "/admin/movies/create?faces-redirect=true";
         } else {
             notice = "Username or password is incorrect!";
             return "index";

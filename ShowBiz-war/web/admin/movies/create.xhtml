@@ -47,15 +47,17 @@
                                             </div>
                                                 </div>
                                         </div>
-                                         <div class="form-group">
+                                         <div class="row">
                                                 <div class="col-md-10">
+                                                    <div class="form-group">
                                                     <label>Genre<h:inputText value="#{movieMB.movieGenres.note}" style="display: none" /></label>                                           
-                                                    <h:selectManyCheckbox p:multiple="true" class="form-group-sm list-group" layout="pageDirection"  required="true"  value="#{movieMB.categoryID}">
+                                                    <h:selectManyCheckbox p:multiple="true" class="form-group-sm list-group" required="true"  value="#{movieMB.categoryID}">
                                   
                                                         <f:selectItems value="#{movieMB.showAllCategories()}" class="list-group-item form-control" var="category" itemLabel="#{category.categoryName}" itemValue="#{category.categoryID}"/>
                                                     </h:selectManyCheckbox>    
                                                 </div>
                                             </div>
+                                             </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">

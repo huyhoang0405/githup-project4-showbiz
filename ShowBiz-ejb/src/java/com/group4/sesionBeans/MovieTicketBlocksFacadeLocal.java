@@ -47,11 +47,18 @@ public interface MovieTicketBlocksFacadeLocal {
 
     List<MovieTicketBlocks> findByCinemaID(Movies movieID, Cinemas cinemaID);
 
-    List<MovieTicketBlocks> findByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time);
+    List<TicketTypes> findByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time);
+    
+    MovieTicketBlocks findaMovieByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time);
 
     List<MovieTicketBlocks> selectType(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time);
 
-    List<MovieTicketBlocks> findByDate(Movies movieID, Cinemas cinemaID, Date id);
-    List<MovieTicketBlocks> findByTime(Movies movieID,Cinemas cinemaID,Date date,String time);
+    List<String> findByDate(Movies movieID, Cinemas cinemaID, Date id);
+    
+    List<TicketTypes> findByTime(Movies movieID,Cinemas cinemaID,Date date,String time);
+    
+    MovieTicketBlocks findaMovieByTime(Movies movieID,Cinemas cinemaID,Date date,String time);
 
+    MovieTicketBlocks findTicket(Movies movieID,Cinemas cinemaID,TicketTypes ticketID);
+    List<TicketTypes> findByTicketID(Movies movieID,Cinemas cinemaID);
 }

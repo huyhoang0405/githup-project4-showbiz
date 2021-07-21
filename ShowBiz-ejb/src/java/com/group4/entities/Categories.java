@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -42,8 +44,9 @@ public class Categories implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @Column(name = "Category_ID")
     private Integer categoryID;
     @Size(max = 100)
@@ -63,17 +66,17 @@ public class Categories implements Serializable {
     public Categories() {
     }
 
-    public Categories(Integer categoryID) {
-        this.categoryID = categoryID;
-    }
+//    public Categories(Integer categoryID) {
+//        this.categoryID = categoryID;
+//    }
 
     public Integer getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(Integer categoryID) {
-        this.categoryID = categoryID;
-    }
+//    public void setCategoryID(Integer categoryID) {
+//        this.categoryID = categoryID;
+//    }
 
     public String getCategoryName() {
         return categoryName;
