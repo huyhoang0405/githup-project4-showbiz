@@ -31,7 +31,7 @@ public class MoviesFacade extends AbstractFacade<Movies> implements MoviesFacade
         super(Movies.class);
     }
     
-    @Override
+     @Override
     public String getLastID(){
         Query query = em.createQuery("SELECT MAX (m.movieID) FROM Movies m");
         return query.getSingleResult().toString();
@@ -54,12 +54,4 @@ public class MoviesFacade extends AbstractFacade<Movies> implements MoviesFacade
         query.setMaxResults(8);
         return query.getResultList();
     }
-//    
-//     @Override
-//     public List<MovieGenres> findByIDMovieName(String id){
-//        Query query = em.createQuery("SELECT m FROM MovieGenres m WHERE m.movieGenresPK.movieID = :movieID");
-//        query.setParameter("movieID", id);
-//        return query.getResultList();
-//    }
-//    SELECT m FROM Movies m WHERE m.movieName = :movieName
 }

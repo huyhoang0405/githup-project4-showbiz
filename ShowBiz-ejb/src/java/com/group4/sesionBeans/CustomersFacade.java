@@ -30,8 +30,8 @@ public class CustomersFacade extends AbstractFacade<Customers> implements Custom
     public CustomersFacade() {
         super(Customers.class);
     }
-    
-    public boolean login(String un,String pw){
+
+    public boolean login(String un, String pw) {
         Query query = em.createQuery("SELECT c FROM Customers c WHERE c.customerUsername = :un AND c.password = :pw");
         query.setParameter("un", un);
         query.setParameter("pw", pw);

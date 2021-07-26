@@ -29,12 +29,12 @@ public interface MusicSportsFacadeLocal {
     List<MusicSports> findRange(int[] range);
 
     int count();
-    
+
     String getLastID();
-    
+
     List<MusicSports> showAllMusics();
-    
+
     List<MusicSports> showAllSports();
-    
+
     List<MusicSports> show6Newest();
 }

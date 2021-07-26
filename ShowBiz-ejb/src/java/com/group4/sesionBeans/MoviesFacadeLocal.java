@@ -29,12 +29,13 @@ public interface MoviesFacadeLocal {
     List<Movies> findRange(int[] range);
 
     int count();
-    
+
     String getLastID();
-    
+
     List<Movies> select5NewestMovies();
-    
+
     List<Movies> select8Movies();
-    
+
     List<Movies> select6NewestMovies();
+
 }

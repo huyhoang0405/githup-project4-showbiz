@@ -32,31 +32,47 @@ public class MusicSportTicketBlocksFacade extends AbstractFacade<MusicSportTicke
     public MusicSportTicketBlocksFacade() {
         super(MusicSportTicketBlocks.class);
     }
-    
+
     @Override
     public String getLastID() {
         Query query = em.createQuery("SELECT MAX (m.musicSportTicketBlockID) FROM MusicSportTicketBlocks m");
         return query.getSingleResult().toString();
     }
-    
+
     @Override
-    public List<TicketTypes> findTicketTypeByMusicSportID(MusicSports id){
+    public List<TicketTypes> findTicketTypeByMusicSportID(MusicSports id) {
         Query query = em.createQuery("SELECT DISTINCT (m.ticketTypeID)  From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID");
         query.setParameter("musicSportID", id);
         return query.getResultList();
     }
-    
-    public MusicSportTicketBlocks findByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID){
+
+    public MusicSportTicketBlocks findByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID) {
         Query query = em.createQuery("SELECT m From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID and m.ticketTypeID = :ticketTypeID");
         query.setParameter("musicSportID", msID);
         query.setParameter("ticketTypeID", ticketID);
         return (MusicSportTicketBlocks) query.getSingleResult();
     }
-    
-     public List<MusicSportTicketBlocks> findListByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID){
+
+    public List<MusicSportTicketBlocks> findListByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID) {
         Query query = em.createQuery("SELECT m From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID and m.ticketTypeID = :ticketTypeID");
         query.setParameter("musicSportID", msID);
         query.setParameter("ticketTypeID", ticketID);
-        return  query.getResultList();
+        return query.getResultList();
+    }
+
+    public boolean checkBlock(TicketTypes ticket,MusicSports musicsport) {
+        Query query = em.createQuery("SELECT m FROM MusicSportTicketBlocks m WHERE m.ticketTypeID = :ticketTypeID and m.musicSportID = :musicSportID");
+        query.setParameter("ticketTypeID", ticket);
+        query.setParameter("musicSportID", musicsport);
+        List<MusicSportTicketBlocks> list = query.getResultList();
+        return list.size() > 0;
+    }
+    
+     public MusicSportTicketBlocks findBlock(TicketTypes ticket,MusicSports musicsport) {
+        Query query = em.createQuery("SELECT m FROM MusicSportTicketBlocks m WHERE m.ticketTypeID = :ticketTypeID and m.musicSportID = :musicSportID");
+        query.setParameter("ticketTypeID", ticket);
+        query.setParameter("musicSportID", musicsport);
+        List<MusicSportTicketBlocks> list = query.getResultList();
+        return (MusicSportTicketBlocks) query.getSingleResult();
     }
 }

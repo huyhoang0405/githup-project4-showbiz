@@ -5,7 +5,9 @@
  */
 package com.group4.sesionBeans;
 
+import com.group4.entities.Customers;
 import com.group4.entities.Orders;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -31,4 +33,10 @@ public interface OrdersFacadeLocal {
     int count();
     
     String getLastID();
+    
+    Object totalOfCustomer(Customers un);
+    
+    List<Customers> findCustomersInOrder();
+    
+    Object weeklyStatistics(Date startdate, Date enddate);
 }

@@ -30,12 +30,10 @@ public class MovieGenresFacade extends AbstractFacade<MovieGenres> implements Mo
     public MovieGenresFacade() {
         super(MovieGenres.class);
     }
-    
-    @Override
-    public List<MovieGenres> findByIDMovieID(String id){
+
+    public List<MovieGenres> findByIDMovieID(String id) {
         Query query = em.createQuery("SELECT m FROM MovieGenres m WHERE m.movieGenresPK.movieID = :movieID");
         query.setParameter("movieID", id);
         return query.getResultList();
     }
-    
 }

@@ -165,13 +165,17 @@ public class MusicSportMB implements Serializable {
 
     public String setIDMS() {
         String id = "";
+        String year = (calendar.get(Calendar.YEAR) + "").substring(2);
         try {
-            String character = (musicSportsFacade.getLastID()).substring(0, 3);
-            String year = (calendar.get(Calendar.YEAR) + "").substring(2);
-            int number = Integer.parseInt((musicSportsFacade.getLastID().substring(5))) + 1;
-            id = character + year + (String.format("%04d", number));
+            if (year.equals((musicSportsFacade.getLastID()).substring(3, 5))) {
+                String character = (musicSportsFacade.getLastID()).substring(0, 5);
+                int number = Integer.parseInt((musicSportsFacade.getLastID().substring(5))) + 1;
+                id = character + (String.format("%04d", number));
+            } else {
+                id = "MST" + year + "0001";
+            }
         } catch (Exception ex) {
-            id = "MST210001";
+            id = "MST" + year + "0001";
         }
         return id;
     }
@@ -404,18 +408,18 @@ public class MusicSportMB implements Serializable {
         }
     }
 
-    public String showDetailMS(String id){
+    public String showDetailMS(String id) {
         MusicSports ms = musicSportsFacade.find(id);
         setMusicSport(ms);
         return "details";
     }
-    
-    public String showDetailoutMS(String id){
+
+    public String showDetailoutMS(String id) {
         MusicSports ms = musicSportsFacade.find(id);
         setMusicSport(ms);
         return "/client/musicsports/details";
     }
-    
+
     public List<MusicSports> showAll() {
         return musicSportsFacade.findAll();
     }
@@ -423,15 +427,15 @@ public class MusicSportMB implements Serializable {
     public List<MusicSports> showAllMusics() {
         return musicSportsFacade.showAllMusics();
     }
-    
+
     public List<MusicSports> show6Newest() {
         return musicSportsFacade.show6Newest();
     }
-     
+
     public List<MusicSports> showAllSports() {
         return musicSportsFacade.showAllSports();
     }
-    
+
     public MusicSports getMusicSport() {
         return musicSport;
     }

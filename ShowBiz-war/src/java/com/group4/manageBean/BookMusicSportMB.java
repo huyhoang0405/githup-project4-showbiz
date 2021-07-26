@@ -157,14 +157,18 @@ public class BookMusicSportMB implements Serializable {
 
     public String setIDOrder() {
         String orderID = "";
+        String year = (calendar.get(Calendar.YEAR) + "").substring(2);
 
         try {
-            String character = (ordersFacade.getLastID()).substring(0, 2);
-            String year = (calendar.get(Calendar.YEAR) + "").substring(2);
-            int number = Integer.parseInt((ordersFacade.getLastID().substring(4))) + 1;
-            orderID = character + year + (String.format("%05d", number));
+            if (year.equals((ordersFacade.getLastID()).substring(2,4))) {
+                String character = (ordersFacade.getLastID()).substring(0, 4);
+                int number = Integer.parseInt((ordersFacade.getLastID().substring(4))) + 1;
+                orderID = character + (String.format("%05d", number));
+            } else {
+                orderID = "OD" + year + "00001";
+            }
         } catch (Exception ex) {
-            orderID = "OD2100001";
+            orderID = "OD" + year + "00001";
         }
 
         return orderID;

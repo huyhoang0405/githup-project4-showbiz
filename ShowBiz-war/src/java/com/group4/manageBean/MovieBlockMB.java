@@ -47,6 +47,12 @@ public class MovieBlockMB implements Serializable {
 
     private List<MovieTicketBlocks> listMTB = new ArrayList<>();
 
+    private String noticeQuantity;
+    private String noticeDate;
+    private String noticeCinema;
+    private String noticeTicket;
+    private String noticeTime;
+
     private MovieTicketBlocks movieTicketBlock;
     private Integer cinemaID;
     private String movieID;
@@ -66,6 +72,12 @@ public class MovieBlockMB implements Serializable {
         ticketID = null;
         movieTicketBlock.setTime(null);
         movieTicketBlock.setUnitPrice(null);
+        setNoticeCinema(null);
+        setNoticeDate(null);
+        setNoticeQuantity(null);
+        setNoticeTicket(null);
+        setNoticeTime(null);
+
     }
 
     public List<MovieTicketBlocks> showAllMovieTicketBlocks() {
@@ -90,35 +102,90 @@ public class MovieBlockMB implements Serializable {
     }
 
     public String createNewBlock() {
-        try {
-            MovieTicketBlocks mbt = new MovieTicketBlocks();
-            mbt.setMovieTicketBlockID(createID());
-            mbt.setDate(movieTicketBlock.getDate());
-            mbt.setTime(movieTicketBlock.getTime());
-            mbt.setQuantity(movieTicketBlock.getQuantity());
-            mbt.setResidual(movieTicketBlock.getQuantity());
-            mbt.setUnitPrice(movieTicketBlock.getUnitPrice());
-            mbt.setCinemaID(cinemasFacade.find(cinemaID));
-            mbt.setTicketTypeID(ticketTypesFacade.find(ticketID));
-            mbt.setMovieID(moviesFacade.find(movieID));
+        if (!movieTicketBlocksFacade.checkBlock(movieTicketBlock.getDate(), movieTicketBlock.getTime(), movieTicketBlock.getUnitPrice(), cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), moviesFacade.find(movieID))) {
+            try {
+                MovieTicketBlocks mbt = new MovieTicketBlocks();
+                Movies m = moviesFacade.find(movieID);
+                
+                if (movieTicketBlock.getTime() == (null)) {
+                    noticeTime = "Date must be greater than the release date of movie";
+                    return "create";  
+                }
+                if (m.getReleaseDate().compareTo(movieTicketBlock.getDate()) > 0) {
+                    noticeDate = "Date must be greater than the release date of movie";
+                    return "create";  
+                }
+                if (cinemaID.equals(0)) {
+                    noticeCinema = "Please choose a cinema!";
+                    return "create";
+                } 
+                if (ticketID.equals(0)) {
+                    noticeTicket = "Please choose a ticket type!";
+                    return "create";
+                } else {
+                    mbt.setMovieTicketBlockID(createID());
+                    mbt.setDate(movieTicketBlock.getDate());
+                    mbt.setTime(movieTicketBlock.getTime());
+                    mbt.setQuantity(movieTicketBlock.getQuantity());
+                    mbt.setResidual(movieTicketBlock.getQuantity());
+                    mbt.setUnitPrice(movieTicketBlock.getUnitPrice());
+                    mbt.setCinemaID(cinemasFacade.find(cinemaID));
+                    mbt.setTicketTypeID(ticketTypesFacade.find(ticketID));
+                    mbt.setMovieID(moviesFacade.find(movieID));
 
-            movieTicketBlocksFacade.create(mbt);
-        } catch (Exception e) {
+                    movieTicketBlocksFacade.create(mbt);
+                }
+
+            } catch (Exception e) {
+            }
+            return "index";
+        } else {
+            try {
+                MovieTicketBlocks mbt = movieTicketBlocksFacade.findBlock(movieTicketBlock.getDate(), movieTicketBlock.getTime(), movieTicketBlock.getUnitPrice(), cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), moviesFacade.find(movieID));
+                Integer result = Math.abs(mbt.getQuantity() - movieTicketBlock.getQuantity());
+
+                if (mbt.getQuantity() > movieTicketBlock.getQuantity()) {
+                    if (result > mbt.getResidual()) {
+                        noticeQuantity = "So ve  cua so luong moi it hon ve con lai";
+                    } else {
+                        mbt.setQuantity(movieTicketBlock.getQuantity());
+                        mbt.setResidual(mbt.getResidual() - result);
+                    }
+                } else {
+                    mbt.setQuantity(movieTicketBlock.getQuantity());
+                    mbt.setResidual(mbt.getResidual() + result);
+                }
+                movieTicketBlocksFacade.edit(mbt);
+
+            } catch (Exception e) {
+            }
+            return "index";
         }
-        return "index";
     }
 
     public String editBlock(String id) {
         try {
             MovieTicketBlocks mbt = movieTicketBlocksFacade.find(id);
+
             mbt.setDate(movieTicketBlock.getDate());
             mbt.setTime(movieTicketBlock.getTime());
-            mbt.setQuantity(movieTicketBlock.getQuantity());
-            mbt.setResidual(movieTicketBlock.getQuantity());
             mbt.setUnitPrice(movieTicketBlock.getUnitPrice());
             mbt.setCinemaID(cinemasFacade.find(cinemaID));
             mbt.setTicketTypeID(ticketTypesFacade.find(ticketID));
             mbt.setMovieID(moviesFacade.find(movieID));
+
+            Integer result = Math.abs(mbt.getQuantity() - movieTicketBlock.getQuantity());
+            if (mbt.getQuantity() > movieTicketBlock.getQuantity()) {
+                if (result > mbt.getResidual()) {
+                    noticeQuantity = "So ve  cua so luong moi it hon ve con lai";
+                } else {
+                    mbt.setQuantity(movieTicketBlock.getQuantity());
+                    mbt.setResidual(mbt.getResidual() - result);
+                }
+            } else {
+                mbt.setQuantity(movieTicketBlock.getQuantity());
+                mbt.setResidual(mbt.getResidual() + result);
+            }
 
             movieTicketBlocksFacade.edit(mbt);
             resetForm();
@@ -159,14 +226,18 @@ public class MovieBlockMB implements Serializable {
 
     public String createID() {
         String movieBlockID = "";
+        String year = (calendar.get(Calendar.YEAR) + "").substring(2);
 
         try {
-            String character = (movieTicketBlocksFacade.getLastID()).substring(0, 3);
-            String year = (calendar.get(Calendar.YEAR) + "").substring(2);
-            int number = Integer.parseInt((movieTicketBlocksFacade.getLastID().substring(5))) + 1;
-            movieBlockID = character + year + (String.format("%05d", number));
+            if (year.equals((movieTicketBlocksFacade.getLastID()).substring(3, 5))) {
+                String character = (movieTicketBlocksFacade.getLastID()).substring(0, 5);
+                int number = Integer.parseInt((movieTicketBlocksFacade.getLastID().substring(5))) + 1;
+                movieBlockID = character + (String.format("%05d", number));
+            } else {
+                movieBlockID = "MTB" + year + "00001";
+            }
         } catch (Exception ex) {
-            movieBlockID = "MTB2100001";
+            movieBlockID = "MTB" + year + "00001";
         }
 
         return movieBlockID;
@@ -257,6 +328,46 @@ public class MovieBlockMB implements Serializable {
 
     public void setListMTB(List<MovieTicketBlocks> listMTB) {
         this.listMTB = listMTB;
+    }
+
+    public String getNoticeQuantity() {
+        return noticeQuantity;
+    }
+
+    public void setNoticeQuantity(String noticeQuantity) {
+        this.noticeQuantity = noticeQuantity;
+    }
+
+    public String getNoticeDate() {
+        return noticeDate;
+    }
+
+    public void setNoticeDate(String noticeDate) {
+        this.noticeDate = noticeDate;
+    }
+
+    public String getNoticeCinema() {
+        return noticeCinema;
+    }
+
+    public void setNoticeCinema(String noticeCinema) {
+        this.noticeCinema = noticeCinema;
+    }
+
+    public String getNoticeTicket() {
+        return noticeTicket;
+    }
+
+    public void setNoticeTicket(String noticeTicket) {
+        this.noticeTicket = noticeTicket;
+    }
+
+    public String getNoticeTime() {
+        return noticeTime;
+    }
+
+    public void setNoticeTime(String noticeTime) {
+        this.noticeTime = noticeTime;
     }
 
 }

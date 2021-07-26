@@ -31,7 +31,7 @@ public class MusicSportsFacade extends AbstractFacade<MusicSports> implements Mu
         super(MusicSports.class);
     }
     
-    @Override
+        @Override
     public String getLastID(){
         Query query = em.createQuery("SELECT MAX (m.musicSportID) FROM MusicSports m");
         return query.getSingleResult().toString();

@@ -34,9 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Places.findAll", query = "SELECT p FROM Places p")
     , @NamedQuery(name = "Places.findByPlacesID", query = "SELECT p FROM Places p WHERE p.placesID = :placesID")
-    , @NamedQuery(name = "Places.findByStreet", query = "SELECT p FROM Places p WHERE p.street = :street")
-    , @NamedQuery(name = "Places.findByWard", query = "SELECT p FROM Places p WHERE p.ward = :ward")
-    , @NamedQuery(name = "Places.findByDistrict", query = "SELECT p FROM Places p WHERE p.district = :district")
     , @NamedQuery(name = "Places.findByCity", query = "SELECT p FROM Places p WHERE p.city = :city")})
 public class Places implements Serializable {
 
@@ -47,15 +44,6 @@ public class Places implements Serializable {
    // @NotNull
     @Column(name = "Places_ID")
     private Integer placesID;
-    @Size(max = 100)
-    @Column(name = "Street")
-    private String street;
-    @Size(max = 100)
-    @Column(name = "Ward")
-    private String ward;
-    @Size(max = 100)
-    @Column(name = "District")
-    private String district;
     @Size(max = 100)
     @Column(name = "City")
     private String city;
@@ -79,30 +67,6 @@ public class Places implements Serializable {
 //    public void setPlacesID(Integer placesID) {
 //        this.placesID = placesID;
 //    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getWard() {
-        return ward;
-    }
-
-    public void setWard(String ward) {
-        this.ward = ward;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
 
     public String getCity() {
         return city;

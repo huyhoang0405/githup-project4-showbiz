@@ -34,8 +34,8 @@ public interface MovieTicketBlocksFacadeLocal {
     List<MovieTicketBlocks> findRange(int[] range);
 
     int count();
-
-    String getLastID();
+ 
+        String getLastID();
 
     Collection showAllBlock();
 
@@ -60,5 +60,10 @@ public interface MovieTicketBlocksFacadeLocal {
     MovieTicketBlocks findaMovieByTime(Movies movieID,Cinemas cinemaID,Date date,String time);
 
     MovieTicketBlocks findTicket(Movies movieID,Cinemas cinemaID,TicketTypes ticketID);
+    
     List<TicketTypes> findByTicketID(Movies movieID,Cinemas cinemaID);
+    
+    boolean checkBlock(Date date, String time, Long price, Cinemas cinema, TicketTypes ticket, Movies movie);
+    
+    MovieTicketBlocks findBlock(Date date, String time, Long price, Cinemas cinema, TicketTypes ticket, Movies movie);
 }

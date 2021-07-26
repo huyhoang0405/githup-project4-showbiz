@@ -15,22 +15,27 @@
             <ui:define name="content">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Create a new area</h1>
+                        <h1 class="page-header">Edit a movie ticket block</h1>
                     </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Basic Form Elements
-                            </div>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-
                                         <h:form class="">
+                                            <div class="form-group row">
+                                                <div class="col-md-10">
+                                                    <label>Movie</label>    
+                                                    <h:inputText id="movieID" readonly="true" p:list="movie" value="#{movieBlockMB.movieID}" p:placeholder="Enter movie" class="form-control"/>                                                                                         
+                                                    <datalist id="movie">
+                                                        <c:forEach var="movie" items="#{movieBlockMB.showAllMovies()}">
+                                                            <option value="#{movie.movieID}" label="#{movie.movieName}"/>
+                                                        </c:forEach>                  
+                                                    </datalist>
+                                                </div>
+                                            </div>
                                             <div class="form-group row">
                                                 <div class="col-md-5">
                                                     <label>Date:</label>                                           
@@ -40,18 +45,15 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label>Time:</label>                                           
-                                                    <h:inputText p:type="time" id="time" value="#{movieBlockMB.movieTicketBlock.time}" class="form-control"/>
-
-
+                                                    <h:inputText p:type="time" readonly="true" id="time" value="#{movieBlockMB.movieTicketBlock.time}" class="form-control"/>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                
+                                            <div class="form-group row">                                               
                                                 <div class="col-md-10">
                                                     <label>Unit Price:</label>      
                                                     <div class="input-group">                
-                                                    <h:inputText p:type="money" id="unitprice" value="#{movieBlockMB.movieTicketBlock.unitPrice}" p:placeholder="Enter quantity" class="form-control"/>    
-                                                    <span class="input-group-addon">VND</span>
+                                                        <h:inputText p:type="money" id="unitprice" readonly="true" value="#{movieBlockMB.movieTicketBlock.unitPrice}" p:placeholder="Enter quantity" class="form-control"/>    
+                                                        <span class="input-group-addon">VND</span>
                                                     </div>  
                                                 </div>
                                             </div>
@@ -61,11 +63,10 @@
                                                     <h:inputText p:type="number" id="quantity" value="#{movieBlockMB.movieTicketBlock.quantity}" p:placeholder="Enter quantity" class="form-control"/>                                             
                                                 </div>
                                             </div>
-
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Cinema</label>                                           
-                                                    <h:selectOneMenu  required="true"  value="#{movieBlockMB.cinemaID}" class="form-control">
+                                                    <h:selectOneMenu  required="true" readonly="true"  value="#{movieBlockMB.cinemaID}" class="form-control">
                                                         <f:selectItem itemLabel="Please choose an cinema" itemValue="Null"/>
                                                         <f:selectItems value="#{movieBlockMB.showAllCinemas()}" var="cinema" itemLabel="#{cinema.cinemaName}" itemValue="#{cinema.cinemaID}"/>
                                                     </h:selectOneMenu>    
@@ -74,42 +75,23 @@
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Ticket type</label>                                           
-                                                    <h:selectOneMenu  required="true"  value="#{movieBlockMB.ticketID}" class="form-control">
+                                                    <h:selectOneMenu readonly="true" required="true"  value="#{movieBlockMB.ticketID}" class="form-control">
                                                         <f:selectItem itemLabel="Please choose an ticket type" itemValue="Null"/>
                                                         <f:selectItems value="#{movieBlockMB.showAllTicketTypes()}" var="ticket" itemLabel="#{ticket.ticketTypeName}" itemValue="#{ticket.ticketTypeID}"/>
                                                     </h:selectOneMenu>    
                                                 </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-10">
-                                                    <label>Movie</label>    
-                                                    <h:inputText id="cinema" p:list="movie" value="#{movieBlockMB.movieID}" p:placeholder="Enter movie" class="form-control"/>                                                                                         
-                                                    <datalist id="movie">
-                                                        <c:forEach var="movie" items="#{movieBlockMB.showAllMovies()}">
-                                                            <option value="#{movie.movieID}" label="#{movie.movieName}"/>
-                                                        </c:forEach>                  
-                                                    </datalist>
-                                                </div>
-                                            </div>
+                                            </div>                                         
                                             <div class="">
                                                 <h:commandButton class="btn btn-outline btn-success" action="#{movieBlockMB.editBlock(movieBlockMB.movieTicketBlock.movieTicketBlockID)}" value="Save"/>&nbsp;
                                                 <h:link class="btn btn-outline btn-primary" outcome="index" value="Cancel"/>
                                             </div>
                                         </h:form>
                                     </div>
-                                    <!-- /.col-lg-6 (nested) -->
-
-                                    <!-- /.col-lg-6 (nested) -->
                                 </div>
-                                <!-- /.row (nested) -->
                             </div>
-                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.panel -->
                     </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
             </ui:define>
         </ui:composition>
     </h:body>

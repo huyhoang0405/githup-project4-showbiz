@@ -15,21 +15,15 @@
             <ui:define name="content">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Create a new area</h1>
+                        <h1 class="page-header">Details information</h1>
                     </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Basic Form Elements
-                            </div>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-
                                         <h:form class="">
                                             <div class="form-group row">
                                                 <div class="col-md-10">
@@ -40,8 +34,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Music or Sport</label>    
-                                                    <h:outputText value="#{musicSportBlockMB.musicSportBlock.musicSportID.musicSportName}" class="form-control"/>                                                                                         
-
+                                                    <h:outputText value="#{musicSportBlockMB.musicSportBlock.musicSportID.musicSportName}" class="form-control"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -54,12 +47,9 @@
                                                 <div class="col-md-5">
                                                     <label>Time:</label>                                           
                                                     <h:outputText  value="#{musicSportBlockMB.musicSportBlock.musicSportID.startTime}" class="form-control"/>
-
-
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-
                                                 <div class="col-md-10">
                                                     <label>Unit Price:</label>      
                                                     <div class="input-group">                
@@ -78,35 +68,23 @@
                                                     <h:outputText p:type="number" value="#{musicSportBlockMB.musicSportBlock.residual}"  class="form-control"/>                                             
                                                 </div>
                                             </div>
-
-
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Ticket type</label>                                           
                                                     <h:outputText p:type="number" value="#{musicSportBlockMB.musicSportBlock.ticketTypeID.ticketTypeName}"  class="form-control"/> 
-
                                                 </div>
                                             </div>
-
                                             <div class="">
                                                 <h:commandButton class="btn btn-outline btn-success" action="#{musicSportBlockMB.loadFormEdit(musicSportBlockMB.musicSportBlock.musicSportTicketBlockID)}" value="Edit"/>&nbsp;
                                                 <h:link class="btn btn-outline btn-primary" outcome="index" value="Cancel"/>
                                             </div>
                                         </h:form>
                                     </div>
-                                    <!-- /.col-lg-6 (nested) -->
-
-                                    <!-- /.col-lg-6 (nested) -->
                                 </div>
-                                <!-- /.row (nested) -->
                             </div>
-                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.panel -->
                     </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
             </ui:define>
         </ui:composition>
     </h:body>

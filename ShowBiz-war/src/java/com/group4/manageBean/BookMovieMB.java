@@ -87,7 +87,7 @@ public class BookMovieMB implements Serializable {
     private String time;
     private Date date;
 
-    private String notice="";
+    private String notice = "";
     private String noticeCinema;
     private String noticeDate;
     private String noticeTime;
@@ -165,11 +165,11 @@ public class BookMovieMB implements Serializable {
 //                    notice = "<script>\n"
 //                            + "    alert(\"You have successfully booked your ticket!\");\n"
 //                            + "</script>";
-                    notice ="alert ('Thank you! You have successfully booked your ticket!');";
+                    notice = "alert ('Thank you! You have successfully booked your ticket!');";
                 }
             } catch (Exception ex) {
-                notice ="alert ('An error occurred during the booking process!');";
-                
+              //  notice = "alert ('An error occurred during the booking process!');";
+
                 return "book";
             }
 
@@ -287,14 +287,18 @@ public class BookMovieMB implements Serializable {
 
     public String setIDOrder() {
         String orderID = "";
+        String year = (calendar.get(Calendar.YEAR) + "").substring(2);
 
         try {
-            String character = (ordersFacade.getLastID()).substring(0, 2);
-            String year = (calendar.get(Calendar.YEAR) + "").substring(2);
-            int number = Integer.parseInt((ordersFacade.getLastID().substring(4))) + 1;
-            orderID = character + year + (String.format("%05d", number));
+            if (year.equals((ordersFacade.getLastID()).substring(2, 4))) {
+                String character = (ordersFacade.getLastID()).substring(0, 4);
+                int number = Integer.parseInt((ordersFacade.getLastID().substring(4))) + 1;
+                orderID = character + (String.format("%05d", number));
+            } else {
+                orderID = "OD" + year + "00001";
+            }
         } catch (Exception ex) {
-            orderID = "OD2100001";
+            orderID = "OD" + year + "00001";
         }
 
         return orderID;

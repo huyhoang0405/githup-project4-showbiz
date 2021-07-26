@@ -39,6 +39,7 @@ public class MusicSportBlockMB implements Serializable {
 
     private Integer ticketID;
     private String msID;
+    private String noticeQuantity;
     private final Calendar calendar = Calendar.getInstance();
 
     public MusicSportBlockMB() {
@@ -46,15 +47,40 @@ public class MusicSportBlockMB implements Serializable {
     }
 
     public String createNewBlock() {
-        MusicSportTicketBlocks m = new MusicSportTicketBlocks();
-        m.setMusicSportTicketBlockID(createID());
-        m.setMusicSportID(musicSportsFacade.find(msID));
-        m.setTicketTypeID(ticketTypesFacade.find(ticketID));
-        m.setQuantity(musicSportBlock.getQuantity());
-        m.setResidual(musicSportBlock.getQuantity());
-        m.setUnitPrice(musicSportBlock.getUnitPrice());
+        MusicSportTicketBlocks m;
+        if (!musicSportTicketBlocksFacade.checkBlock(ticketTypesFacade.find(ticketID), musicSportsFacade.find(msID))) {
+            try {
+                m = new MusicSportTicketBlocks();
+                m.setMusicSportTicketBlockID(createID());
+                m.setMusicSportID(musicSportsFacade.find(msID));
+                m.setTicketTypeID(ticketTypesFacade.find(ticketID));
+                m.setQuantity(musicSportBlock.getQuantity());
+                m.setResidual(musicSportBlock.getQuantity());
+                m.setUnitPrice(musicSportBlock.getUnitPrice());
 
-        musicSportTicketBlocksFacade.create(m);
+                musicSportTicketBlocksFacade.create(m);
+            } catch (Exception e) {
+            }
+
+        } else {
+            m = musicSportTicketBlocksFacade.findBlock(ticketTypesFacade.find(ticketID), musicSportsFacade.find(msID));
+            Integer result = Math.abs(m.getQuantity() - musicSportBlock.getQuantity());
+
+            if (m.getQuantity() > musicSportBlock.getQuantity()) {
+                if (result > m.getResidual()) {
+                    noticeQuantity = "So ve  cua so luong moi it hon ve con lai";
+                } else {
+                    m.setQuantity(musicSportBlock.getQuantity());
+                    m.setResidual(m.getResidual() - result);
+                }
+            } else {
+                m.setQuantity(musicSportBlock.getQuantity());
+                m.setResidual(m.getResidual() + result);
+            }
+            musicSportTicketBlocksFacade.edit(m);
+
+        }
+
         return "index";
     }
 
@@ -81,16 +107,32 @@ public class MusicSportBlockMB implements Serializable {
     }
 
     public String edit(String id) {
-        MusicSportTicketBlocks m = musicSportTicketBlocksFacade.find(id);
-        m.setMusicSportID(musicSportsFacade.find(msID));
-        m.setQuantity(musicSportBlock.getQuantity());
-        m.setResidual(musicSportBlock.getResidual());
-        m.setTicketTypeID(ticketTypesFacade.find(ticketID));
-        m.setUnitPrice(musicSportBlock.getUnitPrice());
-        
-        musicSportTicketBlocksFacade.edit(m);
+        try {
+            MusicSportTicketBlocks m = musicSportTicketBlocksFacade.find(id);
 
-        resetForm();
+            m.setMusicSportID(musicSportsFacade.find(msID));
+            m.setTicketTypeID(ticketTypesFacade.find(ticketID));
+            m.setUnitPrice(musicSportBlock.getUnitPrice());
+
+            Integer result = Math.abs(m.getQuantity() - musicSportBlock.getQuantity());
+            if (m.getQuantity() > musicSportBlock.getQuantity()) {
+                if (result > m.getResidual()) {
+                    noticeQuantity = "So ve  cua so luong moi it hon ve con lai";
+                } else {
+                    m.setQuantity(musicSportBlock.getQuantity());
+                    m.setResidual(m.getResidual() - result);
+                }
+            } else {
+                m.setQuantity(musicSportBlock.getQuantity());
+                m.setResidual(m.getResidual() + result);
+            }
+            
+            musicSportTicketBlocksFacade.edit(m);
+            resetForm();
+            return "index";
+        } catch (Exception e) {
+        }
+
         return "index";
     }
 
@@ -104,7 +146,7 @@ public class MusicSportBlockMB implements Serializable {
     }
 
     public void resetForm() {
-        msID=null;
+        msID = null;
         musicSportBlock.setMusicSportID(null);
         musicSportBlock.setQuantity(null);
         musicSportBlock.setResidual(null);
@@ -122,14 +164,17 @@ public class MusicSportBlockMB implements Serializable {
 
     public String createID() {
         String msBlockID = "";
-
+        String year = (calendar.get(Calendar.YEAR) + "").substring(2);
         try {
-            String character = (musicSportTicketBlocksFacade.getLastID()).substring(0, 3);
-            String year = (calendar.get(Calendar.YEAR) + "").substring(2);
-            int number = Integer.parseInt((musicSportTicketBlocksFacade.getLastID().substring(5))) + 1;
-            msBlockID = character + year + (String.format("%05d", number));
+            if (year.equals((musicSportTicketBlocksFacade.getLastID()).substring(3, 5))) {
+                String character = (musicSportTicketBlocksFacade.getLastID()).substring(0, 5);
+                int number = Integer.parseInt((musicSportTicketBlocksFacade.getLastID().substring(5))) + 1;
+                msBlockID = character + (String.format("%05d", number));
+            } else {
+                msBlockID = "MSB" + year + "00001";
+            }
         } catch (Exception ex) {
-            msBlockID = "MSB2100001";
+            msBlockID = "MSB" + year + "00001";
         }
 
         return msBlockID;
@@ -157,6 +202,14 @@ public class MusicSportBlockMB implements Serializable {
 
     public void setMsID(String msID) {
         this.msID = msID;
+    }
+
+    public String getNoticeQuantity() {
+        return noticeQuantity;
+    }
+
+    public void setNoticeQuantity(String noticeQuantity) {
+        this.noticeQuantity = noticeQuantity;
     }
 
 }

@@ -56,7 +56,8 @@ public class CinemaMB implements Serializable {
     //reset form
     public void resetForm() {
         cinema.setCinemaName(null);
-        cinema.setPlacesID(null);
+        cinema.setAddress(null);
+        setPlaceID(null);
     }
 
     //load form create a new cinema
@@ -71,6 +72,7 @@ public class CinemaMB implements Serializable {
             Cinemas c = new Cinemas();
 
             c.setCinemaName(cinema.getCinemaName());
+            c.setAddress(cinema.getAddress());
             c.setPlacesID(placesFacade.find(placeID));
 
             cinemasFacade.create(c);
@@ -94,8 +96,9 @@ public class CinemaMB implements Serializable {
     public String editCinema(int id) {
         try {
             Cinemas c = cinemasFacade.find(id);
-            c.setCinemaName(cinema.getCinemaName());
             
+            c.setCinemaName(cinema.getCinemaName());
+            c.setAddress(cinema.getAddress());
             c.setPlacesID(placesFacade.find(placeID));
             cinemasFacade.edit(c);
             resetForm();

@@ -1,163 +1,142 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns = "http://www.w3.org/1999/xhtml"   
-   xmlns:h = "http://java.sun.com/jsf/html"
-   xmlns:ui = "http://java.sun.com/jsf/facelets"
-   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-   xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h = "http://java.sun.com/jsf/html"
+      xmlns:ui = "http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        
+
     </h:head>
-   <h:body>
-      <ui:composition template = "/layout/admin/common.xhtml">  
-         <ui:define name="content">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Create a new area</h1>
+    <h:body>
+        <ui:composition template = "/layout/admin/common.xhtml">  
+            <ui:define name="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Details information</h1>
+                    </div>
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Basic Form Elements
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                               
-                                    <h:form class="" enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                <label>Movie Name:</label>                                           
-                                                <h:inputText id="movieName" value="#{movieMB.movie.movieName}" p:placeholder="Enter movie name" class="form-control"/>                                             
-                                            </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">                              
+                                        <h:form class="" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Movie Name:</label>                                           
+                                                        <h:inputText id="movieName" value="#{movieMB.movie.movieName}" p:placeholder="Enter movie name" class="form-control"/>                                             
+                                                    </div>
                                                 </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                <label>Starring:</label>                                           
-                                                <h:inputText id="starring" value="#{movieMB.movie.starring}" p:placeholder="Enter starring" class="form-control"/>                                             
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Starring:</label>                                           
+                                                        <h:inputText id="starring" value="#{movieMB.movie.starring}" p:placeholder="Enter starring" class="form-control"/>                                             
+                                                    </div>
                                                 </div>
-                                        </div>
-                                         <div class="form-group">
+                                            </div>
+                                            <div class="form-group">
                                                 <div class="col-md-10 form-group">
                                                     <label>Genre:<h:inputText value="#{movieMB.movieGenres.note}" style="display: none" /></label>                                           
                                                     <ui:repeat value="#{movieMB.categoryID}" var="categoryID">
                                                         <h:outputLabel value="#{categoryID}"/> &nbsp;&nbsp;
                                                     </ui:repeat>                                             
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Length:</label>                                           
+                                                        <h:inputText id="length" p:type="number" value="#{movieMB.movie.length}" p:placeholder="Enter length" class="form-control"/>                                             
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Release Date:</label>                                           
+                                                        <h:inputText id="relleaseDate" p:type="date" value="#{movieMB.movie.releaseDate}" p:placeholder="Enter release date" class="form-control">
+                                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                        </h:inputText>                                             
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Country:</label>                                           
+                                                        <h:inputText id="country" value="#{movieMB.movie.country}" p:placeholder="Enter country" class="form-control"/>                                             
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Language</label>                                           
+                                                        <h:inputText id="language"  value="#{movieMB.movie.language}" p:placeholder="Enter language" class="form-control"/>                                             
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Director:</label>                                           
+                                                        <h:inputText id="director" value="#{movieMB.movie.director}" p:placeholder="Enter director name" class="form-control"/>                                             
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Trailer</label>                                           
+                                                        <h:inputText id="trailer" value="#{movieMB.movie.trailer}" p:placeholder="Enter link trailer" class="form-control"/>                                             
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Poster</label>                                           
+                                                        <h:inputFile id="poster" value="#{movieMB.filePoster}" requiredMessage="Please choose an image" p:accept="image/*"  class="form-control"/>                                            
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Banner</label>                                           
+                                                        <h:inputFile id="banner" value="#{movieMB.fileBanner}" requiredMessage="Please choose an image" p:accept="image/*"  class="form-control"/>                                             
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Content:</label>                                           
+                                                        <h:inputTextarea id="content" value="#{movieMB.movie.content}" rows="8" p:placeholder="Enter content" class="form-control"/>                                             
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Note</label>                                           
+                                                        <h:inputTextarea rows="3" id="note" value="#{movieMB.movie.note}" p:placeholder="Enter note" class="form-control"/>                                             
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                </div>
+                                            <div class="">
+                                                <h:commandButton class="btn btn-outline btn-success" action="#{movieMB.createNewMovie()}" value="Create"/>&nbsp;
+                                                <h:link class="btn btn-outline btn-primary" outcome="index" value="Cancel"/>
                                             </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                <label>Length:</label>                                           
-                                                <h:inputText id="length" p:type="number" value="#{movieMB.movie.length}" p:placeholder="Enter length" class="form-control"/>                                             
-                                            </div>
-                                                </div>
-                                       
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                <label>Release Date:</label>                                           
-                                                <h:inputText id="relleaseDate" p:type="date" value="#{movieMB.movie.releaseDate}" p:placeholder="Enter release date" class="form-control">
-                                                <f:convertDateTime pattern="yyyy-MM-dd" />
-                                                </h:inputText>                                             
-                                            </div>
-                                                </div>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                <label>Country:</label>                                           
-                                                <h:inputText id="country" value="#{movieMB.movie.country}" p:placeholder="Enter country" class="form-control"/>                                             
-                                            </div>
-                                                </div>
-                                       
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                <label>Language</label>                                           
-                                                <h:inputText id="language"  value="#{movieMB.movie.language}" p:placeholder="Enter language" class="form-control"/>                                             
-                                            </div>
-                                                </div>
-                                        </div>
-                                       
-                                       
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                <label>Director:</label>                                           
-                                                <h:inputText id="director" value="#{movieMB.movie.director}" p:placeholder="Enter director name" class="form-control"/>                                             
-                                            </div>
-                                                </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                <label>Trailer</label>                                           
-                                                <h:inputText id="trailer" value="#{movieMB.movie.trailer}" p:placeholder="Enter link trailer" class="form-control"/>                                             
-                                            </div>
-                                                </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                <label>Poster</label>                                           
-                                                <h:inputFile id="poster" value="#{movieMB.filePoster}" requiredMessage="Please choose an image" p:accept="image/*"  class="form-control"/>                                            
-                                            </div>
-                                                </div>
-                                        
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                <label>Banner</label>                                           
-                                                <h:inputFile id="banner" value="#{movieMB.fileBanner}" requiredMessage="Please choose an image" p:accept="image/*"  class="form-control"/>                                             
-                                            </div>
-                                                </div>
-                                        </div>
-                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                <label>Content:</label>                                           
-                                                <h:inputTextarea id="content" value="#{movieMB.movie.content}" rows="8" p:placeholder="Enter content" class="form-control"/>                                             
-                                            </div>
-                                                </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                <label>Note</label>                                           
-                                                <h:inputTextarea rows="3" id="note" value="#{movieMB.movie.note}" p:placeholder="Enter note" class="form-control"/>                                             
-                                            </div>
-                                                </div>
-                                        </div>
-
-                                        <div class="">
-                                            <h:commandButton class="btn btn-outline btn-success" action="#{movieMB.createNewMovie()}" value="Create"/>&nbsp;
-                                            <h:link class="btn btn-outline btn-primary" outcome="index" value="Cancel"/>
-                                        </div>
-                                    </h:form>
+                                        </h:form>
+                                    </div>
                                 </div>
-                                <!-- /.col-lg-6 (nested) -->
-                                
-                                <!-- /.col-lg-6 (nested) -->
                             </div>
-                            <!-- /.row (nested) -->
                         </div>
-                        <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-    </ui:define>
-      </ui:composition>
-   </h:body>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

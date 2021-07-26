@@ -55,7 +55,7 @@ public class LoginMB implements Serializable {
             setIsAdmin(true);
             Administrators a = administratorsFacade.find(username);
             setAdmin(a);
-            return "/admin/movies/create?faces-redirect=true";
+            return "/admin/orders/index?faces-redirect=true";
         } else {
             notice = "Username or password is incorrect!";
             return "index";

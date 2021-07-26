@@ -14,44 +14,26 @@
             <ui:define name="content">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Create a new area</h1>
+                        <h1 class="page-header">Edit a place</h1>
                     </div>
-                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Basic Form Elements
-                            </div>
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-
                                         <h:form class="">
                                             <div class="form-group row">
                                                 <div class="col-md-10">
-                                                    <label>Street name:</label>                                           
-                                                    <h:inputText id="street" value="#{placeMB.place.street}" p:placeholder="Enter area name" class="form-control"/>                                             
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-10">
-                                                    <label>Ward name:</label>                                           
-                                                    <h:inputText id="ward" value="#{placeMB.place.ward}" p:placeholder="Enter area name" class="form-control"/>                                             
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-10">
-                                                    <label>District name:</label>                                           
-                                                    <h:inputText id="district" value="#{placeMB.place.district}" p:placeholder="Enter area name" class="form-control"/>                                             
+                                                    <label>ID:</label>                                           
+                                                    <h:inputText value="#{placeMB.place.placesID}" readonly="true" class="form-control"/>                                             
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>City name:</label>                                           
-                                                    <h:inputText id="city" value="#{placeMB.place.city}" p:placeholder="Enter area name" class="form-control"/>                                             
+                                                    <h:inputText id="city" value="#{placeMB.place.city}" p:placeholder="Enter city name" class="form-control"/>                                             
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -64,7 +46,7 @@
                                                 </div>
                                             </div>
                                             <div class="">
-                                                <h:commandButton class="btn btn-outline btn-success" action="#{placeMB.editPlace(placeMB.place.placesID)}" value="Update"/>&nbsp;
+                                                <h:commandButton class="btn btn-outline btn-success" action="#{placeMB.editPlace(placeMB.place.placesID)}" value="Save"/>&nbsp;
                                                 <h:link class="btn btn-outline btn-primary" outcome="index" value="Cancel"/>
                                             </div>
                                         </h:form>

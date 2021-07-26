@@ -57,9 +57,6 @@ public class PlaceMB implements Serializable {
 
     //reset form
     public void resetForm() {
-        place.setStreet(null);
-        place.setWard(null);
-        place.setDistrict(null);
         place.setCity(null);
         areaID=0;
         
@@ -76,9 +73,6 @@ public class PlaceMB implements Serializable {
         try {
             Places p = new Places();
             
-            p.setStreet(place.getStreet());
-            p.setWard(place.getWard());
-            p.setDistrict(place.getDistrict());
             p.setCity(place.getCity());
             p.setAreaID(areasFacade.find(areaID));
             placesFacade.create(p);
@@ -102,9 +96,7 @@ public class PlaceMB implements Serializable {
     public String editPlace(int id) {
         try {
             Places p = placesFacade.find(id);
-            p.setStreet(place.getStreet());
-            p.setWard(place.getWard());
-            p.setDistrict(place.getDistrict());
+
             p.setCity(place.getCity());
             p.setAreaID(areasFacade.find(areaID));
             placesFacade.edit(p);

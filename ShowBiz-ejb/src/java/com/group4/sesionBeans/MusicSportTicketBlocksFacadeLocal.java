@@ -31,12 +31,16 @@ public interface MusicSportTicketBlocksFacadeLocal {
     List<MusicSportTicketBlocks> findRange(int[] range);
 
     int count();
-    
+
     String getLastID();
-    
+
     List<TicketTypes> findTicketTypeByMusicSportID(MusicSports id);
-    
+
     MusicSportTicketBlocks findByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID);
-    
+
     List<MusicSportTicketBlocks> findListByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID);
+    
+    boolean checkBlock(TicketTypes ticket, MusicSports musicsport);
+    
+    MusicSportTicketBlocks findBlock(TicketTypes ticket,MusicSports musicsport);
 }

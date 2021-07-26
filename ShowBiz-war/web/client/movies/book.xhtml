@@ -88,13 +88,15 @@
                                                 </h:selectOneMenu>  
                                                 <h:outputText value="#{bookMovieMB.noticeTicket}" class="text-danger"/>
                                             </div>
-                                            <div class="form-control-static">
-                                                <h:inputText p:type="number" id="quanlity" p:placeholder="Quanlity" p:min="1" p:max="10" value="#{bookMovieMB.quanlity}" class="form-control">
+                                            <label>Quantity</label>
+                                            <div class="buttons_added">
+                                                <h:inputText p:type="number" style="height: 37px; width: 58px" p:min="1" p:max="10" value="#{bookMovieMB.quanlity}" class="form-control">
                                                     <f:ajax listener="#{bookMovieMB.changeQuanlity(bookMovieMB.movie)}" render="price"/>
                                                 </h:inputText>
+
+                                                <h:inputText style="height: 37px;width: 282px" p:type="text" id="price" p:readonly="true" p:placeholder="Total price" value="#{bookMovieMB.displayPrice()}"/>
+                                                <h:outputText value="#{bookMovieMB.noticePrice}" class="text-danger"/>
                                             </div>
-                                            <h:inputText p:type="text" id="price" p:readonly="true" p:placeholder="Total price" value="#{bookMovieMB.displayPrice()}"/>
-                                            <h:outputText value="#{bookMovieMB.noticePrice}" class="text-danger"/>
                                             <div class="form-module">
                                                 <h:selectOneMenu  required="true"  value="#{bookMovieMB.paymentID}" class="form-control">
 
@@ -104,7 +106,7 @@
                                                 <h:outputText value="#{bookMovieMB.noticePayment}" class="text-danger"/>
                                             </div>
 
-                                            <h:commandButton action="#{bookMovieMB.bookMovie(bookMovieMB.movie)}" value="Book now"/>
+                                            <h:commandButton action="#{bookMovieMB.bookMovie(bookMovieMB.movie)}" value="Book"/>
 
                                         </div>
 

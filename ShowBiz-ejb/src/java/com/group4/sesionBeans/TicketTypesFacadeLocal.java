@@ -29,5 +29,6 @@ public interface TicketTypesFacadeLocal {
     List<TicketTypes> findRange(int[] range);
 
     int count();
+    
     TicketTypes findByID(Integer id);
 }

@@ -37,6 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cinemas.findByCinemaName", query = "SELECT c FROM Cinemas c WHERE c.cinemaName = :cinemaName")})
 public class Cinemas implements Serializable {
 
+    @Size(max = 200)
+    @Column(name = "Address")
+    private String address;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -116,6 +120,14 @@ public class Cinemas implements Serializable {
     @Override
     public String toString() {
         return "com.group4.entities.Cinemas[ cinemaID=" + cinemaID + " ]";
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
 }

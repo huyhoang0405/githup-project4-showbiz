@@ -20,15 +20,18 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Basic Form Elements
-                        </div>
+                    <div class="panel panel-default">                       
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
                                
                                     <h:form class="">
+                                        <div class="form-group row">
+                                            <div class="col-md-10">
+                                                <label>Area name:</label>                                           
+                                                <h:inputText id="areaName" readonly="true" value="#{areaMB.area.areaID}" class="form-control"/>                                             
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <div class="col-md-10">
                                                 <label>Area name:</label>                                           
@@ -38,7 +41,7 @@
                                         
 
                                         <div class="">
-                                            <h:commandButton class="btn btn-outline btn-success" action="#{areaMB.editArea(areaMB.area.areaID)}" value="Update"/>&nbsp;
+                                            <h:commandButton class="btn btn-outline btn-success" action="#{areaMB.editArea(areaMB.area.areaID)}" value="Save"/>&nbsp;
                                             <h:link class="btn btn-outline btn-primary" outcome="index" value="Cancel"/>
                                         </div>
                                     </h:form>

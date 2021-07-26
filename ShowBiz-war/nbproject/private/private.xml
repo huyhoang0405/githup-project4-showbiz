@@ -3,32 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/musicsports/details.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/movies/create.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/movies/index.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/layout/guest/header.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/categories/details.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/layout/client/header.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/guest/home/contact.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/movies/details.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/categories/edit.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/BookMovieMB.java</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/AreaMB.java</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/orders/index.xhtml</file>
             <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/LoginMB.java</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/musicsports/book.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/musicsports/index.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/MovieMB.java</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/categories/index.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/home/support.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/movies/book.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/home/contact.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/BookMusicSportMB.java</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/movies/edit.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/categories/create.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/guest/home/support.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/layout/guest/common.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/layout/client/common.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/CategoryMB.java</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/OrderMB.java</file>
         </group>
     </open-files>
 </project-private>

@@ -30,5 +30,5 @@ public interface AdministratorsFacadeLocal {
 
     int count();
     
-    boolean login(String un,String pw);
+    boolean login(String un, String pw);
 }

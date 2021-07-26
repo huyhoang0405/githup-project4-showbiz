@@ -165,21 +165,20 @@ public class MovieMB implements Serializable {
 
         List<MovieGenres> list = movieGenresFacade.findByIDMovieID(m.getMovieID());
         if (!list.isEmpty()) {
-            
-                String[] arrCa = new String[list.size()];
-                for (int i = 0; i < list.size(); i++) {
-                    try {
+
+            String[] arrCa = new String[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                try {
                     arrCa[i] = (categoriesFacade.find((list.get(i)).getMovieGenresPK().getCategoryID())).getCategoryName();
-                     }catch(Exception ex){
-                         return "create";
-                     }
+                } catch (Exception ex) {
+                    return "create";
                 }
-                setCategoryID(arrCa);
-                return "edit";
-           
-              
+            }
+            setCategoryID(arrCa);
+            return "edit";
+
         } else {
-            
+
             return "edit";
         }
 
@@ -483,10 +482,20 @@ public class MovieMB implements Serializable {
     }
 
     public String setID() {
-        String character = (moviesFacade.getLastID()).substring(0, 3);
+        String movieID = "";
         String year = (calendar.get(Calendar.YEAR) + "").substring(2);
-        int number = Integer.parseInt((moviesFacade.getLastID().substring(5))) + 1;
-        String movieID = character + year + (String.format("%04d", number));
+        try {
+            if (year.equals((moviesFacade.getLastID()).substring(3, 5))) {
+                String character = (moviesFacade.getLastID()).substring(0, 5);
+                int number = Integer.parseInt((moviesFacade.getLastID().substring(5))) + 1;
+                movieID = character + (String.format("%04d", number));
+            } else {
+                movieID = "MOV" + year + "0001";
+            }
+        } catch (Exception e) {
+            movieID = "MOV" + year + "0001";
+        }
+
         return movieID;
     }
 
