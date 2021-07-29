@@ -38,5 +38,7 @@ public interface OrdersFacadeLocal {
     
     List<Customers> findCustomersInOrder();
     
-    Object weeklyStatistics(Date startdate, Date enddate);
+    Object statisticOrder(Date startdate, Date enddate);
+    
+    List<Orders> showAll();
 }

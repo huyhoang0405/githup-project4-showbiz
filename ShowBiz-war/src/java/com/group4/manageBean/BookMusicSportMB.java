@@ -25,6 +25,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -90,15 +91,15 @@ public class BookMusicSportMB implements Serializable {
                 od.setOrderID(setIDOrder());
                 od.setDateOfPurchase(calendar.getTime());
                 if (price.equals(0)) {
-                    noticePrice="Total price can't be 0!";
-                     return "book";
+                    noticePrice = "Total price can't be 0!";
+                    return "book";
                 } else {
                     od.setTotalPrice(price);
                     od.setCustomerUsername(customersFacade.find(loginMB.getCustomer().getCustomerUsername()));
-                    if(paymentID.equals(0)){
-                        noticePayment="Please choose payment!";
-                         return "book";
-                    }else{
+                    if (paymentID.equals(0)) {
+                        noticePayment = "Please choose payment!";
+                        return "book";
+                    } else {
                         od.setPaymentID(paymentsFacade.find(paymentID));
                         ordersFacade.create(od);
                     }
@@ -109,11 +110,11 @@ public class BookMusicSportMB implements Serializable {
                 odt.setQuantity(quanlity);
                 orderMusicSportDetailsFacade1.create(odt);
                 MusicSportTicketBlocks mssp = musicSportTicketBlocksFacade.find(msp.getMusicSportTicketBlockID());
-                mssp.setResidual(mssp.getQuantity() - quanlity);
+                mssp.setResidual(mssp.getResidual() - quanlity);
                 musicSportTicketBlocksFacade.edit(mssp);
-                notice ="alert ('Thank you! You have successfully booked your ticket!');";
+                notice = "alert ('Thank you! You have successfully booked your ticket!');";
             } catch (Exception ex) {
-                notice ="alert ('An error occurred during the booking process!');";
+                notice = "alert ('An error occurred during the booking process!');";
                 return "book";
             }
 
@@ -148,6 +149,10 @@ public class BookMusicSportMB implements Serializable {
     public String showBookPage(String id) {
         MusicSports ms = musicSportsFacade.find(id);
         setMusicsport(ms);
+        calendar.setTime(ms.getStartDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        ms.setStartDate(endDate);
         return "book";
     }
 
@@ -160,7 +165,7 @@ public class BookMusicSportMB implements Serializable {
         String year = (calendar.get(Calendar.YEAR) + "").substring(2);
 
         try {
-            if (year.equals((ordersFacade.getLastID()).substring(2,4))) {
+            if (year.equals((ordersFacade.getLastID()).substring(2, 4))) {
                 String character = (ordersFacade.getLastID()).substring(0, 4);
                 int number = Integer.parseInt((ordersFacade.getLastID().substring(4))) + 1;
                 orderID = character + (String.format("%05d", number));

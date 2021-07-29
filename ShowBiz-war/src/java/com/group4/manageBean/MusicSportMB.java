@@ -57,9 +57,12 @@ public class MusicSportMB implements Serializable {
     }
 
     public String loadFormEdit(String id) {
-        MusicSports m = musicSportsFacade.find(id);
-        setMusicSport(m);
-
+        MusicSports ms = musicSportsFacade.find(id);
+        setMusicSport(ms);
+        calendar.setTime(ms.getStartDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        ms.setStartDate(endDate);
         return "edit";
     }
 
@@ -92,6 +95,10 @@ public class MusicSportMB implements Serializable {
     public String showDetails(String id) {
         MusicSports ms = musicSportsFacade.find(id);
         setMusicSport(ms);
+        calendar.setTime(ms.getStartDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        ms.setStartDate(endDate);
         return "details";
     }
 
@@ -411,29 +418,65 @@ public class MusicSportMB implements Serializable {
     public String showDetailMS(String id) {
         MusicSports ms = musicSportsFacade.find(id);
         setMusicSport(ms);
+        calendar.setTime(ms.getStartDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        ms.setStartDate(endDate);
         return "details";
     }
 
     public String showDetailoutMS(String id) {
         MusicSports ms = musicSportsFacade.find(id);
         setMusicSport(ms);
+        calendar.setTime(ms.getStartDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        ms.setStartDate(endDate);
         return "/client/musicsports/details";
     }
 
     public List<MusicSports> showAll() {
-        return musicSportsFacade.findAll();
+        List<MusicSports> list = musicSportsFacade.findAll();
+        for (MusicSports ms : list) {
+            calendar.setTime(ms.getStartDate());
+            calendar.roll(Calendar.DATE, 1);
+            Date endDate = calendar.getTime();
+            ms.setStartDate(endDate);
+        }
+        return list;
     }
 
     public List<MusicSports> showAllMusics() {
-        return musicSportsFacade.showAllMusics();
+        List<MusicSports> list = musicSportsFacade.showAllMusics();
+        for (MusicSports ms : list) {
+            calendar.setTime(ms.getStartDate());
+            calendar.roll(Calendar.DATE, 1);
+            Date endDate = calendar.getTime();
+            ms.setStartDate(endDate);
+        }
+        return list;
     }
 
     public List<MusicSports> show6Newest() {
-        return musicSportsFacade.show6Newest();
+        List<MusicSports> list = musicSportsFacade.show6Newest();
+        for (MusicSports ms : list) {
+            calendar.setTime(ms.getStartDate());
+            calendar.roll(Calendar.DATE, 1);
+            Date endDate = calendar.getTime();
+            ms.setStartDate(endDate);
+        }
+        return list;
     }
 
     public List<MusicSports> showAllSports() {
-        return musicSportsFacade.showAllSports();
+        List<MusicSports> list = musicSportsFacade.showAllSports();
+        for (MusicSports ms : list) {
+            calendar.setTime(ms.getStartDate());
+            calendar.roll(Calendar.DATE, 1);
+            Date endDate = calendar.getTime();
+            ms.setStartDate(endDate);
+        }
+        return list;
     }
 
     public MusicSports getMusicSport() {

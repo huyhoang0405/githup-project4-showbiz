@@ -67,7 +67,15 @@ public class MovieMB implements Serializable {
 
     //display all movies
     public List<Movies> showAllMovies() {
-        return moviesFacade.findAll();
+        List<Movies> list = moviesFacade.findAll();
+        for (Movies o : list) {
+            calendar.setTime(o.getReleaseDate());
+            calendar.roll(Calendar.DATE, 1);
+            Date endDate = calendar.getTime();
+            o.setReleaseDate(endDate);
+        }
+
+        return list;
     }
 
     //reset form
@@ -147,7 +155,10 @@ public class MovieMB implements Serializable {
     public String showDetailsMovie(String id) {
         Movies m = moviesFacade.find(id);
         setMovie(m);
-
+        calendar.setTime(m.getReleaseDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        m.setReleaseDate(endDate);
         List<MovieGenres> list = movieGenresFacade.findByIDMovieID(m.getMovieID());
         String[] arrCa = new String[list.size()];
         for (int i = 0; i < list.size(); i++) {
@@ -162,7 +173,10 @@ public class MovieMB implements Serializable {
 
         Movies m = moviesFacade.find(id);
         setMovie(m);
-
+        calendar.setTime(m.getReleaseDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        m.setReleaseDate(endDate);
         List<MovieGenres> list = movieGenresFacade.findByIDMovieID(m.getMovieID());
         if (!list.isEmpty()) {
 

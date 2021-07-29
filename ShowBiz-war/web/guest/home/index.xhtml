@@ -17,7 +17,7 @@
                 <!-- banner -->
                 <div id="slidey" style="display:none;">
                     <ul>
-                       <c:forEach items="#{moviesDisplayMB.show5NewestMovies()}" var="m">
+                        <c:forEach items="#{moviesDisplayMB.show5NewestMovies()}" var="m">
                             <li><img jsf:value="/resources/client/images/banner/#{m.banner}" alt=" "/><p class='title'>#{m.movieName}</p><p class='description'> #{m.content}</p></li>
                         </c:forEach>
                     </ul>   	
@@ -32,39 +32,49 @@
                             <div class="flexslider">
                                 <ul class="slides">
                                     <c:forEach items="#{moviesDisplayMB.show5MoviesTrailer()}" var="mov">
-                                    <li>
-                                        <div class="agile_tv_series_grid">
-                                            <div class="col-md-6 agile_tv_series_grid_left">
-                                                
-                                                  <div class="video-grid-single-page-agileits">
-                                                      <div data-video="vw2FOYjCz38" id="video"> <img jsf:value="/resources/client/images/banner/#{mov.banner}" alt="#{mov.movieName}" class="img-responsive" /> </div>
-						</div>
-                                                
+                                        <li>
+                                            <div class="agile_tv_series_grid">
+                                                <div class="col-md-6 agile_tv_series_grid_left">
+
+                                                    <div class="video-grid-single-page-agileits">
+                                                        <div data-video="vw2FOYjCz38" id="video"> <img jsf:value="/resources/client/images/banner/#{mov.banner}" alt="#{mov.movieName}" class="img-responsive" /> </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6 agile_tv_series_grid_right">
+                                                    <p class="fexi_header">#{mov.movieName}</p>
+                                                    <p class="fexi_header_para"><span class="conjuring_w3">Story Line<label>:</label></span>#{mov.content}</p>
+                                                    <p class="fexi_header_para"><span>Date of Release<label>:</label></span> <h:outputText value="#{mov.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></p>
+                                                    <p class="fexi_header_para">
+                                                        <span>#{mov.trailer}<label>:</label> </span>
+                                                        <a href="genres.html">Drama</a> | 
+                                                        <a href="genres.html">Adventure</a> | 
+                                                        <a href="genres.html">Family</a>								
+                                                    </p>
+
+                                                </div>
+                                                <div class="clearfix"> </div>
+
                                             </div>
-                                            <div class="col-md-6 agile_tv_series_grid_right">
-                                                <p class="fexi_header">#{mov.movieName}</p>
-                                                <p class="fexi_header_para"><span class="conjuring_w3">Story Line<label>:</label></span>#{mov.content}</p>
-                                                <p class="fexi_header_para"><span>Date of Release<label>:</label></span> <h:outputText value="#{mov.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></p>
-                                                <p class="fexi_header_para">
-                                                    <span>#{mov.trailer}<label>:</label> </span>
-                                                    <a href="genres.html">Drama</a> | 
-                                                    <a href="genres.html">Adventure</a> | 
-                                                    <a href="genres.html">Family</a>								
-                                                </p>
-                                               
-                                            </div>
-                                            <div class="clearfix"> </div>
-                                          
-                                        </div>
-                                    </li>
-                                   </c:forEach>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
-                                
+
                             </div>
                         </section>
-                        
+
                     </div>
-              </div>
+                </div>
+            </ui:define>
+            <ui:define name="toastr">
+
+                <script>
+
+                    #{loginMB.notice}
+                    #{loginMB.notice=""}
+                </script>
+
+
             </ui:define>
         </ui:composition>
     </h:body>

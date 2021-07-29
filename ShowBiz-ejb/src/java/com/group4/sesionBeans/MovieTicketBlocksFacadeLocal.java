@@ -6,6 +6,7 @@
 package com.group4.sesionBeans;
 
 import com.group4.entities.Cinemas;
+import com.group4.entities.Customers;
 import com.group4.entities.MovieTicketBlocks;
 import com.group4.entities.Movies;
 import com.group4.entities.TicketTypes;
@@ -34,8 +35,8 @@ public interface MovieTicketBlocksFacadeLocal {
     List<MovieTicketBlocks> findRange(int[] range);
 
     int count();
- 
-        String getLastID();
+
+    String getLastID();
 
     Collection showAllBlock();
 
@@ -47,23 +48,31 @@ public interface MovieTicketBlocksFacadeLocal {
 
     List<MovieTicketBlocks> findByCinemaID(Movies movieID, Cinemas cinemaID);
 
-    List<TicketTypes> findByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time);
-    
-    MovieTicketBlocks findaMovieByTicketID(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time);
+    List<TicketTypes> findByTicketID(Movies movieID, Cinemas cinemaID, TicketTypes ticketID, Date date, String time);
 
-    List<MovieTicketBlocks> selectType(Movies movieID,Cinemas cinemaID,TicketTypes ticketID,Date date,String time);
+    MovieTicketBlocks findaMovieByTicketID(Movies movieID, Cinemas cinemaID, TicketTypes ticketID, Date date, String time);
+
+    List<MovieTicketBlocks> selectType(Movies movieID, Cinemas cinemaID, TicketTypes ticketID, Date date, String time);
 
     List<String> findByDate(Movies movieID, Cinemas cinemaID, Date id);
-    
-    List<TicketTypes> findByTime(Movies movieID,Cinemas cinemaID,Date date,String time);
-    
-    MovieTicketBlocks findaMovieByTime(Movies movieID,Cinemas cinemaID,Date date,String time);
 
-    MovieTicketBlocks findTicket(Movies movieID,Cinemas cinemaID,TicketTypes ticketID);
-    
-    List<TicketTypes> findByTicketID(Movies movieID,Cinemas cinemaID);
-    
+    List<TicketTypes> findByTime(Movies movieID, Cinemas cinemaID, Date date, String time);
+
+    MovieTicketBlocks findaMovieByTime(Movies movieID, Cinemas cinemaID, Date date, String time);
+
+    MovieTicketBlocks findTicket(Movies movieID, Cinemas cinemaID, TicketTypes ticketID);
+
+    List<TicketTypes> findByTicketID(Movies movieID, Cinemas cinemaID);
+
     boolean checkBlock(Date date, String time, Long price, Cinemas cinema, TicketTypes ticket, Movies movie);
-    
+
     MovieTicketBlocks findBlock(Date date, String time, Long price, Cinemas cinema, TicketTypes ticket, Movies movie);
+
+    List<Movies> findMovieInBlock();
+
+    Object ticketStatistics(Movies movie);
+
+    Object statisticMovie(Date startdate, Date enddate);
+    
+    List<OrderMovieDetailsFacade> orderOfCustomer(Customers customer);
 }

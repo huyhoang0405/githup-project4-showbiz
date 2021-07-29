@@ -160,7 +160,7 @@ public class BookMovieMB implements Serializable {
                     odt.setQuantity(quanlity);
                     orderMovieDetailsFacade.create(odt);
 
-                    mtb.setResidual(mtb.getQuantity() - quanlity);
+                    mtb.setResidual(mtb.getResidual()- quanlity);
                     movieTicketBlocksFacade.edit(mtb);
 //                    notice = "<script>\n"
 //                            + "    alert(\"You have successfully booked your ticket!\");\n"

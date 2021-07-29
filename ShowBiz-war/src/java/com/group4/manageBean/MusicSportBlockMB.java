@@ -15,6 +15,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 
@@ -68,7 +69,8 @@ public class MusicSportBlockMB implements Serializable {
 
             if (m.getQuantity() > musicSportBlock.getQuantity()) {
                 if (result > m.getResidual()) {
-                    noticeQuantity = "So ve  cua so luong moi it hon ve con lai";
+                    noticeQuantity = "The new quantity is less than the sold quantity";
+                    return "edit";
                 } else {
                     m.setQuantity(musicSportBlock.getQuantity());
                     m.setResidual(m.getResidual() - result);
@@ -85,8 +87,13 @@ public class MusicSportBlockMB implements Serializable {
     }
 
     public String showDetails(String id) {
-        MusicSportTicketBlocks msb = musicSportTicketBlocksFacade.find(id);
-        setMusicSportBlock(msb);
+        MusicSportTicketBlocks m = musicSportTicketBlocksFacade.find(id);
+        setMusicSportBlock(m);
+        
+         calendar.setTime(m.getMusicSportID().getStartDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        m.getMusicSportID().setStartDate(endDate);
         return "details";
     }
 
@@ -97,7 +104,14 @@ public class MusicSportBlockMB implements Serializable {
     }
 
     public List<MusicSports> showAllMusicSports() {
-        return musicSportsFacade.findAll();
+        List<MusicSports> list = musicSportsFacade.findAll();
+        for (MusicSports ms : list) {
+            calendar.setTime(ms.getStartDate());
+            calendar.roll(Calendar.DATE, 1);
+            Date endDate = calendar.getTime();
+            ms.setStartDate(endDate);
+        }
+        return list;
     }
 
     public String loadFormCreateNew() {
@@ -126,7 +140,7 @@ public class MusicSportBlockMB implements Serializable {
                 m.setQuantity(musicSportBlock.getQuantity());
                 m.setResidual(m.getResidual() + result);
             }
-            
+
             musicSportTicketBlocksFacade.edit(m);
             resetForm();
             return "index";
@@ -142,6 +156,7 @@ public class MusicSportBlockMB implements Serializable {
         setMsID(m.getMusicSportID().getMusicSportID());
         setTicketID(m.getTicketTypeID().getTicketTypeID());
 
+      
         return "edit";
     }
 
@@ -155,7 +170,9 @@ public class MusicSportBlockMB implements Serializable {
     }
 
     public List<MusicSportTicketBlocks> showAll() {
-        return musicSportTicketBlocksFacade.findAll();
+        List<MusicSportTicketBlocks> list = musicSportTicketBlocksFacade.findAll();
+
+        return list;
     }
 
     public List<TicketTypes> showAllTicketTypes() {

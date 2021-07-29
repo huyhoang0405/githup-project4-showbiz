@@ -16,9 +16,11 @@ import com.group4.sesionBeans.TicketTypesFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 
@@ -47,11 +49,13 @@ public class MovieBlockMB implements Serializable {
 
     private List<MovieTicketBlocks> listMTB = new ArrayList<>();
 
+    private String noticeMovie;
     private String noticeQuantity;
     private String noticeDate;
     private String noticeCinema;
     private String noticeTicket;
     private String noticeTime;
+    private String notice;
 
     private MovieTicketBlocks movieTicketBlock;
     private Integer cinemaID;
@@ -81,7 +85,14 @@ public class MovieBlockMB implements Serializable {
     }
 
     public List<MovieTicketBlocks> showAllMovieTicketBlocks() {
-        return movieTicketBlocksFacade.findAll();
+        List<MovieTicketBlocks> list = movieTicketBlocksFacade.findAll();
+        for (MovieTicketBlocks o : list) {
+            calendar.setTime(o.getDate());
+            calendar.roll(Calendar.DATE, 1);
+            Date endDate = calendar.getTime();
+            o.setDate(endDate);
+        }
+        return list;
     }
 
     public String loadFormCreateNew() {
@@ -93,7 +104,10 @@ public class MovieBlockMB implements Serializable {
     public String loadFormEdit(String id) {
         MovieTicketBlocks mtb = movieTicketBlocksFacade.find(id);
         setMovieTicketBlock(mtb);
-
+        calendar.setTime(mtb.getDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        mtb.setDate(endDate);
         setCinemaID(mtb.getCinemaID().getCinemaID());
         setMovieID(mtb.getMovieID().getMovieID());
         setTicketID(mtb.getTicketTypeID().getTicketTypeID());
@@ -102,23 +116,29 @@ public class MovieBlockMB implements Serializable {
     }
 
     public String createNewBlock() {
+        String pattern = "MM-dd-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        
         if (!movieTicketBlocksFacade.checkBlock(movieTicketBlock.getDate(), movieTicketBlock.getTime(), movieTicketBlock.getUnitPrice(), cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), moviesFacade.find(movieID))) {
             try {
                 MovieTicketBlocks mbt = new MovieTicketBlocks();
                 Movies m = moviesFacade.find(movieID);
-                
+                if (movieID == null) {
+                    noticeMovie = "Movie is invalid!";
+                    return "create";
+                }
                 if (movieTicketBlock.getTime() == (null)) {
                     noticeTime = "Date must be greater than the release date of movie";
-                    return "create";  
+                    return "create";
                 }
                 if (m.getReleaseDate().compareTo(movieTicketBlock.getDate()) > 0) {
-                    noticeDate = "Date must be greater than the release date of movie";
-                    return "create";  
+                    noticeDate = "Date must be greater than the release date of movie(" + simpleDateFormat.format(m.getReleaseDate()) + ")";
+                    return "create";
                 }
                 if (cinemaID.equals(0)) {
                     noticeCinema = "Please choose a cinema!";
                     return "create";
-                } 
+                }
                 if (ticketID.equals(0)) {
                     noticeTicket = "Please choose a ticket type!";
                     return "create";
@@ -137,6 +157,9 @@ public class MovieBlockMB implements Serializable {
                 }
 
             } catch (Exception e) {
+
+                notice = "alert('Please fill in full information!');";
+                return "create";
             }
             return "index";
         } else {
@@ -177,7 +200,8 @@ public class MovieBlockMB implements Serializable {
             Integer result = Math.abs(mbt.getQuantity() - movieTicketBlock.getQuantity());
             if (mbt.getQuantity() > movieTicketBlock.getQuantity()) {
                 if (result > mbt.getResidual()) {
-                    noticeQuantity = "So ve  cua so luong moi it hon ve con lai";
+                    noticeQuantity = "The new quantity is less than the sold quantity";
+                    return "edit";
                 } else {
                     mbt.setQuantity(movieTicketBlock.getQuantity());
                     mbt.setResidual(mbt.getResidual() - result);
@@ -209,6 +233,10 @@ public class MovieBlockMB implements Serializable {
     public String showDetailsBlock(String id) {
         MovieTicketBlocks mtb = movieTicketBlocksFacade.find(id);
         setMovieTicketBlock(mtb);
+        calendar.setTime(mtb.getDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        mtb.setDate(endDate);
         return "details";
     }
 
@@ -368,6 +396,22 @@ public class MovieBlockMB implements Serializable {
 
     public void setNoticeTime(String noticeTime) {
         this.noticeTime = noticeTime;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
+    }
+
+    public String getNoticeMovie() {
+        return noticeMovie;
+    }
+
+    public void setNoticeMovie(String noticeMovie) {
+        this.noticeMovie = noticeMovie;
     }
 
 }

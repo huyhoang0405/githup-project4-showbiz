@@ -8,6 +8,7 @@ package com.group4.sesionBeans;
 import com.group4.entities.MusicSportTicketBlocks;
 import com.group4.entities.MusicSports;
 import com.group4.entities.TicketTypes;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -43,4 +44,10 @@ public interface MusicSportTicketBlocksFacadeLocal {
     boolean checkBlock(TicketTypes ticket, MusicSports musicsport);
     
     MusicSportTicketBlocks findBlock(TicketTypes ticket,MusicSports musicsport);
+    
+    List<MusicSports> findMusicSportInBlock();
+    
+    Object ticketStatistics(MusicSports musicsport);
+    
+    Object statisticMusicSport(Date startdate, Date enddate);
 }

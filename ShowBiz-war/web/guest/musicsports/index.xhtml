@@ -90,7 +90,7 @@
                                                         <div class="clearfix"> </div>
                                                     </div>
                                                 </div>
-                                               <div role="tabpanel" class="tab-pane fade" id="w3bsd" aria-labelledby="w3bsd-tab">
+                                                <div role="tabpanel" class="tab-pane fade" id="w3bsd" aria-labelledby="w3bsd-tab">
                                                     <div class="wthree-news-top-left">
                                                         <c:forEach items="#{musicSportMB.showAllSports()}" var="sport" begin="0" end="1">
                                                             <div class="col-md-6 w3-agileits-news-left">
@@ -131,7 +131,7 @@
                                                         </c:forEach>
                                                         <div class="clearfix"> </div>
                                                     </div>
-                                                   <div class="wthree-news-top-left">
+                                                    <div class="wthree-news-top-left">
                                                         <c:forEach items="#{musicSportMB.showAllSports()}" var="sport" begin="4" >
                                                             <div class="col-md-6 w3-agileits-news-left">
                                                                 <div class="col-sm-5 wthree-news-img">
@@ -161,6 +161,16 @@
                         </div>
                     </div>
                 </div>
+
+            </ui:define>
+            <ui:define name="toastr">
+
+                <script>
+
+                    #{loginMB.notice}
+                    #{loginMB.notice=""}
+                </script>
+
 
             </ui:define>
         </ui:composition>

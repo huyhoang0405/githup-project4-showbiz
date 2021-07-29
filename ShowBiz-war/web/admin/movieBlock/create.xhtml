@@ -34,6 +34,8 @@
                                                             <option value="#{movie.movieID}" label="#{movie.movieName}"/>
                                                         </c:forEach>                  
                                                     </datalist>
+                                                   
+                                                    <h:outputText value="#{movieBlockMB.noticeMovie}" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -43,6 +45,7 @@
                                                         <f:convertDateTime pattern="yyyy-MM-dd" />
                                                     </h:inputText>      
                                                     <h:outputText value="#{movieBlockMB.noticeDate}" class="text-danger"/>
+                                                    <h:message for="date" class="text-danger"/>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label>Time:</label>                                           
@@ -96,6 +99,16 @@
                         </div>
                     </div>
                 </div>
+            </ui:define>
+            <ui:define name="toastr">
+
+                <script>
+
+                    #{movieBlockMB.notice}
+                    #{movieBlockMB.notice=""}
+                </script>
+
+
             </ui:define>
         </ui:composition>
     </h:body>

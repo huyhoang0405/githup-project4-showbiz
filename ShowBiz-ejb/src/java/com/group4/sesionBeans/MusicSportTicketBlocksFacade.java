@@ -8,6 +8,7 @@ package com.group4.sesionBeans;
 import com.group4.entities.MusicSportTicketBlocks;
 import com.group4.entities.MusicSports;
 import com.group4.entities.TicketTypes;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -74,5 +75,23 @@ public class MusicSportTicketBlocksFacade extends AbstractFacade<MusicSportTicke
         query.setParameter("musicSportID", musicsport);
         List<MusicSportTicketBlocks> list = query.getResultList();
         return (MusicSportTicketBlocks) query.getSingleResult();
+    }
+     
+      public List<MusicSports> findMusicSportInBlock() {
+        Query query = em.createQuery("SELECT DISTINCT (m.musicSportID) FROM MusicSportTicketBlocks m");
+        return query.getResultList();
+    }
+
+    public Object ticketStatistics(MusicSports musicsport) {
+        Query query = em.createQuery("SELECT SUM(m.quantity-m.residual) FROM MusicSportTicketBlocks m Where m.musicSportID = :musicSportID");
+        query.setParameter("musicSportID", musicsport);
+        return query.getSingleResult();
+    }
+    
+     public Object statisticMusicSport(Date startdate, Date enddate) {
+        Query query = em.createQuery("SELECT SUM(odm.quantity) FROM  OrderMusicSportDetails odm JOIN odm.musicSportTicketBlocks m JOIN odm.orders o Where o.dateOfPurchase BETWEEN :startdate And :enddate");
+        query.setParameter("startdate", startdate);
+        query.setParameter("enddate", enddate);
+        return query.getSingleResult();
     }
 }

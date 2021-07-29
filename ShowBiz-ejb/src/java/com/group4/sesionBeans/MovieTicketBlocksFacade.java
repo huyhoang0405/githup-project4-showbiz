@@ -6,6 +6,7 @@
 package com.group4.sesionBeans;
 
 import com.group4.entities.Cinemas;
+import com.group4.entities.Customers;
 import com.group4.entities.MovieTicketBlocks;
 import com.group4.entities.Movies;
 import com.group4.entities.TicketTypes;
@@ -170,7 +171,7 @@ public class MovieTicketBlocksFacade extends AbstractFacade<MovieTicketBlocks> i
         List<MovieTicketBlocks> list = query.getResultList();
         return list.size() > 0;
     }
-    
+
     public MovieTicketBlocks findBlock(Date date, String time, Long price, Cinemas cinema, TicketTypes ticket, Movies movie) {
         Query query = em.createQuery("SELECT m FROM MovieTicketBlocks m WHERE m.cinemaID = :cinemaID AND m.date = :date AND m.movieID = :movieID AND m.ticketTypeID = :ticketTypeID AND m.time = :time AND m.unitPrice = :unitPrice");
         query.setParameter("cinemaID", cinema);
@@ -179,7 +180,31 @@ public class MovieTicketBlocksFacade extends AbstractFacade<MovieTicketBlocks> i
         query.setParameter("ticketTypeID", ticket);
         query.setParameter("time", time);
         query.setParameter("unitPrice", price);
-       
+
         return (MovieTicketBlocks) query.getSingleResult();
+    }
+
+    public List<Movies> findMovieInBlock() {
+        Query query = em.createQuery("SELECT DISTINCT (m.movieID) FROM MovieTicketBlocks m");
+        return query.getResultList();
+    }
+
+    public Object ticketStatistics(Movies movie) {
+        Query query = em.createQuery("SELECT SUM(m.quantity-m.residual) FROM MovieTicketBlocks m Where m.movieID = :movieID");
+        query.setParameter("movieID", movie);
+        return query.getSingleResult();
+    }
+
+    public Object statisticMovie(Date startdate, Date enddate) {
+        Query query = em.createQuery("SELECT SUM(odm.quantity) FROM  OrderMovieDetails odm JOIN odm.movieTicketBlocks m JOIN odm.orders o Where o.dateOfPurchase BETWEEN :startdate And :enddate");
+        query.setParameter("startdate", startdate);
+        query.setParameter("enddate", enddate);
+        return query.getSingleResult();
+    }
+    
+    public List<OrderMovieDetailsFacade> orderOfCustomer(Customers customer) {
+        Query query = em.createQuery("SELECT odm FROM  OrderMovieDetails odm JOIN odm.movieTicketBlocks m JOIN odm.orders o Where o.customerUsername = :customerUsername");
+        query.setParameter("customerUsername", customer);
+        return query.getResultList();
     }
 }

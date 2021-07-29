@@ -38,6 +38,11 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
         return query.getSingleResult().toString();
     }
 
+    public List<Orders> showAll(){
+        Query query = em.createQuery("SELECT o FROM Orders o ORDER BY o.dateOfPurchase DESC");
+        return query.getResultList();
+    }
+    
     public Object totalOfCustomer(Customers un) {
         Query query = em.createQuery("SELECT SUM(o.totalPrice) FROM Orders o Where o.customerUsername = :customerUsername");
         query.setParameter("customerUsername", un);
@@ -49,10 +54,11 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
         return query.getResultList();
     }
 
-    public Object weeklyStatistics(Date startdate, Date enddate) {
+    public Object statisticOrder(Date startdate, Date enddate) {
         Query query = em.createQuery("SELECT SUM(o.totalPrice) FROM Orders o Where o.dateOfPurchase BETWEEN :startdate And :enddate");
         query.setParameter("startdate", startdate);
         query.setParameter("enddate", enddate);
         return query.getSingleResult();
     }
+
 }

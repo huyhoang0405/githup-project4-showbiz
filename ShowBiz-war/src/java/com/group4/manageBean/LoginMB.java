@@ -57,7 +57,7 @@ public class LoginMB implements Serializable {
             setAdmin(a);
             return "/admin/orders/index?faces-redirect=true";
         } else {
-            notice = "Username or password is incorrect!";
+             notice = "alert ('Username or password is incorrect!');";
             return "index";
         }
     }
