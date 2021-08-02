@@ -50,10 +50,12 @@ public class MusicSportTicketBlocks implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "MusicSportTicketBlock_ID")
     private String musicSportTicketBlockID;
+    @NotNull(message = "Quantity can't be left empty!")
     @Column(name = "Quantity")
     private Integer quantity;
     @Column(name = "Residual")
     private Integer residual;
+    @NotNull(message = "Unit price can't be left empty!")
     @Column(name = "UnitPrice")
     private Long unitPrice;
     @JoinTable(name = "OrderMusicSportDetails", joinColumns = {

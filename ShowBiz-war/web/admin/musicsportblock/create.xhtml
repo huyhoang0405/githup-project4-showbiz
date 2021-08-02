@@ -28,12 +28,13 @@
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Music or Sport</label>    
-                                                    <h:inputText id="msID" p:list="musicsport" value="#{musicSportBlockMB.msID}" p:placeholder="Enter music or sport" class="form-control"/>                                                                                         
+                                                    <h:inputText id="msID" p:list="musicsport" required="true" requiredMessage="Music or Sport can't be left empty!" value="#{musicSportBlockMB.msID}" p:placeholder="Enter music or sport" class="form-control"/>                                                                                         
                                                     <datalist id="musicsport">
                                                         <c:forEach var="ms" items="#{musicSportBlockMB.showAllMusicSports()}">
                                                             <option value="#{ms.musicSportID}" label="#{ms.musicSportName}"/>
                                                         </c:forEach>                  
                                                     </datalist>
+                                                    <h:message for="msID" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">   
@@ -41,23 +42,28 @@
                                                     <label>Unit Price:</label>      
                                                     <div class="input-group">                
                                                         <h:inputText p:type="number" id="unitprice" value="#{musicSportBlockMB.musicSportBlock.unitPrice}" p:placeholder="Enter quantity" class="form-control"/>    
-                                                    <span class="input-group-addon">VND</span>
+                                                        <span class="input-group-addon">VND</span>
                                                     </div>  
+                                                    <h:message for="unitprice" class="text-danger"/>&nbsp;
+                                                    <h:outputText value="#{musicSportBlockMB.noticePrice}" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Quantity:</label>                                           
                                                     <h:inputText p:type="number" id="quantity" value="#{musicSportBlockMB.musicSportBlock.quantity}" p:placeholder="Enter quantity" class="form-control"/>                                             
+                                                    <h:message for="quantity" class="text-danger"/>&nbsp;
+                                                    <h:outputText value="#{musicSportBlockMB.noticeQuantity}" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Ticket type</label>                                           
                                                     <h:selectOneMenu  required="true"  value="#{musicSportBlockMB.ticketID}" class="form-control">
-                                                        <f:selectItem itemLabel="Please choose an ticket type" itemValue="Null"/>
+                                                        <f:selectItem itemLabel="Please choose an ticket type" itemValue="0"/>
                                                         <f:selectItems value="#{musicSportBlockMB.showAllTicketTypes()}" var="ticket" itemLabel="#{ticket.ticketTypeName}" itemValue="#{ticket.ticketTypeID}"/>
                                                     </h:selectOneMenu>    
+                                                    <h:outputText value="#{musicSportBlockMB.noticeTicket}" class="text-danger"/>
                                                 </div>
                                             </div>        
                                             <div class="">
@@ -71,6 +77,12 @@
                         </div>
                     </div>
                 </div>
+            </ui:define>
+            <ui:define name="toastr">
+                <script>
+                    #{musicSportBlockMB.notice}
+                    #{musicSportBlockMB.notice=""}
+                </script>
             </ui:define>
         </ui:composition>
     </h:body>

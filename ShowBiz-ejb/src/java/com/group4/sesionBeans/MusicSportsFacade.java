@@ -39,14 +39,14 @@ public class MusicSportsFacade extends AbstractFacade<MusicSports> implements Mu
     
     @Override
     public List<MusicSports> showAllMusics(){
-        Query query = em.createQuery("SELECT m FROM MusicSports m WHERE m.type = :type");
+        Query query = em.createQuery("SELECT m FROM MusicSports m WHERE m.type = :type ORDER BY m.startDate DESC");
         query.setParameter("type", false);
         return query.getResultList();
     }
     
     @Override
      public List<MusicSports> showAllSports(){
-        Query query = em.createQuery("SELECT m FROM MusicSports m WHERE m.type = :type");
+        Query query = em.createQuery("SELECT m FROM MusicSports m WHERE m.type = :type ORDER BY m.startDate DESC");
         query.setParameter("type", true);
         return query.getResultList();
     }

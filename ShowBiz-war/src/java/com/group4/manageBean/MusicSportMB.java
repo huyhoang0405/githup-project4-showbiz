@@ -41,6 +41,8 @@ public class MusicSportMB implements Serializable {
 
     final Calendar calendar = Calendar.getInstance();
 
+    private String notice;
+    private String noticeCapacity;
     private Part fileBanner;
     private Part filePoster;
     private final String UPLOAD_DIRECTORY_BANNER = "resources\\client\\images\\banner";
@@ -53,7 +55,7 @@ public class MusicSportMB implements Serializable {
     public String loadFormCreateNew() {
         resetForm();
         musicSport.setMusicSportID(setIDMS());
-        return "create";
+        return "create?faces-redirect=true";
     }
 
     public String loadFormEdit(String id) {
@@ -63,7 +65,7 @@ public class MusicSportMB implements Serializable {
         calendar.roll(Calendar.DATE, 1);
         Date endDate = calendar.getTime();
         ms.setStartDate(endDate);
-        return "edit";
+        return "edit?faces-redirect=true";
     }
 
     public String createNew() {
@@ -71,25 +73,32 @@ public class MusicSportMB implements Serializable {
             if (fileBanner != null && filePoster != null) {
                 MusicSports m = new MusicSports();
                 m.setMusicSportID(setIDMS());
-                m.setMusicSportName(musicSport.getMusicSportName());
-                m.setStartDate(musicSport.getStartDate());
-                m.setStartTime(musicSport.getStartTime());
-                m.setAddress(musicSport.getAddress());
-                m.setCapacity(musicSport.getCapacity());
-                m.setInformation(musicSport.getInformation());
-                m.setType(musicSport.getType());
+                if (musicSport.getCapacity() < 0) {
+                    noticeCapacity = "Capacity must be greater than 0!";
+                    return "create?faces-redirect=true";
+                } else {
+                    m.setMusicSportName(musicSport.getMusicSportName());
+                    m.setStartDate(musicSport.getStartDate());
+                    m.setStartTime(musicSport.getStartTime());
+                    m.setAddress(musicSport.getAddress());
+                    m.setCapacity(musicSport.getCapacity());
+                    m.setInformation(musicSport.getInformation());
+                    m.setType(musicSport.getType());
 
-                m.setBanner(uploadFileBanner());
-                m.setPoster(uploadFilePoster());
-                musicSportsFacade.create(m);
+                    m.setBanner(uploadFileBanner());
+                    m.setPoster(uploadFilePoster());
+                    musicSportsFacade.create(m);
 
-                resetForm();
+                    resetForm();
 
-                return "index";
+                    return "index?faces-redirect=true";
+                }
             }
         } catch (Exception e) {
+            notice = "alert('Please fill in full required information!');";
+            return "create?faces-redirect=true";
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     public String showDetails(String id) {
@@ -99,7 +108,7 @@ public class MusicSportMB implements Serializable {
         calendar.roll(Calendar.DATE, 1);
         Date endDate = calendar.getTime();
         ms.setStartDate(endDate);
-        return "details";
+        return "details?faces-redirect=true";
     }
 
     public String edit(String id) {
@@ -136,11 +145,11 @@ public class MusicSportMB implements Serializable {
 
             resetForm();
 
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
-
+            notice = "alert('Please fill in full required information!');";
+            return "create?faces-redirect=true";
         }
-        return "index";
     }
 
     public String delete(String id) {
@@ -150,12 +159,11 @@ public class MusicSportMB implements Serializable {
             deleteFileBanner(m.getBanner());
             deleteFilePoster(m.getPoster());
 
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
-
+            notice = "alert('An error has occurred!');";
+            return "index?faces-redirect=true";
         }
-
-        return "index";
     }
 
     public void resetForm() {
@@ -422,7 +430,7 @@ public class MusicSportMB implements Serializable {
         calendar.roll(Calendar.DATE, 1);
         Date endDate = calendar.getTime();
         ms.setStartDate(endDate);
-        return "details";
+        return "details?faces-redirect=true";
     }
 
     public String showDetailoutMS(String id) {
@@ -432,9 +440,18 @@ public class MusicSportMB implements Serializable {
         calendar.roll(Calendar.DATE, 1);
         Date endDate = calendar.getTime();
         ms.setStartDate(endDate);
-        return "/client/musicsports/details";
+        return "/client/musicsports/details?faces-redirect=true";
     }
 
+    public String showDetailoutMS_Guest(String id) {
+        MusicSports ms = musicSportsFacade.find(id);
+        setMusicSport(ms);
+        calendar.setTime(ms.getStartDate());
+        calendar.roll(Calendar.DATE, 1);
+        Date endDate = calendar.getTime();
+        ms.setStartDate(endDate);
+        return "/guest/musicsports/details?faces-redirect=true";
+    }
     public List<MusicSports> showAll() {
         List<MusicSports> list = musicSportsFacade.findAll();
         for (MusicSports ms : list) {
@@ -501,6 +518,22 @@ public class MusicSportMB implements Serializable {
 
     public void setFilePoster(Part filePoster) {
         this.filePoster = filePoster;
+    }
+
+    public String getNoticeCapacity() {
+        return noticeCapacity;
+    }
+
+    public void setNoticeCapacity(String noticeCapacity) {
+        this.noticeCapacity = noticeCapacity;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
 }

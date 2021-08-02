@@ -56,6 +56,7 @@ public class MovieBlockMB implements Serializable {
     private String noticeTicket;
     private String noticeTime;
     private String notice;
+    private String noticePrice;
 
     private MovieTicketBlocks movieTicketBlock;
     private Integer cinemaID;
@@ -98,50 +99,59 @@ public class MovieBlockMB implements Serializable {
     public String loadFormCreateNew() {
         resetForm();
         movieTicketBlock.setMovieTicketBlockID(createID());
-        return "create";
+        return "create?faces-redirect=true";
     }
 
     public String loadFormEdit(String id) {
         MovieTicketBlocks mtb = movieTicketBlocksFacade.find(id);
         setMovieTicketBlock(mtb);
-        calendar.setTime(mtb.getDate());
-        calendar.roll(Calendar.DATE, 1);
-        Date endDate = calendar.getTime();
-        mtb.setDate(endDate);
+
+//        calendar.setTime(mtb.getDate());
+//        calendar.roll(Calendar.DATE, 1);
+//        Date endDate = calendar.getTime();
+//        mtb.setDate(endDate);
         setCinemaID(mtb.getCinemaID().getCinemaID());
         setMovieID(mtb.getMovieID().getMovieID());
         setTicketID(mtb.getTicketTypeID().getTicketTypeID());
 
-        return "edit";
+        return "edit?faces-redirect=true";
     }
 
     public String createNewBlock() {
         String pattern = "MM-dd-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        
+
         if (!movieTicketBlocksFacade.checkBlock(movieTicketBlock.getDate(), movieTicketBlock.getTime(), movieTicketBlock.getUnitPrice(), cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), moviesFacade.find(movieID))) {
             try {
                 MovieTicketBlocks mbt = new MovieTicketBlocks();
                 Movies m = moviesFacade.find(movieID);
                 if (movieID == null) {
                     noticeMovie = "Movie is invalid!";
-                    return "create";
+                    return "create?faces-redirect=true";
                 }
-                if (movieTicketBlock.getTime() == (null)) {
-                    noticeTime = "Date must be greater than the release date of movie";
-                    return "create";
+                if (movieTicketBlock.getTime().equals(null)) {
+                    noticeTime = "Time can't be left empty!";
+                    return "create?faces-redirect=true";
                 }
                 if (m.getReleaseDate().compareTo(movieTicketBlock.getDate()) > 0) {
                     noticeDate = "Date must be greater than the release date of movie(" + simpleDateFormat.format(m.getReleaseDate()) + ")";
-                    return "create";
+                    return "create?faces-redirect=true";
+                }
+                if (movieTicketBlock.getQuantity() < 1) {
+                    noticeQuantity = "The quantity must be more than 0";
+                    return "create?faces-redirect=true";
+                }
+                if (movieTicketBlock.getUnitPrice() < 1) {
+                    noticePrice = "The unit price must be more than 0";
+                    return "create?faces-redirect=true";
                 }
                 if (cinemaID.equals(0)) {
                     noticeCinema = "Please choose a cinema!";
-                    return "create";
+                    return "create?faces-redirect=true";
                 }
                 if (ticketID.equals(0)) {
                     noticeTicket = "Please choose a ticket type!";
-                    return "create";
+                    return "create?faces-redirect=true";
                 } else {
                     mbt.setMovieTicketBlockID(createID());
                     mbt.setDate(movieTicketBlock.getDate());
@@ -159,9 +169,9 @@ public class MovieBlockMB implements Serializable {
             } catch (Exception e) {
 
                 notice = "alert('Please fill in full information!');";
-                return "create";
+                return "create?faces-redirect=true";
             }
-            return "index";
+            return "index?faces-redirect=true";
         } else {
             try {
                 MovieTicketBlocks mbt = movieTicketBlocksFacade.findBlock(movieTicketBlock.getDate(), movieTicketBlock.getTime(), movieTicketBlock.getUnitPrice(), cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), moviesFacade.find(movieID));
@@ -169,7 +179,8 @@ public class MovieBlockMB implements Serializable {
 
                 if (mbt.getQuantity() > movieTicketBlock.getQuantity()) {
                     if (result > mbt.getResidual()) {
-                        noticeQuantity = "So ve  cua so luong moi it hon ve con lai";
+                        noticeQuantity = "The new quantity is less than the sold quantity";
+                        return "create?faces-redirect=true";
                     } else {
                         mbt.setQuantity(movieTicketBlock.getQuantity());
                         mbt.setResidual(mbt.getResidual() - result);
@@ -181,8 +192,10 @@ public class MovieBlockMB implements Serializable {
                 movieTicketBlocksFacade.edit(mbt);
 
             } catch (Exception e) {
+                notice = "alert('Please fill in full information!');";
+                return "create?faces-redirect=true";
             }
-            return "index";
+            return "index?faces-redirect=true";
         }
     }
 
@@ -201,7 +214,7 @@ public class MovieBlockMB implements Serializable {
             if (mbt.getQuantity() > movieTicketBlock.getQuantity()) {
                 if (result > mbt.getResidual()) {
                     noticeQuantity = "The new quantity is less than the sold quantity";
-                    return "edit";
+                    return "edit?faces-redirect=true";
                 } else {
                     mbt.setQuantity(movieTicketBlock.getQuantity());
                     mbt.setResidual(mbt.getResidual() - result);
@@ -213,21 +226,22 @@ public class MovieBlockMB implements Serializable {
 
             movieTicketBlocksFacade.edit(mbt);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
+            notice = "alert('Please fill in full information!');";
+            return "edit?faces-redirect=true";
         }
-        return "index";
     }
 
     public String deleteBlock(String id) {
         try {
             MovieTicketBlocks mtb = movieTicketBlocksFacade.find(id);
             movieTicketBlocksFacade.remove(mtb);
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
 
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     public String showDetailsBlock(String id) {
@@ -237,7 +251,7 @@ public class MovieBlockMB implements Serializable {
         calendar.roll(Calendar.DATE, 1);
         Date endDate = calendar.getTime();
         mtb.setDate(endDate);
-        return "details";
+        return "details?faces-redirect=true";
     }
 
     public List<Cinemas> showAllCinemas() {
@@ -412,6 +426,14 @@ public class MovieBlockMB implements Serializable {
 
     public void setNoticeMovie(String noticeMovie) {
         this.noticeMovie = noticeMovie;
+    }
+
+    public String getNoticePrice() {
+        return noticePrice;
+    }
+
+    public void setNoticePrice(String noticePrice) {
+        this.noticePrice = noticePrice;
     }
 
 }

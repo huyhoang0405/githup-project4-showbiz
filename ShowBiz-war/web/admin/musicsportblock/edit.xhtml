@@ -25,10 +25,10 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <h:form class="">
-                                         <div class="form-group row">
+                                            <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Movie</label>    
-                                                    <h:inputText id="cinema" p:list="movie" value="#{musicSportBlockMB.msID}" p:placeholder="Enter movie" class="form-control"/>                                                                                         
+                                                    <h:inputText id="cinema" readonly="true" p:list="movie" value="#{musicSportBlockMB.msID}" p:placeholder="Enter movie" class="form-control"/>                                                                                         
                                                     <datalist id="movie">
                                                         <c:forEach var="ms" items="#{musicSportBlockMB.showAllMusicSports()}">
                                                             <option value="#{ms.musicSportID}" label="#{ms.musicSportName}"/>
@@ -41,22 +41,24 @@
                                                     <label>Unit Price:</label>      
                                                     <div class="input-group">                
                                                         <h:inputText p:type="money" id="unitprice" value="#{musicSportBlockMB.musicSportBlock.unitPrice}" p:placeholder="Enter quantity" class="form-control"/>    
-                                                    <span class="input-group-addon">VND</span>
+                                                        <span class="input-group-addon">VND</span>
                                                     </div>  
+                                                    <h:message for="unitprice" class="text-danger"/>&nbsp;
+                                                    <h:outputText value="#{musicSportBlockMB.noticePrice}" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Quantity:</label>                                           
                                                     <h:inputText p:type="number" id="quantity" value="#{musicSportBlockMB.musicSportBlock.quantity}" p:placeholder="Enter quantity" class="form-control"/>                                             
+                                                     <h:message for="quantity" class="text-danger"/>&nbsp;
                                                     <h:outputText value="#{musicSportBlockMB.noticeQuantity}" class="text-danger"/>
                                                 </div>
                                             </div>                                
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Ticket type</label>                                           
-                                                    <h:selectOneMenu  required="true"  value="#{musicSportBlockMB.ticketID}" class="form-control">
-                                                        <f:selectItem itemLabel="Please choose an ticket type" itemValue="Null"/>
+                                                    <h:selectOneMenu  required="true" readonly="true" value="#{musicSportBlockMB.ticketID}" class="form-control">
                                                         <f:selectItems value="#{musicSportBlockMB.showAllTicketTypes()}" var="ticket" itemLabel="#{ticket.ticketTypeName}" itemValue="#{ticket.ticketTypeID}"/>
                                                     </h:selectOneMenu>    
                                                 </div>
@@ -72,6 +74,12 @@
                         </div>
                     </div>
                 </div>
+            </ui:define>
+            <ui:define name="toastr">
+                <script>
+                    #{musicSportBlockMB.notice}
+                    #{musicSportBlockMB.notice=""}
+                </script>
             </ui:define>
         </ui:composition>
     </h:body>

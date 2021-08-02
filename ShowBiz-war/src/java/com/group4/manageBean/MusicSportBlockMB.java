@@ -42,6 +42,9 @@ public class MusicSportBlockMB implements Serializable {
     private String msID;
     private String noticeQuantity;
     private final Calendar calendar = Calendar.getInstance();
+    private String noticePrice;
+    private String noticeTicket;
+    private String notice;
 
     public MusicSportBlockMB() {
         musicSportBlock = new MusicSportTicketBlocks();
@@ -53,54 +56,74 @@ public class MusicSportBlockMB implements Serializable {
             try {
                 m = new MusicSportTicketBlocks();
                 m.setMusicSportTicketBlockID(createID());
-                m.setMusicSportID(musicSportsFacade.find(msID));
-                m.setTicketTypeID(ticketTypesFacade.find(ticketID));
-                m.setQuantity(musicSportBlock.getQuantity());
-                m.setResidual(musicSportBlock.getQuantity());
-                m.setUnitPrice(musicSportBlock.getUnitPrice());
+                if (ticketID.equals(0)) {
+                    noticeTicket = "Please choose a ticket type!";
+                    return "create?faces-redirect=true";
+                }
+                if (musicSportBlock.getQuantity() < 1) {
+                    noticeQuantity = "The quantity must be more than 0";
+                    return "create?faces-redirect=true";
+                }
+                if (musicSportBlock.getUnitPrice() < 1) {
+                    noticePrice = "The unit price must be more than 0";
+                    return "create?faces-redirect=true";
+                } else {
+                    m.setMusicSportID(musicSportsFacade.find(msID));
+                    m.setTicketTypeID(ticketTypesFacade.find(ticketID));
+                    m.setQuantity(musicSportBlock.getQuantity());
+                    m.setResidual(musicSportBlock.getQuantity());
+                    m.setUnitPrice(musicSportBlock.getUnitPrice());
 
-                musicSportTicketBlocksFacade.create(m);
+                    musicSportTicketBlocksFacade.create(m);
+
+                }
             } catch (Exception e) {
+                notice = "alert('Please fill in full information!');";
+                return "create?faces-redirect=true";
             }
 
         } else {
-            m = musicSportTicketBlocksFacade.findBlock(ticketTypesFacade.find(ticketID), musicSportsFacade.find(msID));
-            Integer result = Math.abs(m.getQuantity() - musicSportBlock.getQuantity());
+            try {
+                m = musicSportTicketBlocksFacade.findBlock(ticketTypesFacade.find(ticketID), musicSportsFacade.find(msID));
+                Integer result = Math.abs(m.getQuantity() - musicSportBlock.getQuantity());
 
-            if (m.getQuantity() > musicSportBlock.getQuantity()) {
-                if (result > m.getResidual()) {
-                    noticeQuantity = "The new quantity is less than the sold quantity";
-                    return "edit";
+                if (m.getQuantity() > musicSportBlock.getQuantity()) {
+                    if (result > m.getResidual()) {
+                        noticeQuantity = "The new quantity is less than the sold quantity";
+                        return "create?faces-redirect=true";
+                    } else {
+                        m.setQuantity(musicSportBlock.getQuantity());
+                        m.setResidual(m.getResidual() - result);
+                    }
                 } else {
                     m.setQuantity(musicSportBlock.getQuantity());
-                    m.setResidual(m.getResidual() - result);
+                    m.setResidual(m.getResidual() + result);
                 }
-            } else {
-                m.setQuantity(musicSportBlock.getQuantity());
-                m.setResidual(m.getResidual() + result);
+                musicSportTicketBlocksFacade.edit(m);
+            } catch (Exception ex) {
+                notice = "alert('Please fill in full information!');";
+                return "create?faces-redirect=true";
             }
-            musicSportTicketBlocksFacade.edit(m);
-
         }
 
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     public String showDetails(String id) {
         MusicSportTicketBlocks m = musicSportTicketBlocksFacade.find(id);
         setMusicSportBlock(m);
-        
-         calendar.setTime(m.getMusicSportID().getStartDate());
+
+        calendar.setTime(m.getMusicSportID().getStartDate());
         calendar.roll(Calendar.DATE, 1);
         Date endDate = calendar.getTime();
         m.getMusicSportID().setStartDate(endDate);
-        return "details";
+        return "details?faces-redirect=true";
     }
 
     public String delete(String id) {
         MusicSportTicketBlocks m = musicSportTicketBlocksFacade.find(id);
         musicSportTicketBlocksFacade.remove(m);
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     public List<MusicSports> showAllMusicSports() {
@@ -117,7 +140,7 @@ public class MusicSportBlockMB implements Serializable {
     public String loadFormCreateNew() {
         resetForm();
         musicSportBlock.setMusicSportTicketBlockID(createID());
-        return "create";
+        return "create?faces-redirect=true";
     }
 
     public String edit(String id) {
@@ -131,7 +154,8 @@ public class MusicSportBlockMB implements Serializable {
             Integer result = Math.abs(m.getQuantity() - musicSportBlock.getQuantity());
             if (m.getQuantity() > musicSportBlock.getQuantity()) {
                 if (result > m.getResidual()) {
-                    noticeQuantity = "So ve  cua so luong moi it hon ve con lai";
+                    noticeQuantity = "The new quantity is less than the sold quantity";
+                    return "edit?faces-redirect=true";
                 } else {
                     m.setQuantity(musicSportBlock.getQuantity());
                     m.setResidual(m.getResidual() - result);
@@ -143,11 +167,11 @@ public class MusicSportBlockMB implements Serializable {
 
             musicSportTicketBlocksFacade.edit(m);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
+            notice = "alert('Please fill in full information!');";
+            return "edit?faces-redirect=true";
         }
-
-        return "index";
     }
 
     public String loadFormEdit(String id) {
@@ -156,8 +180,7 @@ public class MusicSportBlockMB implements Serializable {
         setMsID(m.getMusicSportID().getMusicSportID());
         setTicketID(m.getTicketTypeID().getTicketTypeID());
 
-      
-        return "edit";
+        return "edit?faces-redirect=true";
     }
 
     public void resetForm() {
@@ -227,6 +250,30 @@ public class MusicSportBlockMB implements Serializable {
 
     public void setNoticeQuantity(String noticeQuantity) {
         this.noticeQuantity = noticeQuantity;
+    }
+
+    public String getNoticePrice() {
+        return noticePrice;
+    }
+
+    public void setNoticePrice(String noticePrice) {
+        this.noticePrice = noticePrice;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
+    }
+
+    public String getNoticeTicket() {
+        return noticeTicket;
+    }
+
+    public void setNoticeTicket(String noticeTicket) {
+        this.noticeTicket = noticeTicket;
     }
 
 }

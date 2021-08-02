@@ -6,6 +6,8 @@
 package com.group4.sesionBeans;
 
 import com.group4.entities.Movies;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,6 +21,7 @@ import javax.persistence.Query;
 @Stateless
 public class MoviesFacade extends AbstractFacade<Movies> implements MoviesFacadeLocal {
 
+    Calendar c = Calendar.getInstance();
     @PersistenceContext(unitName = "ShowBiz-ejbPU")
     private EntityManager em;
 
@@ -38,10 +41,12 @@ public class MoviesFacade extends AbstractFacade<Movies> implements MoviesFacade
     }
     @Override
     public List<Movies> select5NewestMovies(){
-        Query query = em.createQuery("SELECT DISTINCT m FROM Movies m ORDER BY m.releaseDate DESC");
+        Query query = em.createQuery("SELECT DISTINCT m FROM Movies m Where m.releaseDate > :date ORDER BY m.releaseDate");
+        query.setParameter("date", c.getTime());
         query.setMaxResults(5);
         return query.getResultList();
     }
+    
     @Override
     public List<Movies> select6NewestMovies(){
         Query query = em.createQuery("SELECT DISTINCT m FROM Movies m ORDER BY m.releaseDate DESC");
@@ -49,9 +54,23 @@ public class MoviesFacade extends AbstractFacade<Movies> implements MoviesFacade
         return query.getResultList();
     }
     @Override
-    public List<Movies> select8Movies(){
-        Query query = em.createQuery("SELECT DISTINCT m FROM Movies m ORDER BY m.movieID DESC");
+    public List<Movies> select8NewsetMovies(Date date){
+        Query query = em.createQuery("SELECT DISTINCT m FROM Movies m Where m.releaseDate > :date ORDER BY m.releaseDate");
+        query.setParameter("date", date);
         query.setMaxResults(8);
+        return query.getResultList();
+    }
+    public List<Movies> select8PlayMovies(Date start, Date end){
+        Query query = em.createQuery("SELECT DISTINCT m FROM Movies m Where m.releaseDate BETWEEN :start AND :end ORDER BY m.releaseDate");
+        query.setParameter("start", start);
+        query.setParameter("end", end);
+        query.setMaxResults(8);
+        return query.getResultList();
+    }
+    
+    public List<Movies> searchMovieName(String keyword){
+        Query query = em.createQuery("SELECT DISTINCT m FROM Movies m Where m.movieName LIKE :keyword ORDER BY m.releaseDate DESC");
+        query.setParameter("keyword", "%"+ keyword + "%");
         return query.getResultList();
     }
 }

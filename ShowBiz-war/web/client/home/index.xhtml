@@ -24,32 +24,66 @@
                 </div>
 
                 <!-- //banner -->
+                  <h:form>
+                <div class="banner-bottom">
+                    <div class="container">
+                        <div class="w3_agile_banner_bottom_grid">
+                            <div id="owl-demo" class="owl-carousel owl-theme">
+                               
+                                <c:forEach items="#{moviesDisplayMB.show8NewestMovies()}" var="movie">
+                                    <div class="item">
+                                        <div class="w3l-movie-gride-agile w3l-movie-gride-agile1">
+                                            <a jsf:action="#{moviesDisplayMB.showDetailsoutMovie(movie.movieID)}" class="hvr-shutter-out-horizontal"><img jsf:value="/resources/client/images/poster/#{movie.poster}" title="#{movie.movieName}" class="img-responsive" alt=" " />
+                                                <div class="w3l-action-icon"><i class="fa fa-play-circle" aria-hidden="true"></i></div>
+                                            </a>
+                                            <div class="mid-1 agileits_w3layouts_mid_1_home">
+                                                <div class="w3l-movie-text">
+                                                    <h6><a jsf:action="#{moviesDisplayMB.showDetailsoutMovie(movie.movieID)}">#{movie.movieName}</a></h6>							
+                                                </div>
+                                                <div class="mid-2 agile_mid_2_home">
+                                                    <p><h:outputText value="#{movie.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></p>
+
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                            <div class="ribben">
+                                                <p>NEW</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                                   
+                            </div>
+                        </div>			
+                    </div>
+                </div>
+                 </h:form>
                 <!-- Latest-tv-series -->
                 <div class="Latest-tv-series">
-                    <h4 class="latest-text w3_latest_text w3_home_popular">Most Popular Movies</h4>
+                    <h4 class="latest-text w3_latest_text w3_home_popular">Movie Coming Soon</h4>
                     <div class="container">
                         <section class="slider">
                             <div class="flexslider">
                                 <ul class="slides">
-                                    <c:forEach items="#{moviesDisplayMB.show5MoviesTrailer()}" var="mov">
+                                    <c:forEach items="#{moviesDisplayMB.show5Movies()}" var="mov">
                                     <li>
                                         <div class="agile_tv_series_grid">
                                             <div class="col-md-6 agile_tv_series_grid_left">
                                                 
                                                   <div class="video-grid-single-page-agileits">
-                                                      <div data-video="vw2FOYjCz38" id="video"> <img jsf:value="/resources/client/images/banner/#{mov.banner}" alt="#{mov.movieName}" class="img-responsive" /> </div>
+                                                     <img jsf:value="/resources/client/images/banner/#{mov.banner}" alt="#{mov.movieName}" class="img-responsive" />
 						</div>
                                                 
                                             </div>
                                             <div class="col-md-6 agile_tv_series_grid_right">
                                                 <p class="fexi_header">#{mov.movieName}</p>
-                                                <p class="fexi_header_para"><span class="conjuring_w3">Story Line<label>:</label></span>#{mov.content}</p>
+                                                <p class="fexi_header_para three-line-paragraph"><span class="conjuring_w3">Story Line<label>:</label></span>#{mov.content}</p>
                                                 <p class="fexi_header_para"><span>Date of Release<label>:</label></span> <h:outputText value="#{mov.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></p>
                                                 <p class="fexi_header_para">
-                                                    <span>#{mov.trailer}<label>:</label> </span>
-                                                    <a href="genres.html">Drama</a> | 
-                                                    <a href="genres.html">Adventure</a> | 
-                                                    <a href="genres.html">Family</a>								
+                                                   <span>Genre<label>:</label> </span>
+                                                        <ui:repeat value="#{moviesDisplayMB.categoryID}" var="categoryID">
+                                                            <a href="#">#{categoryID}&nbsp;&nbsp;</a>
+                                                        </ui:repeat>							
                                                 </p>
                                                
                                             </div>

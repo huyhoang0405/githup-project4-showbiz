@@ -42,7 +42,7 @@ public class TicketTypes implements Serializable {
     //@NotNull
     @Column(name = "TicketType_ID")
     private Integer ticketTypeID;
-    @Size(max = 100)
+    @Size(min = 3 ,max = 100,message = "Ticket type name must be between 3 and 100 characters.")
     @Column(name = "TicketType_Name")
     private String ticketTypeName;
     @OneToMany(mappedBy = "ticketTypeID")

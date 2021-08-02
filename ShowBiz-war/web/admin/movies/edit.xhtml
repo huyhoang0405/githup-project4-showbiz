@@ -28,7 +28,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Movie Name:</label>                                           
-                                                        <h:inputText id="movieName" value="#{movieMB.movie.movieName}" p:placeholder="Enter movie name" class="form-control"/>                                             
+                                                        <h:inputText id="movieName" readonly="true" value="#{movieMB.movie.movieName}" p:placeholder="Enter movie name" class="form-control"/>                                             
                                                     </div>
                                                 </div>
                                             </div>
@@ -36,7 +36,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Starring:</label>                                           
-                                                        <h:inputText id="starring" value="#{movieMB.movie.starring}" p:placeholder="Enter starring" class="form-control"/>                                             
+                                                        <h:inputText id="starring" readonly="true" value="#{movieMB.movie.starring}" p:placeholder="Enter starring" class="form-control"/>                                             
                                                     </div>
                                                 </div>
                                             </div>
@@ -53,28 +53,32 @@
                                                     <div class="form-group">
                                                         <label>Length:</label>                                           
                                                         <h:inputText id="length" p:type="number" value="#{movieMB.movie.length}" p:placeholder="Enter length" class="form-control"/>                                             
+                                                         <h:message for="length" class="text-danger"/>
+                                                         <h:outputText value="#{movieMB.noticeLength}" class="text-danger"/>
                                                     </div>
+                                                   
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Release Date:</label>                                           
-                                                        <h:inputText id="relleaseDate" p:type="date" value="#{movieMB.movie.releaseDate}" p:placeholder="Enter release date" class="form-control">
+                                                        <h:inputText  id="releaseDate" p:type="date" value="#{movieMB.movie.releaseDate}" p:placeholder="Enter release date" class="form-control">
                                                             <f:convertDateTime pattern="yyyy-MM-dd" />
-                                                        </h:inputText>                                             
-                                                    </div>
+                                                        </h:inputText>       
+                                                        <h:message for="releaseDate" class="text-danger"/>
+                                                    </div>                                                    
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Country:</label>                                           
-                                                        <h:inputText id="country" value="#{movieMB.movie.country}" p:placeholder="Enter country" class="form-control"/>                                             
+                                                        <h:inputText readonly="true" id="country" value="#{movieMB.movie.country}" p:placeholder="Enter country" class="form-control"/>                                             
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Language</label>                                           
-                                                        <h:inputText id="language"  value="#{movieMB.movie.language}" p:placeholder="Enter language" class="form-control"/>                                             
+                                                        <h:inputText readonly="true" id="language"  value="#{movieMB.movie.language}" p:placeholder="Enter language" class="form-control"/>                                             
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,7 +86,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Director:</label>                                           
-                                                        <h:inputText id="director" value="#{movieMB.movie.director}" p:placeholder="Enter director name" class="form-control"/>                                             
+                                                        <h:inputText readonly="true" id="director" value="#{movieMB.movie.director}" p:placeholder="Enter director name" class="form-control"/>                                             
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,7 +95,9 @@
                                                     <div class="form-group">
                                                         <label>Trailer</label>                                           
                                                         <h:inputText id="trailer" value="#{movieMB.movie.trailer}" p:placeholder="Enter link trailer" class="form-control"/>                                             
+                                                    <h:message for="trailer" class="text-danger"/>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row">

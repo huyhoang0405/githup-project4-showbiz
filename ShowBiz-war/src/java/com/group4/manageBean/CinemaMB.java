@@ -31,6 +31,7 @@ public class CinemaMB implements Serializable {
 
     private Cinemas cinema;
     private Integer placeID;
+    private String noticePlace;
 
     public CinemaMB() {
         cinema = new Cinemas();
@@ -73,11 +74,16 @@ public class CinemaMB implements Serializable {
 
             c.setCinemaName(cinema.getCinemaName());
             c.setAddress(cinema.getAddress());
-            c.setPlacesID(placesFacade.find(placeID));
+            if (placeID.equals(0)) {
+                noticePlace = "Please chooose a city!";
+                return "create?faces-redirect=true";
+            } else {
+                c.setPlacesID(placesFacade.find(placeID));
+                cinemasFacade.create(c);
+                resetForm();
+                return "index?faces-redirect=true";
+            }
 
-            cinemasFacade.create(c);
-            resetForm();
-            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,12 +97,12 @@ public class CinemaMB implements Serializable {
         setPlaceID(c.getPlacesID().getPlacesID());
         return "edit?faces-redirect=true";
     }
-    
+
     //edit an place
     public String editCinema(int id) {
         try {
             Cinemas c = cinemasFacade.find(id);
-            
+
             c.setCinemaName(cinema.getCinemaName());
             c.setAddress(cinema.getAddress());
             c.setPlacesID(placesFacade.find(placeID));
@@ -108,7 +114,7 @@ public class CinemaMB implements Serializable {
         }
         return "index?faces-redirect=true";
     }
-    
+
     //delete a cinema
     public void deleteCinema(int id) {
         try {
@@ -117,7 +123,7 @@ public class CinemaMB implements Serializable {
         } catch (Exception e) {
         }
     }
-    
+
     public Cinemas getCinema() {
         return cinema;
     }
@@ -132,6 +138,14 @@ public class CinemaMB implements Serializable {
 
     public void setPlaceID(Integer placeID) {
         this.placeID = placeID;
+    }
+
+    public String getNoticePlace() {
+        return noticePlace;
+    }
+
+    public void setNoticePlace(String noticePlace) {
+        this.noticePlace = noticePlace;
     }
 
 }

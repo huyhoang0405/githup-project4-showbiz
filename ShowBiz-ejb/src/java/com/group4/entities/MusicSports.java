@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -43,7 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "MusicSports.findByPoster", query = "SELECT m FROM MusicSports m WHERE m.poster = :poster")
     , @NamedQuery(name = "MusicSports.findByBanner", query = "SELECT m FROM MusicSports m WHERE m.banner = :banner")})
 public class MusicSports implements Serializable {
-
+    
+    @NotNull(message = "Start time can't be left empty!")
     @Size(max = 20)
     @Column(name = "StartTime")
     private String startTime;
@@ -55,18 +57,21 @@ public class MusicSports implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "MusicSport_ID")
     private String musicSportID;
-    @Size(max = 100)
+    @Size(min = 5,max = 100, message = "The name must be between 5 and 100 characters.!")
     @Column(name = "MusicSport_Name")
     private String musicSportName;
+    @NotNull(message = "Start date can't be left empty!")
     @Column(name = "StartDate")
     @Temporal(TemporalType.DATE)
+    @Future(message = "Date must be in the future!")
     private Date startDate;
-    @Size(max = 200)
+    @Size(min = 6,max = 200, message = "Address must be between 6 and 200 characters.")
     @Column(name = "Address")
     private String address;
+    @NotNull(message = "Capacity can't be left empty!")
     @Column(name = "Capacity")
     private Integer capacity;
-    @Size(max = 2000)
+    @Size(min = 5,max = 2000, message = "Information must be between 5 and 2000 characters.!")
     @Column(name = "Information")
     private String information;
     @Column(name = "Type")

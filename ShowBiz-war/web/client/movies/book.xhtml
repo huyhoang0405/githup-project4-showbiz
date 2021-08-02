@@ -53,7 +53,7 @@
                                         </div>
 
                                         <div class="form">
-                                            <h3>Book the ticket</h3>
+                                            <h3 align="center">Book the ticket</h3>
                                             <div class="form-module">
                                                 <h:selectOneMenu  required="true"  value="#{bookMovieMB.cinemaID}" class="form-control">
                                                     <f:ajax listener="#{bookMovieMB.changeCinema(bookMovieMB.movie)}" render="date"/>
@@ -95,8 +95,9 @@
                                                 </h:inputText>
 
                                                 <h:inputText style="height: 37px;width: 282px" p:type="text" id="price" p:readonly="true" p:placeholder="Total price" value="#{bookMovieMB.displayPrice()}"/>
-                                                <h:outputText value="#{bookMovieMB.noticePrice}" class="text-danger"/>
+                                                
                                             </div>
+                                            <h:outputText value="#{bookMovieMB.noticePrice}" class="text-danger"/>
                                             <div class="form-module">
                                                 <h:selectOneMenu  required="true"  value="#{bookMovieMB.paymentID}" class="form-control">
 
@@ -106,8 +107,8 @@
                                                 <h:outputText value="#{bookMovieMB.noticePayment}" class="text-danger"/>
                                             </div>
 
-                                            <h:commandButton action="#{bookMovieMB.bookMovie(bookMovieMB.movie)}" value="Book"/>
-
+                                            <h:commandButton action="#{bookMovieMB.bookMovie(bookMovieMB.movie)}" value="Book"/><br/><br/>
+                                            <input jsf:action="#{bookMovieMB.home()}" value="Cancel" style="background-color: red" type="submit"/>
                                         </div>
 
                                     </div>

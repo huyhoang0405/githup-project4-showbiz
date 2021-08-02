@@ -34,7 +34,7 @@
                                                             <option value="#{movie.movieID}" label="#{movie.movieName}"/>
                                                         </c:forEach>                  
                                                     </datalist>
-                                                   
+                                                    <h:message for="movieID" class="text-danger"/>
                                                     <h:outputText value="#{movieBlockMB.noticeMovie}" class="text-danger"/>
                                                 </div>
                                             </div>
@@ -49,22 +49,29 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label>Time:</label>                                           
-                                                    <h:inputText p:type="time" id="time" value="#{movieBlockMB.movieTicketBlock.time}" class="form-control"/>
+                                                    <h:inputText p:type="time" required="true" requiredMessage="Time can't be left empty" id="time" value="#{movieBlockMB.movieTicketBlock.time}" class="form-control"/>
+                                                     <h:message for="time" class="text-danger"/>
+                                                     <h:outputText value="#{movieBlockMB.noticeTime}" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">                                               
                                                 <div class="col-md-10">
                                                     <label>Unit Price:</label>      
                                                     <div class="input-group">                
-                                                    <h:inputText p:type="money" id="unitprice" value="#{movieBlockMB.movieTicketBlock.unitPrice}" p:placeholder="Enter quantity" class="form-control"/>    
+                                                        <h:inputText p:type="number" id="unitprice" value="#{movieBlockMB.movieTicketBlock.unitPrice}" p:placeholder="Enter quantity" class="form-control"/>    
                                                     <span class="input-group-addon">VND</span>
+                                                    
                                                     </div>  
+                                                    <h:message for="unitprice" class="text-danger"/>
+                                                    <h:outputText value="#{movieBlockMB.noticePrice}" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Quantity:</label>                                           
                                                     <h:inputText p:type="number" id="quantity" value="#{movieBlockMB.movieTicketBlock.quantity}" p:placeholder="Enter quantity" class="form-control"/>                                             
+                                                    <h:message for="quantity" class="text-danger"/>
+                                                    <h:outputText value="#{movieBlockMB.noticeQuantity}" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -101,14 +108,10 @@
                 </div>
             </ui:define>
             <ui:define name="toastr">
-
                 <script>
-
                     #{movieBlockMB.notice}
                     #{movieBlockMB.notice=""}
                 </script>
-
-
             </ui:define>
         </ui:composition>
     </h:body>

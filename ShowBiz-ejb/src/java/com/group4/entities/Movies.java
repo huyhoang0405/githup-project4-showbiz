@@ -60,36 +60,46 @@ public class Movies implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "Movie_ID")
     private String movieID;
-    @Size(max = 100)
+    @NotNull(message = "Movie name can't be left empty!")
+    @Size(min = 5,max = 100, message = "Movie name must be between 5 and 100 characters.!")
     @Column(name = "Movie_Name")
     private String movieName;
-    @Size(max = 200)
+    @NotNull(message = "Starring can't be left empty!")
+    @Size(min = 5,max = 200, message = "Starring must be between 5 and 100 characters.!")
     @Column(name = "Starring")
     private String starring;
+    @NotNull(message = "Length can't be left empty!")
     @Column(name = "Length")
     private Integer length;
+    @NotNull(message = "Release date can't be left empty!")
     @Column(name = "ReleaseDate")
     @Temporal(TemporalType.DATE)
-    @Future
+    @Future(message = "Date must be in the future!")
     private Date releaseDate;
-    @Size(max = 2000)
+    @Size(min = 5,max = 2000, message = "Content must be between 5 and 2000 characters.!")
     @Column(name = "Content")
     private String content;
-    @Size(max = 100)
+    @NotNull(message = "Country can't be left empty!")
+    @Size(min = 3, max = 100, message = "Country must be between 3 and 100 characters.!")
     @Column(name = "Country")
     private String country;
-    @Size(max = 100)
+    @NotNull(message = "Language can't be left empty!")
+    @Size(min = 3, max = 100, message = "Language must be between 3 and 100 characters.!")
     @Column(name = "Language")
     private String language;
-    @Size(max = 100)
+    @NotNull(message = "Director can't be left empty!")
+    @Size(min = 3, max = 100, message = "Director must be between 3 and 100 characters.!")
     @Column(name = "Director")
     private String director;
-    @Size(max = 200)
+    @NotNull(message = "Trailer can't be left empty!")
+    @Size(min = 5, max = 200, message = "Trailer must be between 5 and 200 characters.!")
     @Column(name = "Trailer")
     private String trailer;
+    @NotNull(message = "Poster can't be left empty!")
     @Size(max = 100)
     @Column(name = "Poster")
     private String poster;
+    @NotNull(message = "Banner can't be left empty!")
     @Size(max = 100)
     @Column(name = "Banner")
     private String banner;

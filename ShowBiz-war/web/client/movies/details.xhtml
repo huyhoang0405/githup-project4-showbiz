@@ -31,7 +31,10 @@
                                         <p class="fexi_header">#{moviesDisplayMB.movie.movieName}</p>
                                         <p class="fexi_header_para" style="color: #000"><span>Director<label>:</label></span>#{moviesDisplayMB.movie.director}</p>
                                         <p class="fexi_header_para" style="color: #000"><span>Starring<label>:</label></span>#{moviesDisplayMB.movie.starring}</p>
-                                        <p class="fexi_header_para" style="color: #000"><span>Genre<label>:</label></span>asdadasd</p>
+                                        <p class="fexi_header_para" style="color: #000"><span>Genre<label>:</label></span> 
+                                            <ui:repeat value="#{moviesDisplayMB.categoryID}" var="categoryID">
+                                                        #{categoryID} &nbsp;&nbsp;
+                                                    </ui:repeat>   </p>
                                         <p class="fexi_header_para" style="color: #000"><span>Country<label>:</label></span>#{moviesDisplayMB.movie.country}</p>
                                         <p class="fexi_header_para" style="color: #000"><span>Length<label>:</label></span>#{moviesDisplayMB.movie.length} minutes</p>
                                         <p class="fexi_header_para" style="color: #000"><span>Release<label>:</label></span><h:outputText value="#{moviesDisplayMB.movie.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></p>

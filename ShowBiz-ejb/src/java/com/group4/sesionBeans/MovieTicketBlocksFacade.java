@@ -9,7 +9,9 @@ import com.group4.entities.Cinemas;
 import com.group4.entities.Customers;
 import com.group4.entities.MovieTicketBlocks;
 import com.group4.entities.Movies;
+import com.group4.entities.OrderMovieDetails;
 import com.group4.entities.TicketTypes;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,7 @@ import javax.persistence.Query;
 @Stateless
 public class MovieTicketBlocksFacade extends AbstractFacade<MovieTicketBlocks> implements MovieTicketBlocksFacadeLocal {
 
+    Calendar c = Calendar.getInstance();
     @PersistenceContext(unitName = "ShowBiz-ejbPU")
     private EntityManager em;
 
@@ -51,8 +54,9 @@ public class MovieTicketBlocksFacade extends AbstractFacade<MovieTicketBlocks> i
 
     @Override
     public List<Cinemas> findByMovieID(Movies id) {
-        Query query = em.createQuery("SELECT DISTINCT (m.cinemaID)  From MovieTicketBlocks m WHERE m.movieID =:movieID");
+        Query query = em.createQuery("SELECT DISTINCT (m.cinemaID)  From MovieTicketBlocks m WHERE m.movieID =:movieID and m.date > :date");
         query.setParameter("movieID", id);
+        query.setParameter("date", c.getTime());
         return query.getResultList();
     }
 
@@ -202,7 +206,7 @@ public class MovieTicketBlocksFacade extends AbstractFacade<MovieTicketBlocks> i
         return query.getSingleResult();
     }
     
-    public List<OrderMovieDetailsFacade> orderOfCustomer(Customers customer) {
+    public List<OrderMovieDetails> orderOfCustomer(Customers customer) {
         Query query = em.createQuery("SELECT odm FROM  OrderMovieDetails odm JOIN odm.movieTicketBlocks m JOIN odm.orders o Where o.customerUsername = :customerUsername");
         query.setParameter("customerUsername", customer);
         return query.getResultList();

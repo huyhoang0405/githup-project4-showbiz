@@ -29,7 +29,8 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Name:</label>                                           
-                                                        <h:inputText id="msName" value="#{musicSportMB.musicSport.musicSportName}" p:placeholder="Enter name" class="form-control"/>                                             
+                                                        <h:inputText id="msName" value="#{musicSportMB.musicSport.musicSportName}" p:placeholder="Enter name" class="form-control"/>  
+                                                        <h:message class="text-danger" for="msName"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -38,6 +39,7 @@
                                                     <div class="form-group">
                                                         <label>Start time</label>                                           
                                                         <h:inputText id="time" p:type="time" value="#{musicSportMB.musicSport.startTime}" p:placeholder="Enter start tume" class="form-control"/>                                             
+                                                        <h:message class="text-danger" for="time"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -45,7 +47,8 @@
                                                         <label>Start date</label>                                           
                                                         <h:inputText id="date" p:type="date" value="#{musicSportMB.musicSport.startDate}" p:placeholder="Enter start date" class="form-control">
                                                             <f:convertDateTime pattern="yyyy-MM-dd" />
-                                                        </h:inputText>                                             
+                                                        </h:inputText>     
+                                                        <h:message class="text-danger" for="date"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -53,16 +56,19 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Type</label>                                           
-                                                        <h:selectOneRadio id="type" value = "#{musicSportMB.musicSport.type}" class="form-control"> 
+                                                        <h:selectOneRadio id="type" required="true" requiredMessage="Please choose a type" value = "#{musicSportMB.musicSport.type}" class="form-control"> 
                                                             <f:selectItem itemValue = "true" itemLabel = "&emsp;Sport &emsp;&emsp;&emsp;&emsp;"/> 
                                                             <f:selectItem itemValue = "false" itemLabel = "&emsp;Music"/>
                                                         </h:selectOneRadio>   
+                                                        <h:message class="text-danger" for="type"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Capacity</label>                                           
                                                         <h:inputText id="capacity" p:type="number" value="#{musicSportMB.musicSport.capacity}" p:placeholder="Enter capacity" class="form-control"/>                                             
+                                                        <h:message class="text-danger" for="câpcity"/>&emsp;
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,6 +113,12 @@
                         </div>
                     </div>
                 </div>
+            </ui:define>
+            <ui:define name="toastr">
+                <script>
+                    #{musicSportMB.notice}
+                    #{musicSportMB.notice=""}
+                </script>
             </ui:define>
         </ui:composition>
     </h:body>

@@ -42,7 +42,7 @@ public class Payments implements Serializable {
   //  @NotNull
     @Column(name = "Payment_ID")
     private Integer paymentID;
-    @Size(max = 100)
+    @Size(min = 3 ,max = 100,message = "Payment name must be between 3 and 100 characters.")
     @Column(name = "Payment_Name")
     private String paymentName;
     @OneToMany(mappedBy = "paymentID")

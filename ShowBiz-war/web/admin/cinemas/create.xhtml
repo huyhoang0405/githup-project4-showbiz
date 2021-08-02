@@ -28,21 +28,24 @@
                                                 <div class="col-md-10">
                                                     <label>Cinema name:</label>                                           
                                                     <h:inputText id="name" value="#{cinemaMB.cinema.cinemaName}" p:placeholder="Enter cinema name" class="form-control"/>                                             
+                                                    <h:message class="text-danger" for="name"/>
                                                 </div>
                                             </div>  
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Address:</label>                                           
                                                     <h:inputText id="address" value="#{cinemaMB.cinema.address}" p:placeholder="Enter address" class="form-control"/>                                             
+                                                    <h:message class="text-danger" for="address"/>
                                                 </div>
                                             </div>     
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>City:</label>                                           
-                                                    <h:selectOneMenu  required="true"  value="#{cinemaMB.placeID}" class="form-control">
-                                                        <f:selectItem itemLabel="Please choose a city" itemValue="Null"/>
+                                                    <h:selectOneMenu  value="#{cinemaMB.placeID}" class="form-control">
+                                                        <f:selectItem itemLabel="Please choose a city" itemValue="0"/>
                                                         <f:selectItems value="#{cinemaMB.showAllPlaces()}" var="place" itemLabel="#{place.city}" itemValue="#{place.placesID}"/>
                                                     </h:selectOneMenu>    
+                                                    <h:outputText value="#{cinemaMB.noticePlace}" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="">

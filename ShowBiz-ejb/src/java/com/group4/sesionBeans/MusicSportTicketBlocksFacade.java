@@ -5,9 +5,12 @@
  */
 package com.group4.sesionBeans;
 
+import com.group4.entities.Customers;
 import com.group4.entities.MusicSportTicketBlocks;
 import com.group4.entities.MusicSports;
+import com.group4.entities.OrderMusicSportDetails;
 import com.group4.entities.TicketTypes;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -22,6 +25,7 @@ import javax.persistence.Query;
 @Stateless
 public class MusicSportTicketBlocksFacade extends AbstractFacade<MusicSportTicketBlocks> implements MusicSportTicketBlocksFacadeLocal {
 
+    Calendar c = Calendar.getInstance();
     @PersistenceContext(unitName = "ShowBiz-ejbPU")
     private EntityManager em;
 
@@ -42,15 +46,17 @@ public class MusicSportTicketBlocksFacade extends AbstractFacade<MusicSportTicke
 
     @Override
     public List<TicketTypes> findTicketTypeByMusicSportID(MusicSports id) {
-        Query query = em.createQuery("SELECT DISTINCT (m.ticketTypeID)  From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID");
+        Query query = em.createQuery("SELECT DISTINCT (m.ticketTypeID)  From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID and m.musicSportID.startDate > :date");
         query.setParameter("musicSportID", id);
+        query.setParameter("date", c.getTime());
         return query.getResultList();
     }
 
     public MusicSportTicketBlocks findByTikcetTypenMusicSportID(MusicSports msID, TicketTypes ticketID) {
-        Query query = em.createQuery("SELECT m From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID and m.ticketTypeID = :ticketTypeID");
+        Query query = em.createQuery("SELECT m From MusicSportTicketBlocks m WHERE m.musicSportID = :musicSportID and m.ticketTypeID = :ticketTypeID and m.musicSportID.startDate > :date");
         query.setParameter("musicSportID", msID);
         query.setParameter("ticketTypeID", ticketID);
+        query.setParameter("date", c.getTime());
         return (MusicSportTicketBlocks) query.getSingleResult();
     }
 
@@ -61,23 +67,23 @@ public class MusicSportTicketBlocksFacade extends AbstractFacade<MusicSportTicke
         return query.getResultList();
     }
 
-    public boolean checkBlock(TicketTypes ticket,MusicSports musicsport) {
+    public boolean checkBlock(TicketTypes ticket, MusicSports musicsport) {
         Query query = em.createQuery("SELECT m FROM MusicSportTicketBlocks m WHERE m.ticketTypeID = :ticketTypeID and m.musicSportID = :musicSportID");
         query.setParameter("ticketTypeID", ticket);
         query.setParameter("musicSportID", musicsport);
         List<MusicSportTicketBlocks> list = query.getResultList();
         return list.size() > 0;
     }
-    
-     public MusicSportTicketBlocks findBlock(TicketTypes ticket,MusicSports musicsport) {
+
+    public MusicSportTicketBlocks findBlock(TicketTypes ticket, MusicSports musicsport) {
         Query query = em.createQuery("SELECT m FROM MusicSportTicketBlocks m WHERE m.ticketTypeID = :ticketTypeID and m.musicSportID = :musicSportID");
         query.setParameter("ticketTypeID", ticket);
         query.setParameter("musicSportID", musicsport);
         List<MusicSportTicketBlocks> list = query.getResultList();
         return (MusicSportTicketBlocks) query.getSingleResult();
     }
-     
-      public List<MusicSports> findMusicSportInBlock() {
+
+    public List<MusicSports> findMusicSportInBlock() {
         Query query = em.createQuery("SELECT DISTINCT (m.musicSportID) FROM MusicSportTicketBlocks m");
         return query.getResultList();
     }
@@ -87,11 +93,17 @@ public class MusicSportTicketBlocksFacade extends AbstractFacade<MusicSportTicke
         query.setParameter("musicSportID", musicsport);
         return query.getSingleResult();
     }
-    
-     public Object statisticMusicSport(Date startdate, Date enddate) {
+
+    public Object statisticMusicSport(Date startdate, Date enddate) {
         Query query = em.createQuery("SELECT SUM(odm.quantity) FROM  OrderMusicSportDetails odm JOIN odm.musicSportTicketBlocks m JOIN odm.orders o Where o.dateOfPurchase BETWEEN :startdate And :enddate");
         query.setParameter("startdate", startdate);
         query.setParameter("enddate", enddate);
         return query.getSingleResult();
+    }
+
+    public List<OrderMusicSportDetails> orderOfCustomer(Customers customer) {
+        Query query = em.createQuery("SELECT odm FROM  OrderMusicSportDetails odm JOIN odm.musicSportTicketBlocks m JOIN odm.orders o Where o.customerUsername = :customerUsername");
+        query.setParameter("customerUsername", customer);
+        return query.getResultList();
     }
 }

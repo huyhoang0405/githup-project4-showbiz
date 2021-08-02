@@ -42,7 +42,8 @@ public class Areas implements Serializable {
  //   @NotNull
     @Column(name = "Area_ID")
     private Integer areaID;
-    @Size(max = 100)
+    @NotNull(message = "Area name can't be left empty!")
+    @Size(min = 3 ,max = 100,message = "Area name must be between 3 and 100 characters.")
     @Column(name = "Area_Name")
     private String areaName;
     @OneToMany(mappedBy = "areaID")

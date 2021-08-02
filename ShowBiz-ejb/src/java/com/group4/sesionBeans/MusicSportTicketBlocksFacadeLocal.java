@@ -5,8 +5,10 @@
  */
 package com.group4.sesionBeans;
 
+import com.group4.entities.Customers;
 import com.group4.entities.MusicSportTicketBlocks;
 import com.group4.entities.MusicSports;
+import com.group4.entities.OrderMusicSportDetails;
 import com.group4.entities.TicketTypes;
 import java.util.Date;
 import java.util.List;
@@ -50,4 +52,6 @@ public interface MusicSportTicketBlocksFacadeLocal {
     Object ticketStatistics(MusicSports musicsport);
     
     Object statisticMusicSport(Date startdate, Date enddate);
+    
+    List<OrderMusicSportDetails> orderOfCustomer(Customers customer);
 }

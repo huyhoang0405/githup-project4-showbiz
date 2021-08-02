@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -47,6 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "MovieTicketBlocks.findByUnitPrice", query = "SELECT m FROM MovieTicketBlocks m WHERE m.unitPrice = :unitPrice")})
 public class MovieTicketBlocks implements Serializable {
 
+    @NotNull(message = "Time can't be left empty!")
     @Size(max = 20)
     @Column(name = "Time")
     private String time;
@@ -61,14 +63,17 @@ public class MovieTicketBlocks implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "MovieTicketBlock_ID")
     private String movieTicketBlockID;
+    @NotNull(message = "Date can't be left empty!")
     @Column(name = "Date")
     @Temporal(TemporalType.DATE)
-    @Future
+    @Future(message = "Date must be in the future!")
     private Date date;
+    @NotNull(message = "Quantity can't be left empty!")
     @Column(name = "Quantity")
     private Integer quantity;
     @Column(name = "Residual")
     private Integer residual;
+    @NotNull(message = "Unit price can't be left empty!")
     @Column(name = "UnitPrice")
     private Long unitPrice;
     @JoinTable(name = "OrderMovieDetails", joinColumns = {
@@ -79,6 +84,7 @@ public class MovieTicketBlocks implements Serializable {
     @JoinColumn(name = "Cinema_ID", referencedColumnName = "Cinema_ID")
     @ManyToOne
     private Cinemas cinemaID;
+    @NotNull(message = "Movie can't be left empty!")
     @JoinColumn(name = "Movie_ID", referencedColumnName = "Movie_ID")
     @ManyToOne
     private Movies movieID;
@@ -108,7 +114,6 @@ public class MovieTicketBlocks implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-
 
     public Integer getQuantity() {
         return quantity;
@@ -208,5 +213,5 @@ public class MovieTicketBlocks implements Serializable {
     public void setTime(String time) {
         this.time = time;
     }
-    
+
 }

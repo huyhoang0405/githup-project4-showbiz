@@ -9,6 +9,7 @@ import com.group4.entities.Cinemas;
 import com.group4.entities.Customers;
 import com.group4.entities.MovieTicketBlocks;
 import com.group4.entities.Movies;
+import com.group4.entities.OrderMovieDetails;
 import com.group4.entities.TicketTypes;
 import java.util.Collection;
 import java.util.Date;
@@ -74,5 +75,5 @@ public interface MovieTicketBlocksFacadeLocal {
 
     Object statisticMovie(Date startdate, Date enddate);
     
-    List<OrderMovieDetailsFacade> orderOfCustomer(Customers customer);
+    List<OrderMovieDetails> orderOfCustomer(Customers customer);
 }

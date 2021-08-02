@@ -3,15 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/orders/musicsport_ticket_statistics.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/orders/movie_ticket_statistics.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/layout/admin/sildebar.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/musicsports/details.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/guest/musicsports/index.xhtml</file>
             <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/MusicSportMB.java</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/orders/index.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/orders/month_musicsport_ticket.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/orders/week_musicsport_ticket.xhtml</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/MusicSportTicketStatisticMB.java</file>
-            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/admin/orders/month_movie_ticket.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/musicsports/book.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/layout/admin/common.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/musicsports/index.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/guest/movies/details.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/movies/book.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/home/contact.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/BookMusicSportMB.java</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/MoviesDisplayMB.java</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/guest/home/index.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/layout/admin/sildebar.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/movies/details.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/guest/home/contact.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/guest/musicsports/details.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/layout/admin/header.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/web/client/home/index.xhtml</file>
+            <file>file:/F:/Project%204/githup-project4-showbiz/ShowBiz-war/src/java/com/group4/manageBean/BookMovieMB.java</file>
         </group>
     </open-files>
 </project-private>

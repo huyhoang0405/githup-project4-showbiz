@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cinemas.findByCinemaName", query = "SELECT c FROM Cinemas c WHERE c.cinemaName = :cinemaName")})
 public class Cinemas implements Serializable {
 
-    @Size(max = 200)
+    @NotNull(message = "Address can't be left empty!")
+    @Size(min = 6,max = 200, message = "Address must be between 6 and 200 characters.")
     @Column(name = "Address")
     private String address;
 
@@ -48,7 +49,8 @@ public class Cinemas implements Serializable {
     //@NotNull
     @Column(name = "Cinema_ID")
     private Integer cinemaID;
-    @Size(max = 100)
+    @NotNull(message = "Cinema name can't be left empty!")
+    @Size(min = 3 ,max = 100,message = "Cinema name must be between 3 and 100 characters.")
     @Column(name = "Cinema_Name")
     private String cinemaName;
     @OneToMany(mappedBy = "cinemaID")

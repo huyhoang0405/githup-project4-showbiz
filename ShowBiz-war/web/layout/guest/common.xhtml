@@ -342,5 +342,14 @@
                 });
             }
         </script>
+        
+         <script type="text/javascript">
+	$(document).ready(function() {
+		$('#load-du-lieu').click(function(e) {
+			e.preventDefault();
+			$('#noidung').load('index.xhtml');
+		});
+	});
+	</script>
     </h:body>
 </html>

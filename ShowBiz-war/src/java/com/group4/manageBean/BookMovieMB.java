@@ -100,6 +100,9 @@ public class BookMovieMB implements Serializable {
         movie = new Movies();
     }
 
+    public String home(){
+        return "index";
+    }
     public Long unitPrice(Movies movieID, Cinemas cinemaID, TicketTypes ticketID, Date date, String time) {
         List<MovieTicketBlocks> mtb = movieTicketBlocksFacade.selectType(movieID, cinemaID, ticketID, date, time);
         Long unit = movieTicketBlocksFacade.find(mtb.get(0).getMovieTicketBlockID()).getUnitPrice();
@@ -117,63 +120,60 @@ public class BookMovieMB implements Serializable {
     public String bookMovie(Movies movie) {
         if (cinemaID.equals(0)) {
             noticeCinema = "Please choose a cinema!";
-            return "book";
+            return "book?faces-redirect=true";
         } else if (time.equals("Null")) {
             noticeTime = "Please choose a timezone!";
             noticeCinema = "";
-            return "book";
+            return "book?faces-redirect=true";
         } else if (ticketID.equals(0)) {
             noticeCinema = "";
             noticeTime = "";
             noticeTicket = "Please choose ticket type!";
-            return "book";
+            return "book?faces-redirect=true";
         } else {
             Orders od = new Orders();
             MovieTicketBlocks m = movieTicketBlocksFacade.findaMovieByTicketID(movie, cinemasFacade.find(cinemaID), ticketTypesFacade.find(ticketID), date, time);
-            try {
-                od.setOrderID(setIDOrder());
-                od.setDateOfPurchase(calendar.getTime());
-                if (price.equals(0)) {
-                    noticePrice = "Total price can't be 0!";
-                    return "book";
-                } else {
-                    od.setTotalPrice(price);
-                    od.setCustomerUsername(customersFacade.find(loginMB.getCustomer().getCustomerUsername()));
-                    if (paymentID.equals(0)) {
-                        noticePayment = "Please choose payment!";
-                        return "book";
+            
+            if (m.getResidual() < 1) {
+                noticePrice = "Movie tickets sold out!";
+                notice = "alert ('Sorry, we've sold out of these tickets!');";
+                return "book?faces-redirect=true";
+            } else {
+                try {
+                    od.setOrderID(setIDOrder());
+                    od.setDateOfPurchase(calendar.getTime());
+                    if (price.equals(0)) {
+                        noticePrice = "Total price can't be 0!";
+                        return "book?faces-redirect=true";
                     } else {
-                        od.setPaymentID(paymentsFacade.find(paymentID));
-                        ordersFacade.create(od);
+                        od.setTotalPrice(price);
+                        od.setCustomerUsername(customersFacade.find(loginMB.getCustomer().getCustomerUsername()));
+                        if (paymentID.equals(0)) {
+                            noticePayment = "Please choose payment!";
+                            return "book?faces-redirect=true";
+                        } else {
+                            od.setPaymentID(paymentsFacade.find(paymentID));
+                            ordersFacade.create(od);
+                        }
+
                     }
 
-                }
-
-                MovieTicketBlocks mtb = movieTicketBlocksFacade.find(m.getMovieTicketBlockID());
-                if (mtb.getResidual() < 0) {
-                    noticePrice = "Sorry, Movie tickets sold out!";
-                    return "book";
-                } else {
                     OrderMovieDetailsPK odtPK = new OrderMovieDetailsPK(od.getOrderID(), movieTicketBlocksFacade.find(m.getMovieTicketBlockID()).getMovieTicketBlockID());
                     OrderMovieDetails odt = new OrderMovieDetails();
                     odt.setOrderMovieDetailsPK(odtPK);
                     odt.setQuantity(quanlity);
                     orderMovieDetailsFacade.create(odt);
 
-                    mtb.setResidual(mtb.getResidual()- quanlity);
-                    movieTicketBlocksFacade.edit(mtb);
-//                    notice = "<script>\n"
-//                            + "    alert(\"You have successfully booked your ticket!\");\n"
-//                            + "</script>";
+                    m.setResidual(m.getResidual() - quanlity);
+                    movieTicketBlocksFacade.edit(m);
                     notice = "alert ('Thank you! You have successfully booked your ticket!');";
+                } catch (Exception ex) {
+                      notice = "alert ('An error occurred during the booking process!');";
+                    return "book?faces-redirect=true";
                 }
-            } catch (Exception ex) {
-              //  notice = "alert ('An error occurred during the booking process!');";
-
-                return "book";
             }
-
             return "index?faces-redirect=true";
+
         }
     }
 

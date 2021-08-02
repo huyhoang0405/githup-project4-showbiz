@@ -49,7 +49,8 @@ public class Categories implements Serializable {
     //@NotNull
     @Column(name = "Category_ID")
     private Integer categoryID;
-    @Size(max = 100)
+    @NotNull(message = "Category name can't be left empty!")
+    @Size(min = 3 ,max = 100,message = "Category name must be between 3 and 100 characters.")
     @Column(name = "Category_Name")
     private String categoryName;
     @JoinTable(name = "MovieGenres", joinColumns = {

@@ -20,7 +20,7 @@
                     <div class="container">
                         <div class="single-page-agile-info">
                             <div class="col-sm-3 single-right">
-                                <h3>Newest Music &amp; Sport</h3>
+                                <h3 >Newest Music &amp; Sport</h3>
                                 <div class="single-grid-right">
                                     <h:form>
                                         <c:forEach items="#{musicSportMB.show6Newest()}" var="item">
@@ -43,14 +43,14 @@
                             </div>
                             <h:form>
                                 <div class="col-sm-6 single-main">
-                                    <h3>#{bookMusicSportMB.musicsport.musicSportName}</h3>
+                                    <h3 align="center">#{bookMusicSportMB.musicsport.musicSportName}</h3>
                                     <div class="form-module">
                                         <div class="">
                                             <div class=""></div>
                                         </div>
 
                                         <div class="form">
-
+ <h3 align="center">Book the ticket</h3>
                                             <label>Address</label>
                                             <input readonly="true" type="text" value="#{bookMusicSportMB.musicsport.address}" required=""/>
                                             <label>Start date</label>
@@ -75,9 +75,9 @@
                                                 </h:inputText>
 
                                                 <h:inputText id="price" p:type="text" value="#{bookMusicSportMB.displayPrice()}" readonly="true" p:placeholder="Total Price" required="" style="height: 37px;width: 282px"/>
-                                                <h:outputText value="#{bookMusicSportMB.noticePrice}" class="text-danger"/>
-                                            </div>
 
+                                            </div>
+                                            <h:outputText value="#{bookMusicSportMB.noticePrice}" class="text-danger"/>
 
                                             <div class="form-module">
                                                 <h:selectOneMenu  required="true"  value="#{bookMusicSportMB.paymentID}" class="form-control">
@@ -88,8 +88,8 @@
                                             </div>
 
 
-                                            <h:commandButton action="#{bookMusicSportMB.bookMusicSport(bookMusicSportMB.musicsport)}" value="Book"/>
-
+                                            <h:commandButton action="#{bookMusicSportMB.bookMusicSport(bookMusicSportMB.musicsport)}" value="Book"/><br/><br/>
+                                            <input jsf:action="#{bookMusicSportMB.home()}" value="Cancel" style="background-color: red" type="submit"/>
                                         </div>
 
                                     </div>
@@ -125,15 +125,15 @@
 
 
             </ui:define>
-             <ui:define name="toastr">
-              
-                    <script>
-                    
+            <ui:define name="toastr">
+
+                <script>
+
                     #{bookMusicSportMB.notice}
-                         #{bookMusicSportMB.notice=""}
+                    #{bookMusicSportMB.notice=""}
                 </script>
-                    
-              
+
+
             </ui:define>
         </ui:composition>
     </h:body>

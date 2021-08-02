@@ -6,6 +6,7 @@
 package com.group4.sesionBeans;
 
 import com.group4.entities.Movies;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -34,8 +35,13 @@ public interface MoviesFacadeLocal {
 
     List<Movies> select5NewestMovies();
 
-    List<Movies> select8Movies();
+    List<Movies> select8NewsetMovies(Date date);
 
     List<Movies> select6NewestMovies();
 
+    List<Movies> select8PlayMovies(Date start, Date end);
+    
+    List<Movies> searchMovieName(String keyword);
+    
+    
 }

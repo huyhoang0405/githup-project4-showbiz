@@ -52,7 +52,7 @@ public class PlaceMB implements Serializable {
     public String showDetailsPlace(int id) {
         Places p = placesFacade.find(id);
         setPlace(p);
-        return "details";
+        return "details?faces-redirect=true";
     }
 
     //reset form
@@ -65,7 +65,7 @@ public class PlaceMB implements Serializable {
     //load form create a new place
     public String loadFormCreateNew() {
         resetForm();
-        return "create";
+        return "create?faces-redirect=true";
     }
 
     //create a new area
@@ -77,11 +77,11 @@ public class PlaceMB implements Serializable {
             p.setAreaID(areasFacade.find(areaID));
             placesFacade.create(p);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     //load form edit
@@ -89,7 +89,7 @@ public class PlaceMB implements Serializable {
         Places p = placesFacade.find(id);
         setPlace(p);
         setAreaID(p.getAreaID().getAreaID());
-        return "edit";
+        return "edit?faces-redirect=true";
     }
 
     //edit an place
@@ -101,11 +101,11 @@ public class PlaceMB implements Serializable {
             p.setAreaID(areasFacade.find(areaID));
             placesFacade.edit(p);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
     
     //delete a place

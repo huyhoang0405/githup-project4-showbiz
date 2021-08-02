@@ -46,33 +46,26 @@
                                     <h4>Book ticket</h4>
                                     <div class="single-grid-right">
 
-                                        <div class="single-right-grids">
-                                            <div class="col-md-5 single-right-grid-left">
-
-
+                                       
+                                        <c:forEach items="#{musicSportMB.show6Newest()}" var="item">
+                                            <div class="single-right-grids">
+                                                <div class="col-md-4 single-right-grid-left">
+                                                    <a jsf:action="#{musicSportMB.showDetailMS(item.musicSportID)}"><img jsf:value="/resources/client/images/poster/#{item.poster}" alt="" /></a>
+                                                </div>
+                                                <div class="col-md-8 single-right-grid-right">
+                                                    <a jsf:action="#{musicSportMB.showDetailMS(item.musicSportID)}" class="title"> #{item.musicSportName}</a>    
+                                                    <p class="author"><i class="fa fa-tag"></i>&nbsp; #{item.address}</p>
+                                                    <p class="views"><i class="fa fa-calendar"></i>&nbsp; <h:outputText value="#{item.startDate}"><f:convertDateTime type="date"/></h:outputText></p>
+                                                    <p class="author"><i class="fa fa-clock-o"></i>&nbsp; #{item.startTime}</p>
+                                                    <p class="author"><i class="fa fa-table"></i>&nbsp;#{item.capacity} seats</p>
+                                                </div>
+                                                <div class="clearfix"> </div>
                                             </div>
-
-                                            <div class="col-md-5 single-right-grid-right">
-
-                                            </div>
-                                        </div>
+                                        </c:forEach>
+                                    
                                         <div class="clearfix"> </div>
                                     </div>
-                                    <div class="single-grid-right">
-
-                                        <div class="single-right-grids">
-                                            <div class="col-md-5 single-right-grid-left">
-
-
-
-                                            </div>
-
-                                            <div class="col-md-5 single-right-grid-right">
-
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
 
 
 

@@ -44,7 +44,7 @@ public class Places implements Serializable {
    // @NotNull
     @Column(name = "Places_ID")
     private Integer placesID;
-    @Size(max = 100)
+    @Size(min = 3 ,max = 100,message = "The city must be between 3 and 100 characters.")
     @Column(name = "City")
     private String city;
     @OneToMany(mappedBy = "placesID")

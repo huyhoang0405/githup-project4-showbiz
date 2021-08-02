@@ -5,8 +5,11 @@
  */
 package com.group4.manageBean;
 
+import com.group4.entities.Customers;
 import com.group4.entities.Movies;
+import com.group4.entities.OrderMovieDetails;
 import com.group4.sesionBeans.MovieTicketBlocksFacadeLocal;
+import com.group4.sesionBeans.OrderMovieDetailsFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -19,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 
 /**
  *
@@ -29,8 +33,14 @@ import javax.ejb.EJB;
 public class MovieTicketStatisticMB implements Serializable {
 
     @EJB
+    private OrderMovieDetailsFacadeLocal orderMovieDetailsFacade;
+
+    @EJB
     private MovieTicketBlocksFacadeLocal movieTicketBlocksFacade;
 
+    @Inject
+    private LoginMB loginMB;
+    
     final Calendar calStart = Calendar.getInstance();
     final Calendar calEnd = Calendar.getInstance();
     final Calendar c = Calendar.getInstance();
@@ -42,7 +52,10 @@ public class MovieTicketStatisticMB implements Serializable {
     private int CURRENT_YEAR;
     private Object WEEKLY_REVENUE = null;
 
+    private OrderMovieDetails ordermoviedetail;
+
     public MovieTicketStatisticMB() {
+        ordermoviedetail = new OrderMovieDetails();
         CURRENT_MONTH = c.get(Calendar.MONTH) + 1;
         CURRENT_YEAR = c.get(Calendar.YEAR);
     }
@@ -53,7 +66,7 @@ public class MovieTicketStatisticMB implements Serializable {
     }
 
     public Object monthlyStatistics(int year, int month) {
-        LocalDate initial = LocalDate.of(year, month,1);
+        LocalDate initial = LocalDate.of(year, month, 1);
         LocalDate start = initial.with(firstDayOfMonth());
         LocalDate end = initial.with(lastDayOfMonth());
         Date startDate = Date.from(start.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -159,6 +172,17 @@ public class MovieTicketStatisticMB implements Serializable {
         return movieTicketBlocksFacade.ticketStatistics(movie);
     }
 
+    public List<OrderMovieDetails> showAllOrderMovieDetails() {
+        List<OrderMovieDetails> list = movieTicketBlocksFacade.orderOfCustomer(loginMB.getCustomer());
+        for (OrderMovieDetails o : list) {
+            c.setTime(o.getOrders().getDateOfPurchase());
+            c.roll(Calendar.DATE, 1);
+            Date endDate = c.getTime();
+            o.getOrders().setDateOfPurchase(endDate);
+        }
+        return list;
+    }
+
     public int getCURRENT_MONTH() {
         return CURRENT_MONTH;
     }
@@ -197,5 +221,21 @@ public class MovieTicketStatisticMB implements Serializable {
 
     public void setWEEKLY_REVENUE(Object WEEKLY_REVENUE) {
         this.WEEKLY_REVENUE = WEEKLY_REVENUE;
+    }
+
+    public OrderMovieDetails getOrdermoviedetail() {
+        return ordermoviedetail;
+    }
+
+    public void setOrdermoviedetail(OrderMovieDetails ordermoviedetail) {
+        this.ordermoviedetail = ordermoviedetail;
+    }
+
+    public LoginMB getLoginMB() {
+        return loginMB;
+    }
+
+    public void setLoginMB(LoginMB loginMB) {
+        this.loginMB = loginMB;
     }
 }

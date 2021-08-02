@@ -55,6 +55,8 @@ public class MovieMB implements Serializable {
     private Part filePoster;
     private final String UPLOAD_DIRECTORY_BANNER = "resources\\client\\images\\banner";
     private final String UPLOAD_DIRECTORY_POSTER = "resources\\client\\images\\poster";
+    private String noticeLength;
+    private String notice;
 
     private String[] categoryID;
 
@@ -107,7 +109,7 @@ public class MovieMB implements Serializable {
 //                String uploadFilePath = applicationPath + File.separator + UPLOAD_DIRECTORY_POSTER;
         movie.setMovieID(setID());
 //        movie.setMovieName(uploadFilePath);
-        return "create";
+        return "create?faces-redirect=true";
     }
 
     //create a movie
@@ -118,7 +120,6 @@ public class MovieMB implements Serializable {
                 m.setMovieID(setID());
                 m.setMovieName(movie.getMovieName());
                 m.setStarring(movie.getStarring());
-                m.setLength(movie.getLength());
                 m.setReleaseDate(movie.getReleaseDate());
                 m.setContent(movie.getContent());
                 m.setCountry(movie.getCountry());
@@ -127,9 +128,15 @@ public class MovieMB implements Serializable {
                 m.setTrailer(movie.getTrailer());
                 m.setNote(movie.getNote());
 
-                m.setBanner(uploadFileBanner());
-                m.setPoster(uploadFilePoster());
-                moviesFacade.create(m);
+                if (movie.getLength() < 0) {
+                    noticeLength = "Length must be greater than 0";
+                    return "create?faces-redirect=true";
+                } else {
+                    m.setLength(movie.getLength());
+                    m.setBanner(uploadFileBanner());
+                    m.setPoster(uploadFilePoster());
+                    moviesFacade.create(m);
+                }
 
                 for (String c : categoryID) {
                     int ca = Integer.parseInt(c);
@@ -142,13 +149,16 @@ public class MovieMB implements Serializable {
 
                 resetForm();
 
-                return "index";
+                return "index?faces-redirect=true";
+            } else {
+                notice = "alert('Please fill in full required information!');";
+                return "create?faces-redirect=true";
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            notice = "alert('Please fill in full required information!');";
+            return "create?faces-redirect=true";
         }
-        return "index";
     }
 
     //show details
@@ -165,7 +175,7 @@ public class MovieMB implements Serializable {
             arrCa[i] = list.get(i).getCategories().getCategoryName();
         }
         setCategoryID(arrCa);
-        return "details";
+        return "details?faces-redirect=true";
     }
 
     //load form edit
@@ -185,15 +195,15 @@ public class MovieMB implements Serializable {
                 try {
                     arrCa[i] = (categoriesFacade.find((list.get(i)).getMovieGenresPK().getCategoryID())).getCategoryName();
                 } catch (Exception ex) {
-                    return "create";
+                    return "create?faces-redirect=true";
                 }
             }
             setCategoryID(arrCa);
-            return "edit";
+            return "edit?faces-redirect=true";
 
         } else {
 
-            return "edit";
+            return "edit?faces-redirect=true";
         }
 
     }
@@ -204,7 +214,7 @@ public class MovieMB implements Serializable {
             Movies m = moviesFacade.find(id);
             m.setMovieName(movie.getMovieName());
             m.setStarring(movie.getStarring());
-            m.setLength(movie.getLength());
+
             m.setReleaseDate(movie.getReleaseDate());
             m.setContent(movie.getContent());
             m.setCountry(movie.getCountry());
@@ -231,7 +241,13 @@ public class MovieMB implements Serializable {
 
                 m.setPoster(m.getPoster());
             }
-            moviesFacade.edit(m);
+            if (movie.getLength() < 0) {
+                noticeLength = "Length must be greater than 0";
+                return "create?faces-redirect=true";
+            } else {
+                m.setLength(movie.getLength());
+                moviesFacade.edit(m);
+            }
 
             for (String c : categoryID) {
                 int ca = Integer.parseInt(c);
@@ -243,11 +259,11 @@ public class MovieMB implements Serializable {
             }
             resetForm();
 
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
 
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     //delete movie
@@ -258,11 +274,11 @@ public class MovieMB implements Serializable {
             deleteFileBanner(m.getBanner());
             deleteFilePoster(m.getPoster());
 
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
 
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
 
     //upload banner
@@ -564,6 +580,22 @@ public class MovieMB implements Serializable {
 
     public void setMovieGenres(MovieGenres movieGenres) {
         this.movieGenres = movieGenres;
+    }
+
+    public String getNoticeLength() {
+        return noticeLength;
+    }
+
+    public void setNoticeLength(String noticeLength) {
+        this.noticeLength = noticeLength;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
 }

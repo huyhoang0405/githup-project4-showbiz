@@ -39,7 +39,7 @@ public class TicketTypeMB implements Serializable {
     public String showDetailsTicketType(int id) {
         TicketTypes p = ticketTypesFacade.find(id);
         setTicketTypes(p);
-        return "details";
+        return "details?faces-redirect=true";
     }
     
     //reset form
@@ -50,7 +50,7 @@ public class TicketTypeMB implements Serializable {
     //display form crate a new payment
     public String loadFormCreateNew() {
         resetForm();
-        return "create";
+        return "create?faces-redirect=true";
     }
     
      //create a new payment
@@ -60,18 +60,18 @@ public class TicketTypeMB implements Serializable {
             t.setTicketTypeName(ticketTypes.getTicketTypeName());
             ticketTypesFacade.create(t);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
     
     //load form edit 
     public String loadFormEdit(int id) {
         TicketTypes t = ticketTypesFacade.find(id);
         setTicketTypes(t);
-        return "edit";
+        return "edit?faces-redirect=true";
     }
 
     //edit an area
@@ -81,11 +81,11 @@ public class TicketTypeMB implements Serializable {
             t.setTicketTypeName(ticketTypes.getTicketTypeName());
             ticketTypesFacade.edit(t);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
     
     //delete a ticket type

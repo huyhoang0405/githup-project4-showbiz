@@ -38,7 +38,7 @@ public class PaymentMB implements Serializable {
     public String showDetailsPayment(int id) {
         Payments p = paymentsFacade.find(id);
         setPayment(p);
-        return "details";
+        return "details?faces-redirect=true";
     }
     
     //reset form
@@ -49,7 +49,7 @@ public class PaymentMB implements Serializable {
     //display form crate a new payment
     public String loadFormCreateNew() {
         resetForm();
-        return "create";
+        return "create?faces-redirect=true";
     }
     
      //create a new payment
@@ -59,18 +59,18 @@ public class PaymentMB implements Serializable {
             p.setPaymentName(payment.getPaymentName());
             paymentsFacade.create(p);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
     
     //load form edit 
     public String loadFormEdit(int id) {
         Payments p = paymentsFacade.find(id);
         setPayment(p);
-        return "edit";
+        return "edit?faces-redirect=true";
     }
 
     //edit an area
@@ -80,11 +80,11 @@ public class PaymentMB implements Serializable {
             p.setPaymentName(payment.getPaymentName());
             paymentsFacade.edit(p);
             resetForm();
-            return "index";
+            return "index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "index";
+        return "index?faces-redirect=true";
     }
     
     //delete an area

@@ -34,6 +34,7 @@
                                                             <option value="#{movie.movieID}" label="#{movie.movieName}"/>
                                                         </c:forEach>                  
                                                     </datalist>
+                                                     <h:message for="movieID" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -41,11 +42,13 @@
                                                     <label>Date:</label>                                           
                                                     <h:inputText p:type="date" readonly="true" id="date" value="#{movieBlockMB.movieTicketBlock.date}" class="form-control">
                                                         <f:convertDateTime pattern="yyyy-MM-dd" />
-                                                    </h:inputText>                                             
+                                                    </h:inputText>    
+                                                    <h:message for="date" class="text-danger"/>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label>Time:</label>                                           
                                                     <h:inputText p:type="time" readonly="true" id="time" value="#{movieBlockMB.movieTicketBlock.time}" class="form-control"/>
+                                                    <h:message for="time" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">                                               
@@ -55,6 +58,7 @@
                                                         <h:inputText p:type="money" id="unitprice" readonly="true" value="#{movieBlockMB.movieTicketBlock.unitPrice}" p:placeholder="Enter quantity" class="form-control"/>    
                                                         <span class="input-group-addon">VND</span>
                                                     </div>  
+                                                    <h:message for="money" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -62,13 +66,13 @@
                                                     <label>Quantity:</label>                                           
                                                     <h:inputText p:type="number" id="quantity" value="#{movieBlockMB.movieTicketBlock.quantity}" p:placeholder="Enter quantity" class="form-control"/>                                             
                                                     <h:outputText value="#{movieBlockMB.noticeQuantity}" class="text-danger"/>
+                                                     <h:message for="quantity" class="text-danger"/>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Cinema</label>                                           
-                                                    <h:selectOneMenu  required="true" readonly="true"  value="#{movieBlockMB.cinemaID}" class="form-control">
-                                                        <f:selectItem itemLabel="Please choose an cinema" itemValue="Null"/>
+                                                    <h:selectOneMenu  readonly="true"  value="#{movieBlockMB.cinemaID}" class="form-control">
                                                         <f:selectItems value="#{movieBlockMB.showAllCinemas()}" var="cinema" itemLabel="#{cinema.cinemaName}" itemValue="#{cinema.cinemaID}"/>
                                                     </h:selectOneMenu>    
                                                 </div>
@@ -76,8 +80,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-10">
                                                     <label>Ticket type</label>                                           
-                                                    <h:selectOneMenu readonly="true" required="true"  value="#{movieBlockMB.ticketID}" class="form-control">
-                                                        <f:selectItem itemLabel="Please choose an ticket type" itemValue="Null"/>
+                                                    <h:selectOneMenu readonly="true"  value="#{movieBlockMB.ticketID}" class="form-control">
                                                         <f:selectItems value="#{movieBlockMB.showAllTicketTypes()}" var="ticket" itemLabel="#{ticket.ticketTypeName}" itemValue="#{ticket.ticketTypeID}"/>
                                                     </h:selectOneMenu>    
                                                 </div>

@@ -79,45 +79,51 @@ public class BookMusicSportMB implements Serializable {
         musicsport = new MusicSports();
     }
 
+    public String home(){
+        return "index";
+    }
     public String bookMusicSport(MusicSports ms) {
         if (quanlity == 0 || ticketID.equals(0)) {
             noticeTicket = "Please choose ticket typeee!";
-            return "book";
+            return "book?faces-redirect=true";
         } else {
             Orders od = new Orders();
-
-            try {
-                MusicSportTicketBlocks msp = musicSportTicketBlocksFacade.findByTikcetTypenMusicSportID(ms, ticketTypesFacade.find(ticketID));
-                od.setOrderID(setIDOrder());
-                od.setDateOfPurchase(calendar.getTime());
-                if (price.equals(0)) {
-                    noticePrice = "Total price can't be 0!";
-                    return "book";
-                } else {
-                    od.setTotalPrice(price);
-                    od.setCustomerUsername(customersFacade.find(loginMB.getCustomer().getCustomerUsername()));
-                    if (paymentID.equals(0)) {
-                        noticePayment = "Please choose payment!";
-                        return "book";
+            MusicSportTicketBlocks msp = musicSportTicketBlocksFacade.findByTikcetTypenMusicSportID(ms, ticketTypesFacade.find(ticketID));
+            if (msp.getResidual() < 1) {
+                noticePrice = "The tickets sold out!";
+                notice = "alert ('Sorry, we've sold out of these tickets!');";
+                return "book?faces-redirect=true";
+            } else {
+                try {
+                    od.setOrderID(setIDOrder());
+                    od.setDateOfPurchase(calendar.getTime());
+                    if (price.equals(0)) {
+                        noticePrice = "Total price can't be 0!";
+                        return "book?faces-redirect=true";
                     } else {
-                        od.setPaymentID(paymentsFacade.find(paymentID));
-                        ordersFacade.create(od);
+                        od.setTotalPrice(price);
+                        od.setCustomerUsername(customersFacade.find(loginMB.getCustomer().getCustomerUsername()));
+                        if (paymentID.equals(0)) {
+                            noticePayment = "Please choose payment!";
+                            return "book?faces-redirect=true";
+                        } else {
+                            od.setPaymentID(paymentsFacade.find(paymentID));
+                            ordersFacade.create(od);
+                        }
                     }
+                    OrderMusicSportDetailsPK odtPK = new OrderMusicSportDetailsPK(od.getOrderID(), (musicSportTicketBlocksFacade.find(msp.getMusicSportTicketBlockID())).getMusicSportTicketBlockID());
+                    OrderMusicSportDetails odt = new OrderMusicSportDetails();
+                    odt.setOrderMusicSportDetailsPK(odtPK);
+                    odt.setQuantity(quanlity);
+                    orderMusicSportDetailsFacade1.create(odt);
+                    msp.setResidual(msp.getResidual() - quanlity);
+                    musicSportTicketBlocksFacade.edit(msp);
+                    notice = "alert ('Thank you! You have successfully booked your ticket!');";
+                } catch (Exception ex) {
+                    notice = "alert ('An error occurred during the booking process!');";
+                    return "book?faces-redirect=true";
                 }
-                OrderMusicSportDetailsPK odtPK = new OrderMusicSportDetailsPK(od.getOrderID(), (musicSportTicketBlocksFacade.find(msp.getMusicSportTicketBlockID())).getMusicSportTicketBlockID());
-                OrderMusicSportDetails odt = new OrderMusicSportDetails();
-                odt.setOrderMusicSportDetailsPK(odtPK);
-                odt.setQuantity(quanlity);
-                orderMusicSportDetailsFacade1.create(odt);
-                MusicSportTicketBlocks mssp = musicSportTicketBlocksFacade.find(msp.getMusicSportTicketBlockID());
-                mssp.setResidual(mssp.getResidual() - quanlity);
-                musicSportTicketBlocksFacade.edit(mssp);
-                notice = "alert ('Thank you! You have successfully booked your ticket!');";
-            } catch (Exception ex) {
-                notice = "alert ('An error occurred during the booking process!');";
-                return "book";
             }
-
             return "index?faces-redirect=true";
         }
     }

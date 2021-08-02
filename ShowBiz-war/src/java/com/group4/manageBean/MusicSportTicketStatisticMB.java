@@ -6,6 +6,7 @@
 package com.group4.manageBean;
 
 import com.group4.entities.MusicSports;
+import com.group4.entities.OrderMusicSportDetails;
 import com.group4.sesionBeans.MusicSportTicketBlocksFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -19,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 
 /**
  *
@@ -31,6 +33,9 @@ public class MusicSportTicketStatisticMB implements Serializable {
     @EJB
     private MusicSportTicketBlocksFacadeLocal musicSportTicketBlocksFacade;
 
+    @Inject
+    LoginMB loginMB;
+    
     final Calendar calStart = Calendar.getInstance();
     final Calendar calEnd = Calendar.getInstance();
     final Calendar c = Calendar.getInstance();
@@ -166,6 +171,17 @@ public class MusicSportTicketStatisticMB implements Serializable {
         return musicSportTicketBlocksFacade.ticketStatistics(musicsport);
     }
 
+     public List<OrderMusicSportDetails> showAllOrderMusicSportDetails() {
+        List<OrderMusicSportDetails> list = musicSportTicketBlocksFacade.orderOfCustomer(loginMB.getCustomer());
+        for (OrderMusicSportDetails o : list) {
+            c.setTime(o.getOrders().getDateOfPurchase());
+            c.roll(Calendar.DATE, 1);
+            Date endDate = c.getTime();
+            o.getOrders().setDateOfPurchase(endDate);
+        }
+        return list;
+    }
+    
     public int getCURRENT_MONTH() {
         return CURRENT_MONTH;
     }
