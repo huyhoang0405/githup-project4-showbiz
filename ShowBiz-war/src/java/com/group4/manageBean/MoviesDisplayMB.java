@@ -111,7 +111,7 @@ public class MoviesDisplayMB implements Serializable {
         }
         for (int i = 0; i < list.size(); i++) {
             Movies mov = list.get(i);
-            mov.setTrailer((list.get(i).getTrailer()).substring(32));
+          
             l.add(mov);
         }
 

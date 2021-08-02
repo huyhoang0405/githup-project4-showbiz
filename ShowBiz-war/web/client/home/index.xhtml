@@ -41,7 +41,7 @@
                                                     <h6><a jsf:action="#{moviesDisplayMB.showDetailsoutMovie(movie.movieID)}">#{movie.movieName}</a></h6>							
                                                 </div>
                                                 <div class="mid-2 agile_mid_2_home">
-                                                    <p><h:outputText value="#{movie.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></p>
+                                                    <h5>Release date: <h:outputText value="#{movie.releaseDate}"><f:convertDateTime pattern="MMM-dd-yyyy"/></h:outputText></h5>
 
                                                     <div class="clearfix"></div>
                                                 </div>

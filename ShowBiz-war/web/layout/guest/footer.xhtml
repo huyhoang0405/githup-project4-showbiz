@@ -3,7 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets"
-   xmlns:h="http://java.sun.com/jsf/html">
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:jsf="http://xmlns.jcp.org/jsf">
 <h:body>  
   <ui:composition>
 <div class="footer">
@@ -21,35 +22,29 @@
 					</div>
 				</div>
 				<div class="col-md-6 w3ls_footer_grid_right">
-					<a href="index.html"><h2>One<span>Movies</span></h2></a>
+                                    <a jsf:outcome="/guest/home/index"><img jsf:value="/resources/client/images/Showbiz.png" width="150px" height="100px"/></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 			<div class="col-md-5 w3ls_footer_grid1_left">
-				<p>&copy; 2016 One Movies. All rights reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+                            <p>&copy; #{loginMB.year} Showbiz.</p>
 			</div>
 			<div class="col-md-7 w3ls_footer_grid1_right">
 				<ul>
 					<li>
-						<a href="genres.html">Movies</a>
+						<a jsf:outcome="/guest/movies/index">Movies</a>
 					</li>
 					<li>
-						<a href="faq.html">FAQ</a>
+						<a href="#">Drama</a>
 					</li>
 					<li>
-						<a href="horror.html">Action</a>
+						<a jsf:outcome="/guest/musicsports/index">Music &amp; Sport</a>
 					</li>
 					<li>
-						<a href="genres.html">Adventure</a>
-					</li>
+						<a href="#">Event</a>
+					</li>		
 					<li>
-						<a href="comedy.html">Comedy</a>
-					</li>
-					<li>
-						<a href="icons.html">Icons</a>
-					</li>
-					<li>
-						<a href="contact.html">Contact Us</a>
+						<a jsf:outcome="/guest/home/contact">Contact Us</a>
 					</li>
 				</ul>
 			</div>

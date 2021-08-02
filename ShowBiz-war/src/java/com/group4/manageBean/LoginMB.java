@@ -12,6 +12,7 @@ import com.group4.sesionBeans.CustomersFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 
@@ -36,6 +37,8 @@ public class LoginMB implements Serializable {
     private Administrators admin;
     private Customers customer;
     private String notice;
+    final Calendar c = Calendar.getInstance();
+    private String year = c.get(Calendar.YEAR) +"";
     
     public LoginMB() {
         admin = new Administrators();
@@ -127,6 +130,14 @@ public class LoginMB implements Serializable {
     
     public void setNotice(String notice) {
         this.notice = notice;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
     
 }
