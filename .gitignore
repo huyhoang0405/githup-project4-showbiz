@@ -1,2 +1,6 @@
 /ShowBiz-war/build/
 /ShowBiz-war/dist/
+/ShowBiz-ejb/build/
+/build/
+/dist/
+/nbproject/private/
