@@ -26,6 +26,7 @@ public class AreaMB implements Serializable {
 
     private Areas area;
     private List<Areas> list;
+    private String notice;
 
     public AreaMB() {
         area = new Areas();
@@ -90,12 +91,14 @@ public class AreaMB implements Serializable {
     }
 
     //delete an area
-    public void deleteArea(int id) {
+    public String deleteArea(int id) {
         try {
             Areas a = areasFacade.find(id);
             areasFacade.remove(a);
         } catch (Exception e) {
+            notice = "alert('You can't delete it. An error has occurred!');";
         }
+        return "index?faces-redirect=true";
     }
 
     public Areas getArea() {
@@ -112,6 +115,14 @@ public class AreaMB implements Serializable {
 
     public void setList(List<Areas> list) {
         this.list = list;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
 }

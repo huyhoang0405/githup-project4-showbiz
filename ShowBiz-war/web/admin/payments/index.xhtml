@@ -39,7 +39,7 @@
                                         <h:form>  
                                             <button class="btn btn-info" jsf:action="#{paymentMB.showDetailsPayment(item.paymentID)}">Details <i class="fa fa-info-circle"></i></button>&nbsp;
                                             <button class="btn btn-warning" jsf:action="#{paymentMB.loadFormEdit(item.paymentID)}">Edit <i class="fa fa-edit"></i></button>&nbsp;
-                                            <button class="btn btn-danger" jsf:action="#{paymentMB.deletePayment(item.paymentID)}">Delete <i class="fa fa-trash-o"></i></button>
+                                            <button class="btn btn-danger" jsf:action="#{paymentMB.deletePayment(item.paymentID)}" onclick="return confirm('Are you sure you want to delete?')">Delete <i class="fa fa-trash-o"></i></button>
                                         </h:form>  
                                     </h:column>                                           
                                 </h:dataTable>
@@ -47,6 +47,12 @@
                         </div>
                     </div>
                 </div>
+            </ui:define>
+            <ui:define name="toastr">
+                <script>
+                    #{paymentMB.notice}
+                    #{paymentMB.notice=""}
+                </script>
             </ui:define>
         </ui:composition>
     </h:body>

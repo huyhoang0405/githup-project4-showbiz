@@ -5,7 +5,10 @@
  */
 package com.group4.sesionBeans;
 
+import com.group4.entities.Customers;
+import com.group4.entities.MovieTicketBlocks;
 import com.group4.entities.OrderMovieDetails;
+import com.group4.entities.Orders;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,4 +33,9 @@ public interface OrderMovieDetailsFacadeLocal {
 
     int count();
     
+    List<OrderMovieDetails> orderOfCustomer(Customers customer);
+    
+    Orders findOrder(String orders);
+    
+    MovieTicketBlocks findBlockMovie(String id);
 }

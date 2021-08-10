@@ -18,7 +18,7 @@
                 <div id="slidey" style="display:none;">
                     <ul>
                         <c:forEach items="#{moviesDisplayMB.show5NewestMovies()}" var="m">
-                            <li><img jsf:value="/resources/client/images/banner/#{m.banner}" alt=" "/><p class='title'>#{m.movieName}</p><p class="description three-line-paragraph"> #{m.content}</p></li>
+                            <li><img jsf:value="/resources/client/images/banner/#{m.banner}" alt=" "/><p class='title'>#{m.movieName}</p><p class='description'> #{m.content}</p></li>
                         </c:forEach>
                     </ul>   	
                 </div>

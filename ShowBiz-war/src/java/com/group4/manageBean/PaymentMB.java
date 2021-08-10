@@ -24,6 +24,7 @@ public class PaymentMB implements Serializable {
     @EJB
     private PaymentsFacadeLocal paymentsFacade;
     private Payments payment;
+    private String notice;
 
     public PaymentMB() {
         payment = new Payments();
@@ -88,12 +89,14 @@ public class PaymentMB implements Serializable {
     }
     
     //delete an area
-    public void deletePayment(int id) {
+    public String deletePayment(int id) {
         try {
             Payments p = paymentsFacade.find(id);
             paymentsFacade.remove(p);
         } catch (Exception e) {
+            notice = "alert('You can't delete it. An error has occurred!');";
         }
+        return "index?faces-redirect=true";
     }
     
     public Payments getPayment() {
@@ -102,6 +105,14 @@ public class PaymentMB implements Serializable {
 
     public void setPayment(Payments payment) {
         this.payment = payment;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
 }

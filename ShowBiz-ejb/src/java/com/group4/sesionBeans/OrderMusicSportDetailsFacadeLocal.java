@@ -5,7 +5,9 @@
  */
 package com.group4.sesionBeans;
 
+import com.group4.entities.MusicSportTicketBlocks;
 import com.group4.entities.OrderMusicSportDetails;
+import com.group4.entities.Orders;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,4 +32,7 @@ public interface OrderMusicSportDetailsFacadeLocal {
 
     int count();
     
+    MusicSportTicketBlocks findBlockMusicSport(String id);
+    
+    Orders findOrder(String orders);
 }

@@ -45,6 +45,11 @@ public class LoginMB implements Serializable {
         customer = new Customers();
     }
     
+    public String profile(){
+        return "/client/home/profile?faces-redirect=true";
+    }
+    
+    
     public String login() {
         if (customersFacade.login(username, password)) {
             setIsLogin(true);

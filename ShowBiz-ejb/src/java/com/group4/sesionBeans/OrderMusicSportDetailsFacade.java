@@ -5,10 +5,13 @@
  */
 package com.group4.sesionBeans;
 
+import com.group4.entities.MusicSportTicketBlocks;
 import com.group4.entities.OrderMusicSportDetails;
+import com.group4.entities.Orders;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +32,15 @@ public class OrderMusicSportDetailsFacade extends AbstractFacade<OrderMusicSport
         super(OrderMusicSportDetails.class);
     }
     
+    public Orders findOrder(String orders) {
+        Query query = em.createQuery("SELECT od FROM  Orders od Where od.orderID = :orders");
+        query.setParameter("orders", orders);
+        return (Orders) query.getSingleResult();
+    }
+
+    public MusicSportTicketBlocks findBlockMusicSport(String id) {
+        Query query = em.createQuery("SELECT m FROM MusicSportTicketBlocks m Where m.musicSportTicketBlockID  = :id");
+        query.setParameter("id", id);
+        return (MusicSportTicketBlocks) query.getSingleResult();
+    }
 }

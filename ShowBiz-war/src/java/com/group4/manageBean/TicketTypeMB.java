@@ -25,6 +25,7 @@ public class TicketTypeMB implements Serializable {
     private TicketTypesFacadeLocal ticketTypesFacade;
 
     private TicketTypes ticketTypes;
+    private String notice;
     
     public TicketTypeMB() {
         ticketTypes = new TicketTypes();
@@ -89,12 +90,14 @@ public class TicketTypeMB implements Serializable {
     }
     
     //delete a ticket type
-    public void deleteTicketType(int id) {
+    public String deleteTicketType(int id) {
         try {
             TicketTypes t = ticketTypesFacade.find(id);
             ticketTypesFacade.remove(t);
         } catch (Exception e) {
+            notice = "alert('You can't delete it. An error has occurred!');";
         }
+        return "index?faces-redirect=true";
     }
     
     public TicketTypes getTicketTypes() {
@@ -103,6 +106,14 @@ public class TicketTypeMB implements Serializable {
 
     public void setTicketTypes(TicketTypes ticketTypes) {
         this.ticketTypes = ticketTypes;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
     
 }

@@ -43,7 +43,7 @@
                                         <h:form>  
                                             <button class="btn btn-info" jsf:action="#{placeMB.showDetailsPlace(item.placesID)}">Details <i class="fa fa-info-circle"></i></button>&nbsp;
                                             <button class="btn btn-warning" jsf:action="#{placeMB.loadFormEdit(item.placesID)}">Edit <i class="fa fa-edit"></i></button>&nbsp;
-                                            <button class="btn btn-danger" jsf:action="#{placeMB.deletePlace(item.placesID)}">Delete <i class="fa fa-trash-o"></i></button>
+                                            <button class="btn btn-danger" jsf:action="#{placeMB.deletePlace(item.placesID)}" onclick="return confirm('Are you sure you want to delete?')">Delete <i class="fa fa-trash-o"></i></button>
                                         </h:form>  
                                     </h:column>                                           
                                 </h:dataTable>
@@ -51,6 +51,12 @@
                         </div>
                     </div>
                 </div>
+            </ui:define>
+            <ui:define name="toastr">
+                <script>
+                    #{placeMB.notice}
+                    #{placeMB.notice=""}
+                </script>
             </ui:define>
         </ui:composition>
     </h:body>

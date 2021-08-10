@@ -276,9 +276,10 @@ public class MovieMB implements Serializable {
 
             return "index?faces-redirect=true";
         } catch (Exception e) {
-
+            notice = "alert('You can't delete it. An error has occurred!');";
+            return "index?faces-redirect=true";
         }
-        return "index?faces-redirect=true";
+
     }
 
     //upload banner

@@ -8,6 +8,7 @@ package com.group4.manageBean;
 import com.group4.entities.Customers;
 import com.group4.entities.Movies;
 import com.group4.entities.OrderMovieDetails;
+import com.group4.entities.Orders;
 import com.group4.sesionBeans.MovieTicketBlocksFacadeLocal;
 import com.group4.sesionBeans.OrderMovieDetailsFacadeLocal;
 import javax.inject.Named;
@@ -51,13 +52,14 @@ public class MovieTicketStatisticMB implements Serializable {
     private int year = c.get(Calendar.YEAR);
     private int CURRENT_YEAR;
     private Object WEEKLY_REVENUE = null;
-
+    private Orders order;
     private OrderMovieDetails ordermoviedetail;
 
     public MovieTicketStatisticMB() {
         ordermoviedetail = new OrderMovieDetails();
         CURRENT_MONTH = c.get(Calendar.MONTH) + 1;
         CURRENT_YEAR = c.get(Calendar.YEAR);
+        order = new Orders();
     }
 
     public Object displayMONTHLY_REVENUE(int month) {
@@ -173,12 +175,10 @@ public class MovieTicketStatisticMB implements Serializable {
     }
 
     public List<OrderMovieDetails> showAllOrderMovieDetails() {
-        List<OrderMovieDetails> list = movieTicketBlocksFacade.orderOfCustomer(loginMB.getCustomer());
+        List<OrderMovieDetails> list = orderMovieDetailsFacade.orderOfCustomer(loginMB.getCustomer());
         for (OrderMovieDetails o : list) {
-            c.setTime(o.getOrders().getDateOfPurchase());
-            c.roll(Calendar.DATE, 1);
-            Date endDate = c.getTime();
-            o.getOrders().setDateOfPurchase(endDate);
+            o.setOrders(orderMovieDetailsFacade.findOrder(o.getOrderMovieDetailsPK().getOrderID()));
+            o.setMovieTicketBlocks(orderMovieDetailsFacade.findBlockMovie(o.getOrderMovieDetailsPK().getMovieTicketBlockID()));
         }
         return list;
     }
@@ -237,5 +237,13 @@ public class MovieTicketStatisticMB implements Serializable {
 
     public void setLoginMB(LoginMB loginMB) {
         this.loginMB = loginMB;
+    }
+
+    public Orders getOrder() {
+        return order;
+    }
+
+    public void setOrder(Orders order) {
+        this.order = order;
     }
 }

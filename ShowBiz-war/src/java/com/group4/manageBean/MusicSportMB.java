@@ -161,7 +161,7 @@ public class MusicSportMB implements Serializable {
 
             return "index?faces-redirect=true";
         } catch (Exception e) {
-            notice = "alert('An error has occurred!');";
+            notice = "alert('You can't delete it. An error has occurred!');";
             return "index?faces-redirect=true";
         }
     }

@@ -25,6 +25,7 @@ public class CategoryMB implements Serializable {
     private CategoriesFacadeLocal categoriesFacade;
 
     private Categories category;
+    private String notice;
     public CategoryMB() {
         category = new Categories();
     }
@@ -72,12 +73,14 @@ public class CategoryMB implements Serializable {
         }
         return "index?faces-redirect=true";
     }
-    public void delete(Integer id){
+    public String delete(Integer id){
         try {
             Categories c = categoriesFacade.find(id);
             categoriesFacade.remove(c);
         } catch (Exception e) {
+            notice = "alert('You can't delete it. An error has occurred!');";
         }
+        return "index?faces-redirect=true";
     }
     public void resetForm(){
         category.setCategoryName(null);
@@ -88,6 +91,14 @@ public class CategoryMB implements Serializable {
 
     public void setCategory(Categories category) {
         this.category = category;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
     
 }

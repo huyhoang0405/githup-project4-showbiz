@@ -29,6 +29,7 @@ public class CinemaMB implements Serializable {
     @EJB
     private CinemasFacadeLocal cinemasFacade;
 
+    private String notice;
     private Cinemas cinema;
     private Integer placeID;
     private String noticePlace;
@@ -116,12 +117,14 @@ public class CinemaMB implements Serializable {
     }
 
     //delete a cinema
-    public void deleteCinema(int id) {
+    public String deleteCinema(int id) {
         try {
             Cinemas c = cinemasFacade.find(id);
             cinemasFacade.remove(c);
         } catch (Exception e) {
+            notice = "alert('You can't delete it. An error has occurred!');";
         }
+        return "index?faces-redirect=true";
     }
 
     public Cinemas getCinema() {
@@ -146,6 +149,14 @@ public class CinemaMB implements Serializable {
 
     public void setNoticePlace(String noticePlace) {
         this.noticePlace = noticePlace;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
 
 }

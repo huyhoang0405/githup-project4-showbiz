@@ -121,9 +121,15 @@ public class MusicSportBlockMB implements Serializable {
     }
 
     public String delete(String id) {
-        MusicSportTicketBlocks m = musicSportTicketBlocksFacade.find(id);
-        musicSportTicketBlocksFacade.remove(m);
-        return "index?faces-redirect=true";
+        try {
+            MusicSportTicketBlocks m = musicSportTicketBlocksFacade.find(id);
+            musicSportTicketBlocksFacade.remove(m);
+            return "index?faces-redirect=true";
+        } catch (Exception e) {
+            notice = "alert('You can't delete it. An error has occurred!');";
+            return "index?faces-redirect=true";
+        }
+
     }
 
     public List<MusicSports> showAllMusicSports() {

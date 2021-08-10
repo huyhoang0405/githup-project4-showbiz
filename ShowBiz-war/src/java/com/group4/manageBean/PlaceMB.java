@@ -29,6 +29,7 @@ public class PlaceMB implements Serializable {
     @EJB
     private PlacesFacadeLocal placesFacade;
     
+    private String notice;
     private Places place;
     private List<Places> list;
     private Integer areaID;
@@ -109,12 +110,14 @@ public class PlaceMB implements Serializable {
     }
     
     //delete a place
-    public void deletePlace(int id) {
+    public String deletePlace(int id) {
         try {
             Places p = placesFacade.find(id);
             placesFacade.remove(p);
         } catch (Exception e) {
+            notice = "alert('You can't delete it. An error has occurred!');";
         }
+        return "index?faces-redirect=true";
     }
 
     public Places getPlace() {
@@ -139,6 +142,14 @@ public class PlaceMB implements Serializable {
     
     public void setAreaID(Integer areaID) {
         this.areaID = areaID;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
     }
     
 }

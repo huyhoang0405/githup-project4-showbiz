@@ -74,6 +74,8 @@ public class BookMusicSportMB implements Serializable {
     private Integer quanlity = new Integer(1);
     private Long price = new Long(0);
     final Calendar calendar = Calendar.getInstance();
+    final Calendar c = Calendar.getInstance();
+    final Calendar id = Calendar.getInstance();
 
     public BookMusicSportMB() {
         musicsport = new MusicSports();
@@ -96,7 +98,7 @@ public class BookMusicSportMB implements Serializable {
             } else {
                 try {
                     od.setOrderID(setIDOrder());
-                    od.setDateOfPurchase(calendar.getTime());
+                    od.setDateOfPurchase(c.getTime());
                     if (price.equals(0)) {
                         noticePrice = "Total price can't be 0!";
                         return "book?faces-redirect=true";
@@ -168,7 +170,7 @@ public class BookMusicSportMB implements Serializable {
 
     public String setIDOrder() {
         String orderID = "";
-        String year = (calendar.get(Calendar.YEAR) + "").substring(2);
+        String year = (id.get(Calendar.YEAR) + "").substring(2);
 
         try {
             if (year.equals((ordersFacade.getLastID()).substring(2, 4))) {

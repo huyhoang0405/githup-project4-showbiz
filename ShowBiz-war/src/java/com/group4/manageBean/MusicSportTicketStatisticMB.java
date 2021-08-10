@@ -8,6 +8,7 @@ package com.group4.manageBean;
 import com.group4.entities.MusicSports;
 import com.group4.entities.OrderMusicSportDetails;
 import com.group4.sesionBeans.MusicSportTicketBlocksFacadeLocal;
+import com.group4.sesionBeans.OrderMusicSportDetailsFacadeLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -29,6 +30,9 @@ import javax.inject.Inject;
 @Named(value = "musicSportTicketStatisticMB")
 @SessionScoped
 public class MusicSportTicketStatisticMB implements Serializable {
+
+    @EJB
+    private OrderMusicSportDetailsFacadeLocal orderMusicSportDetailsFacade;
 
     @EJB
     private MusicSportTicketBlocksFacadeLocal musicSportTicketBlocksFacade;
@@ -174,10 +178,8 @@ public class MusicSportTicketStatisticMB implements Serializable {
      public List<OrderMusicSportDetails> showAllOrderMusicSportDetails() {
         List<OrderMusicSportDetails> list = musicSportTicketBlocksFacade.orderOfCustomer(loginMB.getCustomer());
         for (OrderMusicSportDetails o : list) {
-            c.setTime(o.getOrders().getDateOfPurchase());
-            c.roll(Calendar.DATE, 1);
-            Date endDate = c.getTime();
-            o.getOrders().setDateOfPurchase(endDate);
+             o.setOrders(orderMusicSportDetailsFacade.findOrder(o.getOrderMusicSportDetailsPK().getOrderID()));
+            o.setMusicSportTicketBlocks(orderMusicSportDetailsFacade.findBlockMusicSport(o.getOrderMusicSportDetailsPK().getMusicSportTicketBlockID()));
         }
         return list;
     }
